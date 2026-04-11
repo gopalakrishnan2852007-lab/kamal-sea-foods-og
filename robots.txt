@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kamalseafood.com/sitemap.xml
+Sitemap: https://kamal-sea-food.vercel.app/sitemap.xml
