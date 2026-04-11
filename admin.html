@@ -37,14 +37,10 @@
                     <input type="password" id="password" required
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500">
                 </div>
-                <div class="flex gap-2">
+                <div>
                     <button type="submit"
                         class="w-full flex justify-center py-2.5 px-4 rounded-lg shadow bg-slate-800 hover:bg-slate-700 text-white font-medium focus:outline-none transition-colors">
                         Sign In
-                    </button>
-                    <button type="button" id="signupBtn"
-                        class="w-full flex justify-center py-2.5 px-4 rounded-lg shadow border border-slate-300 bg-white hover:bg-gray-50 text-slate-700 font-medium focus:outline-none transition-colors">
-                        Create Account
                     </button>
                 </div>
             </form>
@@ -172,40 +168,7 @@
             }
         });
 
-        // Sign Up
-        document.getElementById('signupBtn').addEventListener('click', async () => {
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const btn = document.getElementById('signupBtn');
-            const errorEl = document.getElementById('authError');
 
-            if (!email || !password) {
-                errorEl.textContent = 'Please enter an email and password to create an account.';
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            btn.innerHTML = 'Creating...'; btn.disabled = true; errorEl.classList.add('hidden');
-
-            try {
-                const { data, error } = await window.supabaseClient.auth.signUp({ email, password });
-
-                if (error) {
-                    errorEl.textContent = error.message;
-                    errorEl.classList.remove('hidden');
-                } else if (!data.session) {
-                    errorEl.innerHTML = `<b>Error:</b> Account created, but Supabase blocked the login. This means either:<br>1. You used an email that already exists.<br>2. You forgot to hit SAVE when turning off "Confirm Email" in the Dashboard.`;
-                    errorEl.classList.remove('hidden');
-                } else {
-                    await checkUser();
-                }
-            } catch (err) {
-                errorEl.textContent = "CRITICAL ERROR: " + err.message;
-                errorEl.classList.remove('hidden');
-            } finally {
-                btn.innerHTML = 'Create Account'; btn.disabled = false;
-            }
-        });
 
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', async () => {
@@ -248,6 +211,7 @@
                         <div class="text-gray-500 truncate max-w-xs">${p.description}</div>
                     </td>
                     <td class="px-6 py-4 text-right text-sm font-medium">
+                        <button onclick="editProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}', '${p.description.replace(/'/g, "\\'")}', '${p.price_per_kg}', '${p.image_url}')" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-2 py-1 rounded mr-2">Edit</button>
                         <button onclick="deleteProduct('${p.id}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 py-1 rounded">Delete</button>
                     </td>
                 </tr>`;
@@ -257,7 +221,22 @@
 
         document.getElementById('refreshBtn').addEventListener('click', loadInventory);
 
-        // Upload & Save Add Product
+        let editingId = null;
+        let editingOldImageUrl = null;
+
+        window.editProduct = (id, name, desc, price, imgUrl) => {
+            editingId = id;
+            editingOldImageUrl = imgUrl;
+            document.getElementById('pName').value = name;
+            document.getElementById('pDesc').value = desc;
+            document.getElementById('pPrice').value = price;
+            document.getElementById('pImage').required = false;
+            document.getElementById('submitBtn').innerHTML = 'Update Product';
+            document.querySelector('#productForm').previousElementSibling.innerText = 'Edit Product';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Upload & Save Add/Edit Product
         document.getElementById('productForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
@@ -271,45 +250,67 @@
                 const fileInput = document.getElementById('pImage');
                 const file = fileInput.files[0];
 
-                if (!file) throw new Error("Please select an image");
+                if (!editingId && !file) throw new Error("Please select an image");
 
-                // 1. Upload file
-                const fileExt = file.name.split('.').pop();
-                const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+                let publicUrl = editingOldImageUrl;
 
-                const { data: uploadData, error: uploadError } = await window.supabaseClient.storage
-                    .from('product-images')
-                    .upload(fileName, file, { cacheControl: '3600', upsert: false });
+                if (file) {
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
 
-                if (uploadError) throw uploadError;
+                    const { data: uploadData, error: uploadError } = await window.supabaseClient.storage
+                        .from('product-images')
+                        .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: publicUrlData } = window.supabaseClient.storage
+                        .from('product-images')
+                        .getPublicUrl(fileName);
+                    publicUrl = publicUrlData.publicUrl;
+                }
 
                 btn.innerHTML = 'Saving to Database...';
 
-                // 2. Get Public URL
-                const { data: { publicUrl } } = window.supabaseClient.storage
-                    .from('product-images')
-                    .getPublicUrl(fileName);
+                if (editingId) {
+                    const { error: updateError } = await window.supabaseClient
+                        .from('products')
+                        .update({
+                            name: name,
+                            description: desc,
+                            price_per_kg: parseFloat(price),
+                            image_url: publicUrl
+                        })
+                        .eq('id', editingId);
+                    if (updateError) throw updateError;
+                    status.innerHTML = '<span class="text-green-600">Product updated successfully!</span>';
+                } else {
+                    const { error: insertError } = await window.supabaseClient
+                        .from('products')
+                        .insert([{
+                            name: name,
+                            description: desc,
+                            price_per_kg: parseFloat(price),
+                            image_url: publicUrl
+                        }]);
+                    if (insertError) throw insertError;
+                    status.innerHTML = '<span class="text-green-600">Product added successfully!</span>';
+                }
 
-                // 3. Insert Product
-                const { error: insertError } = await window.supabaseClient
-                    .from('products')
-                    .insert([{
-                        name: name,
-                        description: desc,
-                        price_per_kg: parseFloat(price),
-                        image_url: publicUrl
-                    }]);
-
-                if (insertError) throw insertError;
-
-                status.innerHTML = '<span class="text-green-600">Product added successfully!</span>';
                 e.target.reset();
+                editingId = null;
+                editingOldImageUrl = null;
+                document.getElementById('submitBtn').innerHTML = 'Upload and Save';
+                document.querySelector('#productForm').previousElementSibling.innerText = 'Add New Product';
+                document.getElementById('pImage').required = true;
+
                 loadInventory();
 
             } catch (err) {
                 status.innerHTML = `<span class="text-red-600">${err.message}</span>`;
             } finally {
-                btn.disabled = false; btn.innerHTML = 'Upload and Save';
+                btn.disabled = false;
+                btn.innerHTML = editingId ? 'Update Product' : 'Upload and Save';
                 setTimeout(() => { if (status.innerHTML.includes('successfully')) status.innerHTML = ''; }, 3000);
             }
         });

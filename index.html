@@ -230,20 +230,19 @@
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '<div class="col-span-full py-20 text-center text-slate-500 flex flex-col items-center"><div class="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div><p>Loading fresh catalog...</p></div>';
 
-            const products = [
-                { name: "I Cube Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: "400", image_url: "screen.png" },
-                { name: "Small Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: "400", image_url: "screen.png" },
-                { name: "Medium Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: "500", image_url: "screen.png" },
-                { name: "Mathi", description: "Frozen ready-to-cook 1 kg", price_per_kg: "300", image_url: "screen.png" },
-                { name: "Vanjaram", description: "Frozen ready-to-cook 1 kg", price_per_kg: "850", image_url: "screen.png" },
-                { name: "Boneless Fish", description: "Pinxed ready-to-cook 1 kg", price_per_kg: "330", image_url: "screen.png" },
-                { name: "Nethli", description: "Frozen ready-to-cook 1 kg", price_per_kg: "330", image_url: "screen.png" },
-                { name: "Basha", description: "Frozen ready-to-cook 1 kg", price_per_kg: "340~350", image_url: "screen.png" },
-                { name: "Fish Finger (RTC)", description: "Ready-to-cook 1 kg", price_per_kg: "600", image_url: "screen.png" },
-                { name: "Crab Lollipop", description: "Ready-to-cook 1 kg", price_per_kg: "580", image_url: "screen.png" }
-            ];
-
             try {
+                const { data: products, error } = await window.supabaseClient
+                    .from('products')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (!products || products.length === 0) {
+                    grid.innerHTML = '<p class="col-span-full text-center text-slate-500 py-12">No products available at the moment.</p>';
+                    return;
+                }
+
                 let htmlContent = '';
                 products.forEach(p => {
                     htmlContent += `
