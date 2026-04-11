@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kamal Sea Foods | Premium Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
@@ -34,23 +34,6 @@
             border-radius: 20px;
         }
 
-        /* Animations */
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* Smooth Transitions */
         .btn-premium {
             transition: all 0.2s ease;
@@ -71,6 +54,7 @@
 
         .modal-enter {
             opacity: 1 !important;
+            pointer-events: auto !important;
         }
 
         .modal-enter .modal-panel {
@@ -81,14 +65,50 @@
             background-color: #f8fafc;
         }
 
-        /* Toggle Switch */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #10b981;
+        /* Optimized Reveal Animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
-        .toggle-checkbox:checked+.toggle-label {
-            background-color: #10b981;
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Toast Animation */
+        .toast-enter {
+            animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .toast-exit {
+            animation: toastSlideOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes toastSlideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(100%);
+            }
         }
     </style>
 </head>
@@ -96,87 +116,94 @@
 <body class="bg-gray-50 text-gray-900 h-screen overflow-hidden antialiased flex">
 
     <!-- Auth Dialog -->
-    <div id="authDialog" class="fixed inset-0 z-[100] bg-white flex items-center justify-center hidden">
+    <div id="authDialog" class="fixed inset-0 z-[200] bg-white flex items-center justify-center hidden">
         <div
-            class="bg-white p-10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 w-full max-w-sm">
+            class="bg-white p-10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 w-full max-w-sm mx-4">
             <div class="text-center mb-8">
                 <div
                     class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-3xl">admin_panel_settings</span>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Admin Login</h2>
-                <p class="text-sm text-gray-500 mt-1">Kamal Sea Foods Inventory</p>
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight">Admin Login</h2>
+                <p class="text-sm text-gray-500 mt-1 font-medium">Kamal Sea Foods Inventory</p>
             </div>
             <form id="loginForm" class="space-y-5">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Email</label>
+                    <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Email</label>
                     <input type="email" id="email" required
-                        class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm transition-all"
+                        class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm font-medium transition-all"
                         placeholder="admin@kamalseafoods.com">
                 </div>
                 <div>
-                    <label
-                        class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Password</label>
+                    <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Password</label>
                     <input type="password" id="password" required
-                        class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm transition-all"
+                        class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm font-medium transition-all"
                         placeholder="••••••••">
                 </div>
                 <button type="submit"
-                    class="btn-premium w-full flex justify-center py-3 px-4 rounded-xl shadow-md bg-gray-900 text-white text-sm font-bold focus:outline-none mt-2">
+                    class="btn-premium w-full flex justify-center items-center py-3 px-4 rounded-xl shadow-md bg-gray-900 text-white text-sm font-bold focus:outline-none mt-2">
                     Sign In Securely
                 </button>
             </form>
             <p id="authError"
-                class="text-red-500 font-semibold bg-red-50 p-3 rounded-lg text-sm mt-5 text-center hidden border border-red-100">
+                class="text-red-500 font-bold bg-red-50 p-3 rounded-xl text-sm mt-5 text-center hidden border border-red-100">
             </p>
         </div>
     </div>
 
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay"
+        class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-[90] hidden opacity-0 transition-opacity duration-300 md:hidden pb-10">
+    </div>
+
     <!-- Sidebar (#111 dark) -->
     <aside id="sidebar"
-        class="w-64 bg-[#111111] text-gray-300 flex flex-col z-20 flex-shrink-0 transition-transform duration-300 hidden md:flex">
-        <div class="h-16 flex items-center px-6 border-b border-gray-800">
-            <span class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+        class="w-64 bg-[#111111] text-gray-300 flex flex-col z-[100] flex-shrink-0 transition-transform duration-300 fixed inset-y-0 left-0 -translate-x-full md:relative md:translate-x-0 shadow-2xl md:shadow-none">
+        <div class="h-16 flex items-center justify-between px-6 border-b border-gray-800 flex-shrink-0">
+            <span class="text-lg font-black text-white tracking-tight flex items-center gap-2">
                 <span class="material-symbols-outlined text-blue-500">water</span>
                 Kamal Admin
             </span>
+            <button id="closeSidebarBtn" class="md:hidden text-gray-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
         </div>
         <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1 custom-scrollbar">
             <a href="#"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-800/50 text-white font-medium transition-colors">
+                class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-800/50 text-white font-bold transition-colors shadow-sm">
                 <span class="material-symbols-outlined text-[20px]">dashboard</span> Dashboard
             </a>
-            <a href="#"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors">
+            <a onclick="loadInventory()"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors font-medium cursor-pointer">
                 <span class="material-symbols-outlined text-[20px]">inventory_2</span> Products
             </a>
-            <div class="pt-4 pb-2 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Categories</div>
-            <a href="#"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm">
+            <div class="pt-4 pb-2 px-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Categories</div>
+            <a onclick="document.getElementById('filterCategory').value='Retail'; applyFilters();"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">storefront</span> Retail
             </a>
-            <a href="#"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm">
+            <a onclick="document.getElementById('filterCategory').value='Wholesale'; applyFilters();"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">local_shipping</span> Wholesale
             </a>
-            <a href="#"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm">
+            <a onclick="document.getElementById('filterCategory').value='Ready to Cook'; applyFilters();"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">restaurant_menu</span> Ready to Cook
             </a>
 
-            <div class="pt-6 pb-2 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Management</div>
+            <div class="pt-6 pb-2 px-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Management</div>
             <a href="#"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm">
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium">
                 <span class="material-symbols-outlined text-[18px]">receipt_long</span> Orders
             </a>
             <a href="#"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm">
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium">
                 <span class="material-symbols-outlined text-[18px]">settings</span> Settings
             </a>
         </nav>
-        <div class="p-4 border-t border-gray-800">
+        <div class="p-4 border-t border-gray-800 flex-shrink-0">
             <button id="logoutBtn"
-                class="flex items-center gap-3 px-4 py-3 w-full rounded-xl hover:bg-gray-800 text-red-400 hover:text-red-300 transition-colors font-medium">
+                class="flex items-center gap-3 px-4 py-3 w-full rounded-xl hover:bg-gray-800 text-red-400 hover:text-red-300 transition-colors font-bold shadow-sm">
                 <span class="material-symbols-outlined text-[20px]">logout</span> Logout
             </button>
         </div>
@@ -184,27 +211,33 @@
 
     <!-- Main Content -->
     <div id="mainDashboard"
-        class="flex-1 flex flex-col h-screen overflow-hidden opacity-0 transition-opacity duration-500 bg-gray-50">
+        class="flex-1 flex flex-col h-screen overflow-hidden opacity-0 transition-opacity duration-500 bg-gray-50 z-10 w-full relative">
 
         <!-- Topbar -->
         <header
-            class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 lg:px-10 z-10 flex-shrink-0">
+            class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-10 z-10 flex-shrink-0">
             <div class="flex items-center flex-1">
+                <button id="mobileMenuBtn"
+                    class="md:hidden text-gray-600 hover:text-gray-900 mr-4 flex-shrink-0 flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                    <span class="material-symbols-outlined text-[24px]">menu</span>
+                </button>
                 <div class="relative w-full max-w-md hidden sm:block">
-                    <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400">search</span>
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-[9px] text-gray-400 text-[20px]">search</span>
                     <input type="text" id="searchInput" placeholder="Search products, categories..."
-                        class="w-full pl-10 pr-4 py-2 bg-gray-100 border-transparent rounded-xl text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                        class="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-transparent rounded-xl text-sm font-medium focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all">
                 </div>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3 lg:gap-4">
                 <button onclick="openModal()"
-                    class="btn-premium flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm">
-                    <span class="material-symbols-outlined text-[18px]">add</span> Add Product
+                    class="btn-premium flex items-center gap-1.5 lg:gap-2 bg-gray-900 text-white px-3 lg:px-4 py-2 lg:py-2.5 rounded-xl text-xs lg:text-sm font-bold shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">add</span> <span class="hidden sm:inline">Add
+                        Product</span><span class="sm:hidden">Add</span>
                 </button>
-                <div class="h-8 border-l border-gray-200 mx-2"></div>
+                <div class="h-8 border-l border-gray-200 mx-1 lg:mx-2 hidden sm:block"></div>
                 <div class="flex items-center gap-3 cursor-pointer">
                     <div
-                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs ring-2 ring-white">
+                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-xs ring-2 ring-white shadow-sm">
                         KS
                     </div>
                 </div>
@@ -212,56 +245,66 @@
         </header>
 
         <!-- Scrollable Content -->
-        <main class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar relative">
+        <main id="scrollArea" class="flex-1 overflow-y-auto p-4 md:p-10 custom-scrollbar relative">
             <div class="max-w-7xl mx-auto space-y-8">
 
                 <!-- Header -->
-                <div>
-                    <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Inventory Overview</h1>
-                    <p class="text-sm text-gray-500 mt-1">Manage your catalog, stock statuses, and pricing centrally.
-                    </p>
+                <div class="reveal-on-scroll">
+                    <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Inventory Overview</h1>
+                    <p class="text-sm text-gray-500 mt-1 font-medium">Manage your catalog, stock statuses, and pricing
+                        centrally.</p>
                 </div>
 
                 <!-- Stats Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
                     <div
-                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col justify-between">
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Products</p>
+                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Total Products
+                        </p>
                         <h3 class="text-3xl font-black text-gray-900" id="stat-total">0</h3>
                     </div>
-                    <div
-                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col justify-between">
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Retail</p>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
+                        style="transition-delay: 0.05s">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Retail</p>
                         <h3 class="text-3xl font-black text-blue-600" id="stat-retail">0</h3>
                     </div>
-                    <div
-                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col justify-between">
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Wholesale</p>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
+                        style="transition-delay: 0.1s">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Wholesale</p>
                         <h3 class="text-3xl font-black text-indigo-600" id="stat-wholesale">0</h3>
                     </div>
-                    <div
-                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col justify-between">
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Ready to Cook</p>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
+                        style="transition-delay: 0.15s">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Ready to Cook
+                        </p>
                         <h3 class="text-3xl font-black text-emerald-600" id="stat-rtc">0</h3>
                     </div>
-                    <div class="bg-red-50 p-5 rounded-2xl border border-red-100 flex flex-col justify-between">
-                        <p class="text-xs font-bold text-red-400 uppercase tracking-widest mb-1">Low Stock</p>
+                    <div class="bg-red-50 p-5 rounded-2xl border border-red-100 flex flex-col justify-between reveal-on-scroll col-span-2 lg:col-span-1"
+                        style="transition-delay: 0.2s">
+                        <p class="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-1.5">Low Stock</p>
                         <h3 class="text-3xl font-black text-red-600" id="stat-low">0</h3>
                     </div>
                 </div>
 
                 <!-- Action Bar -->
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex items-center gap-2">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 reveal-on-scroll"
+                    style="transition-delay: 0.1s">
+                    <div class="flex sm:hidden relative w-full mb-2">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-[9px] text-gray-400 text-[20px]">search</span>
+                        <input type="text" id="mobileSearchInput" placeholder="Search..."
+                            class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 w-full sm:w-auto">
                         <select id="filterCategory"
-                            class="bg-white border-gray-200 text-sm rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-[0_2px_10px_rgb(0,0,0,0.02)]">
+                            class="bg-white border-gray-200 text-sm font-medium rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-sm flex-shrink-0">
                             <option value="all">All Categories</option>
                             <option value="Retail">Retail</option>
                             <option value="Wholesale">Wholesale</option>
                             <option value="Ready to Cook">Ready to Cook</option>
                         </select>
                         <select id="sortProducts"
-                            class="bg-white border-gray-200 text-sm rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-[0_2px_10px_rgb(0,0,0,0.02)]">
+                            class="bg-white border-gray-200 text-sm font-medium rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-sm flex-shrink-0">
                             <option value="newest">Newest First</option>
                             <option value="price_desc">Price: High to Low</option>
                             <option value="price_asc">Price: Low to High</option>
@@ -269,37 +312,40 @@
                         </select>
                     </div>
                     <button id="refreshBtn"
-                        class="text-gray-500 hover:text-gray-900 bg-white border border-gray-200 px-3 py-2 rounded-xl flex items-center shadow-sm transition-colors text-sm font-medium">
+                        class="text-gray-600 hover:text-gray-900 bg-white border border-gray-200 px-4 py-2 rounded-xl flex items-center shadow-sm transition-colors text-sm font-bold flex-shrink-0 w-full sm:w-auto justify-center">
                         <span class="material-symbols-outlined text-[18px] mr-2">refresh</span> Refresh
                     </button>
                 </div>
 
                 <!-- Products Table -->
-                <div
-                    class="bg-white rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
+                <div class="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden reveal-on-scroll"
+                    style="transition-delay: 0.15s">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse min-w-[700px]">
                             <thead>
-                                <tr class="bg-gray-50/50 border-b border-gray-100">
-                                    <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-widest">
-                                        Product</th>
+                                <tr class="bg-gray-50/80 border-b border-gray-100">
                                     <th
-                                        class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+                                        class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest pl-8">
+                                        Product Details</th>
+                                    <th
+                                        class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest whitespace-nowrap">
                                         Category / Price</th>
-                                    <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-widest">
+                                    <th
+                                        class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">
                                         Status / Visibility</th>
                                     <th
-                                        class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-widest text-right">
+                                        class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest text-right pr-8">
                                         Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody" class="divide-y divide-gray-50">
                                 <tr>
-                                    <td colspan="4" class="px-6 py-16 text-center text-gray-400">
+                                    <td colspan="4" class="px-6 py-20 text-center text-gray-400">
                                         <div
-                                            class="w-8 h-8 border-4 border-gray-200 border-t-gray-400 rounded-full animate-spin mx-auto mb-3">
+                                            class="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-4">
                                         </div>
-                                        <p class="font-medium text-sm">Loading inventory...</p>
+                                        <p class="font-bold text-sm tracking-tight text-gray-500">Loading inventory from
+                                            Supabase...</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -314,13 +360,13 @@
 
     <!-- Unified Modal for Add / Edit -->
     <div id="productModal"
-        class="fixed inset-0 z-[60] bg-gray-900/40 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+        class="fixed inset-0 z-[150] bg-gray-900/40 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
         <div
-            class="modal-panel bg-white w-full max-w-xl rounded-[20px] shadow-2xl p-8 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto custom-scrollbar m-4 border border-gray-100">
-            <div class="flex justify-between items-center mb-6">
-                <h3 id="modalTitle" class="text-2xl font-bold text-gray-900 tracking-tight">Add New Product</h3>
+            class="modal-panel bg-white w-full max-w-xl rounded-[24px] shadow-2xl p-6 sm:p-8 transform scale-95 transition-transform duration-300 max-h-[95vh] overflow-y-auto custom-scrollbar m-4 border border-gray-100">
+            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                <h3 id="modalTitle" class="text-2xl font-black text-gray-900 tracking-tight">Add New Product</h3>
                 <button type="button" onclick="closeModal()"
-                    class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-500 rounded-full hover:bg-gray-200 transition-colors">
+                    class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-500 rounded-full hover:bg-gray-200 hover:text-gray-900 transition-colors">
                     <span class="material-symbols-outlined text-[20px]">close</span>
                 </button>
             </div>
@@ -328,32 +374,34 @@
             <form id="productForm" class="space-y-5">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Product
+                        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Product
                             Name</label>
                         <input type="text" id="pName" required
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-medium">
+                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors placeholder:text-gray-400"
+                            placeholder="e.g. Medium Prawn">
                     </div>
                     <div>
                         <label
-                            class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Category</label>
+                            class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Category</label>
                         <select id="pCategory"
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-medium">
+                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors">
                             <option value="Retail">Retail</option>
                             <option value="Wholesale">Wholesale</option>
                             <option value="Ready to Cook">Ready to Cook</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Price per kg
-                            (₹)</label>
+                        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Price
+                            per kg (₹)</label>
                         <input type="number" id="pPrice" required
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-medium">
+                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors"
+                            placeholder="0.00">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Stock
+                        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Stock
                             Status</label>
                         <select id="pStock"
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-medium">
+                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors">
                             <option value="In Stock">In Stock</option>
                             <option value="Low Stock">Low Stock</option>
                             <option value="Out of Stock">Out of Stock</option>
@@ -361,30 +409,46 @@
                     </div>
                     <div>
                         <label
-                            class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Visibility</label>
+                            class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Visibility</label>
                         <select id="pVisible"
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-medium">
+                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors">
                             <option value="true">Visible on Store</option>
                             <option value="false">Hidden</option>
                         </select>
                     </div>
                     <div class="sm:col-span-2">
                         <label
-                            class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Description</label>
+                            class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Description</label>
                         <textarea id="pDesc" required rows="3"
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4 text-sm font-medium"></textarea>
+                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4 text-sm font-medium bg-gray-50 focus:bg-white transition-colors resize-none placeholder:text-gray-400"
+                            placeholder="Product details and packaging..."></textarea>
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Product
+                        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Product
                             Image</label>
-                        <div class="flex items-center justify-center w-full">
+                        <div class="flex items-center justify-center w-full relative">
                             <label
-                                class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <span class="material-symbols-outlined text-gray-400 mb-2">cloud_upload</span>
+                                class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-colors overflow-hidden">
+                                <div id="imagePreviewContainer" class="absolute inset-0 hidden">
+                                    <img id="imagePreview" class="w-full h-full object-cover">
+                                    <div
+                                        class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                        <span class="text-white font-bold text-sm flex items-center"><span
+                                                class="material-symbols-outlined mr-1 text-[18px]">edit</span> Change
+                                            Image</span>
+                                    </div>
+                                </div>
+                                <div id="uploadPrompt" class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <div
+                                        class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm mb-2 border border-gray-100">
+                                        <span
+                                            class="material-symbols-outlined text-gray-500 text-[20px]">upload_file</span>
+                                    </div>
                                     <p class="text-sm text-gray-500 font-medium"><span
-                                            class="font-bold text-blue-600">Click to upload</span> or drag and drop</p>
-                                    <p id="fileNameDisplay" class="text-xs text-gray-400 mt-1">SVG, PNG, JPG or GIF</p>
+                                            class="font-bold text-blue-600">Click to upload</span> or drag</p>
+                                    <p id="fileNameDisplay"
+                                        class="text-[10px] text-gray-400 mt-1 uppercase font-bold tracking-widest">SVG,
+                                        PNG, JPG or GIF</p>
                                 </div>
                                 <input type="file" id="pImage" class="hidden" accept="image/*" />
                             </label>
@@ -392,23 +456,89 @@
                     </div>
                 </div>
 
-                <div class="pt-4 flex gap-3">
+                <div class="pt-6 flex gap-3 border-t border-gray-100">
                     <button type="button" onclick="closeModal()"
-                        class="flex-1 py-3 px-4 bg-gray-100 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+                        class="flex-1 py-3.5 px-4 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 transition-colors shadow-sm">Cancel</button>
                     <button type="submit" id="submitBtn"
-                        class="btn-premium flex-[2] py-3 px-4 bg-gray-900 text-white rounded-xl text-sm font-bold shadow-md">Upload
-                        and Save</button>
+                        class="btn-premium flex-[2] py-3.5 px-4 bg-gray-900 text-white rounded-xl text-sm font-bold shadow-md flex justify-center items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]">save</span> Upload and Save
+                    </button>
                 </div>
-                <p id="uploadStatus" class="font-medium text-sm text-center mt-2"></p>
             </form>
         </div>
     </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-[300] flex flex-col gap-3"></div>
 
     <script>
         // Global State
         let allProducts = [];
         let editingId = null;
         let editingOldImageUrl = null;
+        let globalObserver = null;
+
+        // UI & Observers setup
+        function initObservers() {
+            if (globalObserver) globalObserver.disconnect();
+
+            globalObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('revealed');
+                    else entry.target.classList.remove('revealed');
+                });
+            }, { threshold: 0.1, rootMargin: "0px" });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => globalObserver.observe(el));
+        }
+
+        // Toasts
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+
+            const icon = type === 'success' ? 'check_circle' : 'error';
+            const colorClass = type === 'success' ? 'bg-white border-green-500' : 'bg-white border-red-500';
+            const iconColor = type === 'success' ? 'text-green-500' : 'text-red-500';
+
+            toast.className = `toast-enter flex items-center p-4 rounded-xl shadow-xl border-l-4 ${colorClass} max-w-sm`;
+            toast.innerHTML = `
+                <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full bg-gray-50 ${iconColor} mr-3">
+                    <span class="material-symbols-outlined text-[20px]">${icon}</span>
+                </div>
+                <div class="text-sm font-bold text-gray-900 tracking-tight">${message}</div>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-gray-400 hover:text-gray-900 focus:outline-none pl-3 p-1"><span class="material-symbols-outlined text-[18px]">close</span></button>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                if (container.contains(toast)) {
+                    toast.classList.replace('toast-enter', 'toast-exit');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        // Mobile Sidebar toggles
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('mobileOverlay');
+
+        function toggleSidebar() {
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        document.getElementById('mobileMenuBtn').addEventListener('click', toggleSidebar);
+        document.getElementById('closeSidebarBtn').addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
 
         // Core Functions
         async function checkUser() {
@@ -440,8 +570,10 @@
             try {
                 const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
                 if (error) throw error;
+                showToast("Welcome back!", "success");
                 checkUser();
             } catch (err) {
+                showToast(err.message, "error");
                 errorEl.textContent = err.message;
                 errorEl.classList.remove('hidden');
                 btn.innerHTML = 'Sign In Securely'; btn.disabled = false;
@@ -450,6 +582,7 @@
 
         document.getElementById('logoutBtn').addEventListener('click', async () => {
             await window.supabaseClient.auth.signOut();
+            showToast("Successfully logged out.", "success");
             checkUser();
         });
 
@@ -464,6 +597,7 @@
 
             if (error) {
                 tBody.innerHTML = `<tr><td colspan="4" class="px-6 py-8 text-center text-red-500 font-bold">${error.message}</td></tr>`;
+                showToast("Failed to fetch inventory.", "error");
                 return;
             }
 
@@ -471,28 +605,29 @@
             updateStats();
             renderTable(allProducts);
 
-            // Handle empty state gracefully
             if (allProducts.length === 0) {
-                tBody.innerHTML = `<tr><td colspan="4" class="px-6 py-16 text-center text-gray-500">
-                    <div class="w-16 h-16 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                tBody.innerHTML = `<tr><td colspan="4" class="px-6 py-24 text-center">
+                    <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
                         <span class="material-symbols-outlined text-3xl">inventory_2</span>
                     </div>
-                    <p class="mb-4 font-medium text-gray-900">Your inventory is currently empty.</p>
-                    <button id="seedBtn" class="btn-premium bg-gray-900 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md">Auto-fill 10 Mockup Products</button>
+                    <p class="mb-5 font-bold text-gray-900 tracking-tight text-lg">Your inventory is pristine.</p>
+                    <button id="seedBtn" class="btn-premium bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-gray-800 transition-colors flex items-center justify-center mx-auto gap-2">
+                        <span class="material-symbols-outlined text-[18px]">auto_awesome</span> Seed 10 Mockup Products
+                    </button>
                 </td></tr>`;
 
                 document.getElementById('seedBtn')?.addEventListener('click', autoSeedMockup);
             }
+            // Trigger observers for new content
+            setTimeout(initObservers, 100);
         }
 
         // Stats Card Render
         function updateStats() {
             document.getElementById('stat-total').innerText = allProducts.length;
-            // Since category/stock_status didn't exist strictly before, handle undefined safely
             document.getElementById('stat-retail').innerText = allProducts.filter(p => p.category === 'Retail' || !p.category).length;
             document.getElementById('stat-wholesale').innerText = allProducts.filter(p => p.category === 'Wholesale').length;
             document.getElementById('stat-rtc').innerText = allProducts.filter(p => p.category === 'Ready to Cook').length;
-
             const lowStockCount = allProducts.filter(p => p.stock_status === 'Low Stock' || p.stock_status === 'Out of Stock').length;
             document.getElementById('stat-low').innerText = lowStockCount;
         }
@@ -504,55 +639,52 @@
 
             let html = '';
             dataToRender.forEach((p, index) => {
-                const category = p.category || 'Retail'; // default fallback
+                const category = p.category || 'Retail';
                 const status = p.stock_status || 'In Stock';
-                const isVisible = p.is_visible !== false; // defaults to true
+                const isVisible = p.is_visible !== false;
 
-                // Color badges
                 const catColor = category === 'Retail' ? 'bg-blue-50 text-blue-700 ring-blue-600/20' : (category === 'Wholesale' ? 'bg-indigo-50 text-indigo-700 ring-indigo-600/20' : 'bg-emerald-50 text-emerald-700 ring-emerald-600/20');
                 const statusColor = status === 'In Stock' ? 'bg-green-50 text-green-700' : (status === 'Low Stock' ? 'bg-orange-50 text-orange-700' : 'bg-red-50 text-red-700');
+                const dotColor = status === 'In Stock' ? 'bg-green-500' : (status === 'Low Stock' ? 'bg-orange-500' : 'bg-red-500');
 
-                let delay = (index % 10) * 0.05;
-
+                // Used inline animations natively via classes and JS
                 html += `
-                <tr class="row-hover transition-colors fade-in" style="animation-delay: ${delay}s; opacity:0;">
-                    <td class="px-6 py-4 border-b border-gray-50">
+                <tr class="row-hover transition-colors border-b border-gray-50 reveal-on-scroll group">
+                    <td class="px-6 py-4 pl-8">
                         <div class="flex items-center gap-4">
-                            <div class="h-12 w-12 flex-shrink-0">
-                                <img src="${p.image_url}" class="h-12 w-12 rounded-xl object-cover border border-gray-100">
+                            <div class="h-12 w-12 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden shadow-sm">
+                                <img src="${p.image_url}" loading="lazy" class="h-full w-full object-cover">
                             </div>
                             <div>
-                                <div class="font-bold text-gray-900 text-sm">${p.name}</div>
-                                <div class="text-xs text-gray-500 truncate max-w-[150px] mt-0.5">${p.description}</div>
+                                <div class="font-bold text-gray-900">${p.name}</div>
+                                <div class="text-[11px] font-medium text-gray-500 truncate max-w-[150px] lg:max-w-[200px] mt-0.5">${p.description}</div>
                             </div>
                         </div>
                     </td>
-                    <td class="px-6 py-4 border-b border-gray-50">
+                    <td class="px-6 py-4">
                         <div class="flex flex-col items-start gap-1.5">
-                            <span class="inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-bold ring-1 ring-inset ${catColor}">${category}</span>
-                            <span class="text-sm font-black text-gray-900">₹${p.price_per_kg}<span class="text-xs text-gray-400 font-medium tracking-normal">/kg</span></span>
+                            <span class="inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-bold tracking-wide ring-1 ring-inset ${catColor}">${category}</span>
+                            <span class="text-sm font-black text-gray-900">₹${p.price_per_kg}<span class="text-[11px] text-gray-400 font-medium tracking-normal ml-0.5">/kg</span></span>
                         </div>
                     </td>
-                    <td class="px-6 py-4 border-b border-gray-50">
+                    <td class="px-6 py-4">
                         <div class="flex flex-col items-start gap-2">
-                            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold ${statusColor}">
-                                ${status === 'In Stock' ? '<span class="w-1 h-1 rounded-full bg-green-500 mr-1.5"></span>' : ''}
-                                ${status === 'Low Stock' ? '<span class="w-1 h-1 rounded-full bg-orange-500 mr-1.5"></span>' : ''}
-                                ${status === 'Out of Stock' ? '<span class="w-1 h-1 rounded-full bg-red-500 mr-1.5"></span>' : ''}
+                            <span class="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold tracking-wide ${statusColor}">
+                                <span class="w-1.5 h-1.5 rounded-full ${dotColor} mr-1.5 shadow-sm"></span>
                                 ${status}
                             </span>
-                            <div class="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+                            <div class="flex items-center gap-1.5 text-[11px] font-bold ${isVisible ? 'text-gray-900' : 'text-gray-400'}">
                                 <span class="material-symbols-outlined text-[14px]">${isVisible ? 'visibility' : 'visibility_off'}</span>
-                                ${isVisible ? 'Visible' : 'Hidden'}
+                                ${isVisible ? 'Live' : 'Hidden'}
                             </div>
                         </div>
                     </td>
-                    <td class="px-6 py-4 border-b border-gray-50 text-right">
-                        <div class="flex items-center justify-end gap-2">
-                            <button onclick="startEdit('${p.id}')" class="w-8 h-8 rounded-lg bg-gray-50 text-gray-600 flex items-center justify-center hover:bg-blue-50 hover:text-blue-600 transition-colors tooltip-trigger relative">
+                    <td class="px-6 py-4 text-right pr-8">
+                        <div class="flex items-center justify-end gap-2 opacity-100 lg:opacity-0 lg:-translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                            <button onclick="startEdit('${p.id}')" class="w-9 h-9 rounded-xl bg-white border border-gray-200 text-gray-600 flex items-center justify-center hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-colors shadow-sm">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
                             </button>
-                            <button onclick="deleteProduct('${p.id}')" class="btn-danger w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100 transition-colors">
+                            <button onclick="deleteProduct('${p.id}')" class="btn-danger w-9 h-9 rounded-xl bg-white border border-gray-200 text-red-500 flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors shadow-sm">
                                 <span class="material-symbols-outlined text-[18px]">delete</span>
                             </button>
                         </div>
@@ -563,12 +695,10 @@
         }
 
         // Filtering and Searching
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
-        document.getElementById('filterCategory').addEventListener('change', applyFilters);
-        document.getElementById('sortProducts').addEventListener('change', applyFilters);
-
-        function applyFilters() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
+        const applyFilters = () => {
+            const queryDesk = document.getElementById('searchInput').value.toLowerCase();
+            const queryMob = document.getElementById('mobileSearchInput').value.toLowerCase();
+            const query = queryDesk || queryMob; // Syncs searches
             const cat = document.getElementById('filterCategory').value;
             const sort = document.getElementById('sortProducts').value;
 
@@ -581,19 +711,30 @@
             if (sort === 'price_desc') filtered.sort((a, b) => b.price_per_kg - a.price_per_kg);
             else if (sort === 'price_asc') filtered.sort((a, b) => a.price_per_kg - b.price_per_kg);
             else if (sort === 'name_asc') filtered.sort((a, b) => a.name.localeCompare(b.name));
-            // newest is default order in allProducts
 
             renderTable(filtered);
-        }
+            initObservers();
+        };
+
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('mobileSearchInput').addEventListener('input', applyFilters);
+        document.getElementById('filterCategory').addEventListener('change', applyFilters);
+        document.getElementById('sortProducts').addEventListener('change', applyFilters);
 
         // Custom File Input Display
         document.getElementById('pImage').addEventListener('change', (e) => {
             const file = e.target.files[0];
-            const display = document.getElementById('fileNameDisplay');
+            const prompt = document.getElementById('uploadPrompt');
+            const previewCont = document.getElementById('imagePreviewContainer');
+            const preview = document.getElementById('imagePreview');
+
             if (file) {
-                display.innerHTML = `<span class="text-blue-600 font-bold whitespace-nowrap overflow-hidden text-ellipsis w-48 inline-block">${file.name}</span>`;
+                prompt.classList.add('hidden');
+                previewCont.classList.remove('hidden');
+                preview.src = URL.createObjectURL(file);
             } else {
-                display.innerText = 'SVG, PNG, JPG or GIF';
+                prompt.classList.remove('hidden');
+                previewCont.classList.add('hidden');
             }
         });
 
@@ -602,14 +743,14 @@
 
         window.openModal = () => {
             document.getElementById('productForm').reset();
-            document.getElementById('fileNameDisplay').innerText = 'SVG, PNG, JPG or GIF';
+            document.getElementById('uploadPrompt').classList.remove('hidden');
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
             editingId = null;
             editingOldImageUrl = null;
             document.getElementById('modalTitle').innerText = 'Add New Product';
-            document.getElementById('submitBtn').innerText = 'Upload and Save';
+            document.getElementById('submitBtn').innerHTML = '<span class="material-symbols-outlined text-[18px]">save</span> Upload and Save';
             document.getElementById('pImage').required = true;
             modal.classList.remove('hidden');
-            // Small delay to allow display block before transition
             requestAnimationFrame(() => modal.classList.add('modal-enter'));
         };
 
@@ -634,10 +775,15 @@
             document.getElementById('pVisible').value = p.is_visible ?? true;
 
             document.getElementById('pImage').required = false;
-            document.getElementById('fileNameDisplay').innerHTML = '<span class="text-xs text-gray-500">Keep blank to use existing</span>';
+
+            document.getElementById('uploadPrompt').classList.add('hidden');
+            const previewCont = document.getElementById('imagePreviewContainer');
+            const preview = document.getElementById('imagePreview');
+            previewCont.classList.remove('hidden');
+            preview.src = p.image_url;
 
             document.getElementById('modalTitle').innerText = 'Edit Product';
-            document.getElementById('submitBtn').innerText = 'Update Product';
+            document.getElementById('submitBtn').innerHTML = '<span class="material-symbols-outlined text-[18px]">update</span> Update Product';
 
             modal.classList.remove('hidden');
             requestAnimationFrame(() => modal.classList.add('modal-enter'));
@@ -647,8 +793,8 @@
         document.getElementById('productForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            const status = document.getElementById('uploadStatus');
-            btn.disabled = true; btn.innerHTML = '<span class="animate-pulse">Processing...</span>';
+            const originalBtnHtml = btn.innerHTML;
+            btn.disabled = true; btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">refresh</span> Processing...';
 
             try {
                 const name = document.getElementById('pName').value.trim();
@@ -666,7 +812,7 @@
                 let publicUrl = editingOldImageUrl;
 
                 if (file) {
-                    btn.innerHTML = 'Uploading Image...';
+                    btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">cloud_upload</span> Uploading...';
                     const fileExt = file.name.split('.').pop();
                     const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
 
@@ -682,62 +828,55 @@
                     publicUrl = publicUrlData.publicUrl;
                 }
 
-                btn.innerHTML = 'Saving to Database...';
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">database</span> Saving...';
 
                 const productPayload = {
                     name,
                     description: desc,
                     price_per_kg: parseFloat(price),
                     image_url: publicUrl,
-                    // If columns don't exist in Supabase, this will error. 
-                    // Let's assume the user added them as instructed or Supabase accepts JSON structures loosely if setup right. 
-                    // Actually, if it errors, the user needs to add these 3 columns.
                     category,
                     stock_status,
                     is_visible
                 };
 
                 if (editingId) {
-                    const { error: updateError } = await window.supabaseClient
-                        .from('products')
-                        .update(productPayload)
-                        .eq('id', editingId);
+                    const { error: updateError } = await window.supabaseClient.from('products').update(productPayload).eq('id', editingId);
                     if (updateError) throw updateError;
-                    status.innerHTML = '<span class="text-green-600">Product updated successfully!</span>';
+                    showToast("Product updated successfully!", "success");
                 } else {
-                    const { error: insertError } = await window.supabaseClient
-                        .from('products')
-                        .insert([productPayload]);
+                    const { error: insertError } = await window.supabaseClient.from('products').insert([productPayload]);
                     if (insertError) throw insertError;
-                    status.innerHTML = '<span class="text-green-600">Product added successfully!</span>';
+                    showToast("Product created successfully!", "success");
                 }
 
                 loadInventory();
-                setTimeout(() => {
-                    closeModal();
-                    status.innerHTML = '';
-                    btn.disabled = false;
-                }, 1000);
+                closeModal();
 
             } catch (err) {
-                status.innerHTML = `<span class="text-red-500 bg-red-50 px-2 py-1 rounded">${err.message}</span>`;
+                showToast(err.message, "error");
+            } finally {
                 btn.disabled = false;
-                btn.innerHTML = editingId ? 'Update Product' : 'Upload and Save';
+                btn.innerHTML = originalBtnHtml;
             }
         });
 
         // Delete Row
         window.deleteProduct = async (id) => {
             if (!confirm("Are you sure you want to permanently delete this product?")) return;
+            showToast("Deleting product...", "success");
             const { error } = await window.supabaseClient.from('products').delete().eq('id', id);
-            if (error) alert("Error deleting: " + error.message);
-            else loadInventory();
+            if (error) showToast("Error deleting: " + error.message, "error");
+            else {
+                showToast("Product deleted.", "success");
+                loadInventory();
+            }
         }
 
         // Mockup Seeding
         async function autoSeedMockup(e) {
             const btn = e.target;
-            btn.innerText = 'Synchronizing blocks...';
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2 text-[18px]">refresh</span> Synchronizing...';
             btn.disabled = true;
             const mock = [
                 { name: "I Cube Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: 400, image_url: "screen.png", category: "Retail", stock_status: "In Stock", is_visible: true },
@@ -751,18 +890,23 @@
                 { name: "Fish Finger (RTC)", description: "Ready-to-cook 1 kg", price_per_kg: 600, image_url: "screen.png", category: "Ready to Cook", stock_status: "Out of Stock", is_visible: true },
                 { name: "Crab Lollipop", description: "Ready-to-cook 1 kg", price_per_kg: 580, image_url: "screen.png", category: "Ready to Cook", stock_status: "Low Stock", is_visible: true }
             ];
-            // If the user's DB doesn't have the new columns, insertion will fail. 
-            // We pass the new columns, if it fails, we alert them to update the database schema.
+
             const { error } = await window.supabaseClient.from('products').insert(mock);
             if (error) {
-                alert("Database schema mismatch! If you haven't yet, please add 'category', 'stock_status' and 'is_visible' columns to your Supabase products table!\n\nError: " + error.message);
+                showToast("Schema mismatch! Please add 'category', 'stock_status' and 'is_visible' columns in Supabase.", "error");
                 btn.disabled = false;
-                btn.innerText = 'Auto-fill 10 Mockup Products';
+                btn.innerHTML = '<span class="material-symbols-outlined mr-2 text-[18px]">auto_awesome</span> Seed 10 Mockup Products';
             }
-            else loadInventory();
+            else {
+                showToast("Mockup products synchronized!", "success");
+                loadInventory();
+            }
         }
 
-        document.getElementById('refreshBtn').addEventListener('click', loadInventory);
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            showToast("Refreshing inventory...", "success");
+            loadInventory();
+        });
 
         // Init
         checkUser();
