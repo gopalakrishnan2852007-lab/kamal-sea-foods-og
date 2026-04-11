@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kamalseafoods.com/sitemap.xml
+Sitemap: https://kamalseafood.com/sitemap.xml
