@@ -249,7 +249,7 @@
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Avg Price / Kg
                             </p>
                         </div>
-                        <h3 class="text-4xl font-black text-green-600" id="stat-avg">â‚¹0</h3>
+                        <h3 class="text-4xl font-black text-green-600" id="stat-avg">₹0</h3>
                     </div>
                 </div>
 
@@ -339,7 +339,7 @@
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Price
-                            per kg (â‚¹)</label>
+                            per kg (₹)</label>
                         <input type="number" id="pPrice" required
                             class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors"
                             placeholder="0.00">
@@ -571,7 +571,7 @@
             let sumPrice = 0;
             allProducts.forEach(p => sumPrice += (p.price_per_kg || 0));
             const avg = allProducts.length > 0 ? (sumPrice / allProducts.length).toFixed(0) : 0;
-            document.getElementById('stat-avg').innerText = `â‚¹${avg}`;
+            document.getElementById('stat-avg').innerText = `₹${avg}`;
         }
 
         // Table Render
@@ -600,7 +600,7 @@
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="text-sm font-black text-gray-900">â‚¹${p.price_per_kg}<span class="text-[11px] text-gray-400 font-medium tracking-normal ml-0.5">/kg</span></span>
+                        <span class="text-sm font-black text-gray-900">₹${p.price_per_kg}<span class="text-[11px] text-gray-400 font-medium tracking-normal ml-0.5">/kg</span></span>
                     </td>
                     <td class="px-6 py-4 text-right pr-8">
                         <div class="flex items-center justify-end gap-2 opacity-100 lg:opacity-0 lg:-translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
