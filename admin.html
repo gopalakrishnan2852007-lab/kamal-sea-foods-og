@@ -337,12 +337,22 @@
                             class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors placeholder:text-gray-400"
                             placeholder="e.g. Medium Prawn">
                     </div>
-                    <div class="sm:col-span-2">
+                    <div>
                         <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Price
                             per kg (₹)</label>
                         <input type="number" id="pPrice" required
                             class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors"
                             placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Stock
+                            Status</label>
+                        <select id="pStock"
+                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors">
+                            <option value="In Stock">In Stock</option>
+                            <option value="Low Stock">Low Stock</option>
+                            <option value="Out of Stock">Out of Stock</option>
+                        </select>
                     </div>
                     <div class="sm:col-span-2">
                         <label
@@ -421,7 +431,7 @@
         }
 
         // Toasts
-        function showToast(message, type = 'success') {
+        function showToast(message, type = 'success', duration = 3000) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
 
@@ -444,7 +454,7 @@
                     toast.classList.replace('toast-enter', 'toast-exit');
                     setTimeout(() => toast.remove(), 300); // Wait for exit animation
                 }
-            }, 3000);
+            }, duration);
         }
 
         // Mobile Sidebar toggles
@@ -660,6 +670,7 @@
             document.getElementById('modalTitle').innerText = 'Add New Product';
             document.getElementById('submitBtn').innerHTML = '<span class="material-symbols-outlined text-[18px]">save</span> Upload and Save';
             document.getElementById('pImage').required = true;
+            document.getElementById('pStock').value = 'In Stock';
             modal.classList.remove('hidden');
             requestAnimationFrame(() => modal.classList.add('modal-enter'));
         };
@@ -680,7 +691,7 @@
             document.getElementById('pName').value = p.name;
             document.getElementById('pDesc').value = p.description;
             document.getElementById('pPrice').value = p.price_per_kg;
-
+            document.getElementById('pStock').value = p.stock_status || 'In Stock';
             document.getElementById('pImage').required = false;
 
             document.getElementById('uploadPrompt').classList.add('hidden');
@@ -734,21 +745,28 @@
 
                 btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">database</span> Saving...';
 
-                // Adjusted to safely match standard DB schema
+                const stock_status = document.getElementById('pStock').value;
                 const productPayload = {
                     name,
                     description: desc,
                     price_per_kg: parseFloat(price),
-                    image_url: publicUrl
+                    image_url: publicUrl,
+                    stock_status
                 };
 
                 if (editingId) {
                     const { error: updateError } = await window.supabaseClient.from('products').update(productPayload).eq('id', editingId);
-                    if (updateError) throw updateError;
+                    if (updateError) {
+                        if (updateError.message.includes('stock_status') || updateError.message.includes('column')) throw new Error("Missing Column! You must open your Supabase editor and add a new column named 'stock_status' (Type: text).");
+                        throw updateError;
+                    }
                     showToast("Product updated successfully!", "success");
                 } else {
                     const { error: insertError } = await window.supabaseClient.from('products').insert([productPayload]);
-                    if (insertError) throw insertError;
+                    if (insertError) {
+                        if (insertError.message.includes('stock_status') || insertError.message.includes('column')) throw new Error("Missing Column! You must open your Supabase editor and add a new column named 'stock_status' (Type: text).");
+                        throw insertError;
+                    }
                     showToast("Product created successfully!", "success");
                 }
 
@@ -756,7 +774,8 @@
                 closeModal();
 
             } catch (err) {
-                showToast(err.message, "error");
+                const duration = err.message.includes('Missing Column') ? 10000 : 3000;
+                showToast(err.message, "error", duration);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = originalBtnHtml;
