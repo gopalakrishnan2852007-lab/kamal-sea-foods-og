@@ -68,8 +68,8 @@
         /* Optimized Reveal Animation */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
@@ -168,37 +168,14 @@
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
-        <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1 custom-scrollbar">
-            <a href="#"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-800/50 text-white font-bold transition-colors shadow-sm">
+        <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-2 custom-scrollbar">
+            <a onclick="toggleSidebarIfNeeded(); window.scrollTo(0, 0);"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-800/50 text-white font-bold transition-colors shadow-sm cursor-pointer hover:bg-gray-700/50">
                 <span class="material-symbols-outlined text-[20px]">dashboard</span> Dashboard
             </a>
-            <a onclick="loadInventory()"
+            <a onclick="openModal(); toggleSidebarIfNeeded();"
                 class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors font-medium cursor-pointer">
-                <span class="material-symbols-outlined text-[20px]">inventory_2</span> Products
-            </a>
-            <div class="pt-4 pb-2 px-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Categories</div>
-            <a onclick="document.getElementById('filterCategory').value='Retail'; applyFilters();"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium cursor-pointer">
-                <span class="material-symbols-outlined text-[18px]">storefront</span> Retail
-            </a>
-            <a onclick="document.getElementById('filterCategory').value='Wholesale'; applyFilters();"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium cursor-pointer">
-                <span class="material-symbols-outlined text-[18px]">local_shipping</span> Wholesale
-            </a>
-            <a onclick="document.getElementById('filterCategory').value='Ready to Cook'; applyFilters();"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium cursor-pointer">
-                <span class="material-symbols-outlined text-[18px]">restaurant_menu</span> Ready to Cook
-            </a>
-
-            <div class="pt-6 pb-2 px-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Management</div>
-            <a href="#"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium">
-                <span class="material-symbols-outlined text-[18px]">receipt_long</span> Orders
-            </a>
-            <a href="#"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors text-sm font-medium">
-                <span class="material-symbols-outlined text-[18px]">settings</span> Settings
+                <span class="material-symbols-outlined text-[20px]">add_circle</span> Add Product
             </a>
         </nav>
         <div class="p-4 border-t border-gray-800 flex-shrink-0">
@@ -224,7 +201,7 @@
                 <div class="relative w-full max-w-md hidden sm:block">
                     <span
                         class="material-symbols-outlined absolute left-3 top-[9px] text-gray-400 text-[20px]">search</span>
-                    <input type="text" id="searchInput" placeholder="Search products, categories..."
+                    <input type="text" id="searchInput" placeholder="Search products..."
                         class="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-transparent rounded-xl text-sm font-medium focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all">
                 </div>
             </div>
@@ -235,7 +212,7 @@
                         Product</span><span class="sm:hidden">Add</span>
                 </button>
                 <div class="h-8 border-l border-gray-200 mx-1 lg:mx-2 hidden sm:block"></div>
-                <div class="flex items-center gap-3 cursor-pointer">
+                <div class="flex items-center cursor-pointer">
                     <div
                         class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-xs ring-2 ring-white shadow-sm">
                         KS
@@ -251,38 +228,28 @@
                 <!-- Header -->
                 <div class="reveal-on-scroll">
                     <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Inventory Overview</h1>
-                    <p class="text-sm text-gray-500 mt-1 font-medium">Manage your catalog, stock statuses, and pricing
-                        centrally.</p>
+                    <p class="text-sm text-gray-500 mt-1 font-medium">Manage your product catalog entirely.</p>
                 </div>
 
                 <!-- Stats Cards -->
-                <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
-                    <div
-                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll">
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Total Products
-                        </p>
-                        <h3 class="text-3xl font-black text-gray-900" id="stat-total">0</h3>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
                         style="transition-delay: 0.05s">
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Retail</p>
-                        <h3 class="text-3xl font-black text-blue-600" id="stat-retail">0</h3>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="material-symbols-outlined text-blue-500">inventory_2</span>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Total Products
+                            </p>
+                        </div>
+                        <h3 class="text-4xl font-black text-gray-900" id="stat-total">0</h3>
                     </div>
-                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
                         style="transition-delay: 0.1s">
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Wholesale</p>
-                        <h3 class="text-3xl font-black text-indigo-600" id="stat-wholesale">0</h3>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between reveal-on-scroll"
-                        style="transition-delay: 0.15s">
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Ready to Cook
-                        </p>
-                        <h3 class="text-3xl font-black text-emerald-600" id="stat-rtc">0</h3>
-                    </div>
-                    <div class="bg-red-50 p-5 rounded-2xl border border-red-100 flex flex-col justify-between reveal-on-scroll col-span-2 lg:col-span-1"
-                        style="transition-delay: 0.2s">
-                        <p class="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-1.5">Low Stock</p>
-                        <h3 class="text-3xl font-black text-red-600" id="stat-low">0</h3>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="material-symbols-outlined text-green-500">payments</span>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Avg Price / Kg
+                            </p>
+                        </div>
+                        <h3 class="text-4xl font-black text-green-600" id="stat-avg">₹0</h3>
                     </div>
                 </div>
 
@@ -292,17 +259,10 @@
                     <div class="flex sm:hidden relative w-full mb-2">
                         <span
                             class="material-symbols-outlined absolute left-3 top-[9px] text-gray-400 text-[20px]">search</span>
-                        <input type="text" id="mobileSearchInput" placeholder="Search..."
+                        <input type="text" id="mobileSearchInput" placeholder="Search products..."
                             class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                     </div>
                     <div class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 w-full sm:w-auto">
-                        <select id="filterCategory"
-                            class="bg-white border-gray-200 text-sm font-medium rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-sm flex-shrink-0">
-                            <option value="all">All Categories</option>
-                            <option value="Retail">Retail</option>
-                            <option value="Wholesale">Wholesale</option>
-                            <option value="Ready to Cook">Ready to Cook</option>
-                        </select>
                         <select id="sortProducts"
                             class="bg-white border-gray-200 text-sm font-medium rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-sm flex-shrink-0">
                             <option value="newest">Newest First</option>
@@ -321,18 +281,15 @@
                 <div class="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden reveal-on-scroll"
                     style="transition-delay: 0.15s">
                     <div class="overflow-x-auto custom-scrollbar">
-                        <table class="w-full text-left border-collapse min-w-[700px]">
+                        <table class="w-full text-left border-collapse min-w-[500px]">
                             <thead>
                                 <tr class="bg-gray-50/80 border-b border-gray-100">
                                     <th
                                         class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest pl-8">
                                         Product Details</th>
                                     <th
-                                        class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest whitespace-nowrap">
-                                        Category / Price</th>
-                                    <th
                                         class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">
-                                        Status / Visibility</th>
+                                        Price / kg</th>
                                     <th
                                         class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest text-right pr-8">
                                         Actions</th>
@@ -340,12 +297,12 @@
                             </thead>
                             <tbody id="tableBody" class="divide-y divide-gray-50">
                                 <tr>
-                                    <td colspan="4" class="px-6 py-20 text-center text-gray-400">
+                                    <td colspan="3" class="px-6 py-20 text-center text-gray-400">
                                         <div
                                             class="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-4">
                                         </div>
                                         <p class="font-bold text-sm tracking-tight text-gray-500">Loading inventory from
-                                            Supabase...</p>
+                                            database...</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -380,41 +337,12 @@
                             class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors placeholder:text-gray-400"
                             placeholder="e.g. Medium Prawn">
                     </div>
-                    <div>
-                        <label
-                            class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Category</label>
-                        <select id="pCategory"
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors">
-                            <option value="Retail">Retail</option>
-                            <option value="Wholesale">Wholesale</option>
-                            <option value="Ready to Cook">Ready to Cook</option>
-                        </select>
-                    </div>
-                    <div>
+                    <div class="sm:col-span-2">
                         <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Price
                             per kg (₹)</label>
                         <input type="number" id="pPrice" required
                             class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors"
                             placeholder="0.00">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Stock
-                            Status</label>
-                        <select id="pStock"
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors">
-                            <option value="In Stock">In Stock</option>
-                            <option value="Low Stock">Low Stock</option>
-                            <option value="Out of Stock">Out of Stock</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label
-                            class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Visibility</label>
-                        <select id="pVisible"
-                            class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2.5 px-4 text-sm font-bold bg-gray-50 focus:bg-white transition-colors">
-                            <option value="true">Visible on Store</option>
-                            <option value="false">Hidden</option>
-                        </select>
                     </div>
                     <div class="sm:col-span-2">
                         <label
@@ -514,9 +442,9 @@
             setTimeout(() => {
                 if (container.contains(toast)) {
                     toast.classList.replace('toast-enter', 'toast-exit');
-                    setTimeout(() => toast.remove(), 300);
+                    setTimeout(() => toast.remove(), 300); // Wait for exit animation
                 }
-            }, 5000);
+            }, 3000);
         }
 
         // Mobile Sidebar toggles
@@ -534,6 +462,10 @@
                 overlay.classList.add('opacity-0');
                 setTimeout(() => overlay.classList.add('hidden'), 300);
             }
+        }
+
+        function toggleSidebarIfNeeded() {
+            if (window.innerWidth < 768) toggleSidebar();
         }
 
         document.getElementById('mobileMenuBtn').addEventListener('click', toggleSidebar);
@@ -596,7 +528,7 @@
                 .order('created_at', { ascending: false });
 
             if (error) {
-                tBody.innerHTML = `<tr><td colspan="4" class="px-6 py-8 text-center text-red-500 font-bold">${error.message}</td></tr>`;
+                tBody.innerHTML = `<tr><td colspan="3" class="px-6 py-8 text-center text-red-500 font-bold">${error.message}</td></tr>`;
                 showToast("Failed to fetch inventory.", "error");
                 return;
             }
@@ -606,13 +538,13 @@
             renderTable(allProducts);
 
             if (allProducts.length === 0) {
-                tBody.innerHTML = `<tr><td colspan="4" class="px-6 py-24 text-center">
+                tBody.innerHTML = `<tr><td colspan="3" class="px-6 py-24 text-center">
                     <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
                         <span class="material-symbols-outlined text-3xl">inventory_2</span>
                     </div>
                     <p class="mb-5 font-bold text-gray-900 tracking-tight text-lg">Your inventory is pristine.</p>
                     <button id="seedBtn" class="btn-premium bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-gray-800 transition-colors flex items-center justify-center mx-auto gap-2">
-                        <span class="material-symbols-outlined text-[18px]">auto_awesome</span> Seed 10 Mockup Products
+                        <span class="material-symbols-outlined text-[18px]">auto_awesome</span> Seed Database
                     </button>
                 </td></tr>`;
 
@@ -625,31 +557,27 @@
         // Stats Card Render
         function updateStats() {
             document.getElementById('stat-total').innerText = allProducts.length;
-            document.getElementById('stat-retail').innerText = allProducts.filter(p => p.category === 'Retail' || !p.category).length;
-            document.getElementById('stat-wholesale').innerText = allProducts.filter(p => p.category === 'Wholesale').length;
-            document.getElementById('stat-rtc').innerText = allProducts.filter(p => p.category === 'Ready to Cook').length;
-            const lowStockCount = allProducts.filter(p => p.stock_status === 'Low Stock' || p.stock_status === 'Out of Stock').length;
-            document.getElementById('stat-low').innerText = lowStockCount;
+
+            let sumPrice = 0;
+            allProducts.forEach(p => sumPrice += (p.price_per_kg || 0));
+            const avg = allProducts.length > 0 ? (sumPrice / allProducts.length).toFixed(0) : 0;
+            document.getElementById('stat-avg').innerText = `₹${avg}`;
         }
 
         // Table Render
         function renderTable(dataToRender) {
             const tBody = document.getElementById('tableBody');
-            if (dataToRender.length === 0) return;
+            if (dataToRender.length === 0 && allProducts.length > 0) {
+                tBody.innerHTML = `<tr><td colspan="3" class="text-center py-6 text-gray-500">No products found matching your search.</td></tr>`;
+                return;
+            }
 
             let html = '';
             dataToRender.forEach((p, index) => {
-                const category = p.category || 'Retail';
-                const status = p.stock_status || 'In Stock';
-                const isVisible = p.is_visible !== false;
+                let delay = (index % 10) * 0.05;
 
-                const catColor = category === 'Retail' ? 'bg-blue-50 text-blue-700 ring-blue-600/20' : (category === 'Wholesale' ? 'bg-indigo-50 text-indigo-700 ring-indigo-600/20' : 'bg-emerald-50 text-emerald-700 ring-emerald-600/20');
-                const statusColor = status === 'In Stock' ? 'bg-green-50 text-green-700' : (status === 'Low Stock' ? 'bg-orange-50 text-orange-700' : 'bg-red-50 text-red-700');
-                const dotColor = status === 'In Stock' ? 'bg-green-500' : (status === 'Low Stock' ? 'bg-orange-500' : 'bg-red-500');
-
-                // Used inline animations natively via classes and JS
                 html += `
-                <tr class="row-hover transition-colors border-b border-gray-50 reveal-on-scroll group">
+                <tr class="row-hover transition-colors border-b border-gray-50 reveal-on-scroll group" style="transition-delay: ${delay}s, 0s;">
                     <td class="px-6 py-4 pl-8">
                         <div class="flex items-center gap-4">
                             <div class="h-12 w-12 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden shadow-sm">
@@ -657,27 +585,12 @@
                             </div>
                             <div>
                                 <div class="font-bold text-gray-900">${p.name}</div>
-                                <div class="text-[11px] font-medium text-gray-500 truncate max-w-[150px] lg:max-w-[200px] mt-0.5">${p.description}</div>
+                                <div class="text-[11px] font-medium text-gray-500 truncate max-w-[150px] lg:max-w-[250px] mt-0.5">${p.description}</div>
                             </div>
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        <div class="flex flex-col items-start gap-1.5">
-                            <span class="inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-bold tracking-wide ring-1 ring-inset ${catColor}">${category}</span>
-                            <span class="text-sm font-black text-gray-900">₹${p.price_per_kg}<span class="text-[11px] text-gray-400 font-medium tracking-normal ml-0.5">/kg</span></span>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex flex-col items-start gap-2">
-                            <span class="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold tracking-wide ${statusColor}">
-                                <span class="w-1.5 h-1.5 rounded-full ${dotColor} mr-1.5 shadow-sm"></span>
-                                ${status}
-                            </span>
-                            <div class="flex items-center gap-1.5 text-[11px] font-bold ${isVisible ? 'text-gray-900' : 'text-gray-400'}">
-                                <span class="material-symbols-outlined text-[14px]">${isVisible ? 'visibility' : 'visibility_off'}</span>
-                                ${isVisible ? 'Live' : 'Hidden'}
-                            </div>
-                        </div>
+                        <span class="text-sm font-black text-gray-900">₹${p.price_per_kg}<span class="text-[11px] text-gray-400 font-medium tracking-normal ml-0.5">/kg</span></span>
                     </td>
                     <td class="px-6 py-4 text-right pr-8">
                         <div class="flex items-center justify-end gap-2 opacity-100 lg:opacity-0 lg:-translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -699,13 +612,11 @@
             const queryDesk = document.getElementById('searchInput').value.toLowerCase();
             const queryMob = document.getElementById('mobileSearchInput').value.toLowerCase();
             const query = queryDesk || queryMob; // Syncs searches
-            const cat = document.getElementById('filterCategory').value;
             const sort = document.getElementById('sortProducts').value;
 
             let filtered = allProducts.filter(p => {
                 const textMatch = p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
-                const catMatch = cat === 'all' || (p.category || 'Retail') === cat;
-                return textMatch && catMatch;
+                return textMatch;
             });
 
             if (sort === 'price_desc') filtered.sort((a, b) => b.price_per_kg - a.price_per_kg);
@@ -718,7 +629,6 @@
 
         document.getElementById('searchInput').addEventListener('input', applyFilters);
         document.getElementById('mobileSearchInput').addEventListener('input', applyFilters);
-        document.getElementById('filterCategory').addEventListener('change', applyFilters);
         document.getElementById('sortProducts').addEventListener('change', applyFilters);
 
         // Custom File Input Display
@@ -770,9 +680,6 @@
             document.getElementById('pName').value = p.name;
             document.getElementById('pDesc').value = p.description;
             document.getElementById('pPrice').value = p.price_per_kg;
-            document.getElementById('pCategory').value = p.category || 'Retail';
-            document.getElementById('pStock').value = p.stock_status || 'In Stock';
-            document.getElementById('pVisible').value = p.is_visible ?? true;
 
             document.getElementById('pImage').required = false;
 
@@ -800,9 +707,6 @@
                 const name = document.getElementById('pName').value.trim();
                 const desc = document.getElementById('pDesc').value.trim();
                 const price = document.getElementById('pPrice').value.trim();
-                const category = document.getElementById('pCategory').value;
-                const stock_status = document.getElementById('pStock').value;
-                const is_visible = document.getElementById('pVisible').value === 'true';
 
                 const fileInput = document.getElementById('pImage');
                 const file = fileInput.files[0];
@@ -830,14 +734,12 @@
 
                 btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">database</span> Saving...';
 
+                // Adjusted to safely match standard DB schema
                 const productPayload = {
                     name,
                     description: desc,
                     price_per_kg: parseFloat(price),
-                    image_url: publicUrl,
-                    category,
-                    stock_status,
-                    is_visible
+                    image_url: publicUrl
                 };
 
                 if (editingId) {
@@ -879,23 +781,23 @@
             btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2 text-[18px]">refresh</span> Synchronizing...';
             btn.disabled = true;
             const mock = [
-                { name: "I Cube Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: 400, image_url: "screen.png", category: "Retail", stock_status: "In Stock", is_visible: true },
-                { name: "Small Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: 400, image_url: "screen.png", category: "Retail", stock_status: "In Stock", is_visible: true },
-                { name: "Medium Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: 500, image_url: "screen.png", category: "Wholesale", stock_status: "Low Stock", is_visible: true },
-                { name: "Mathi", description: "Frozen ready-to-cook 1 kg", price_per_kg: 300, image_url: "screen.png", category: "Retail", stock_status: "In Stock", is_visible: true },
-                { name: "Vanjaram", description: "Frozen ready-to-cook 1 kg", price_per_kg: 850, image_url: "screen.png", category: "Retail", stock_status: "In Stock", is_visible: true },
-                { name: "Boneless Fish", description: "Pinxed ready-to-cook 1 kg", price_per_kg: 330, image_url: "screen.png", category: "Ready to Cook", stock_status: "In Stock", is_visible: true },
-                { name: "Nethli", description: "Frozen ready-to-cook 1 kg", price_per_kg: 330, image_url: "screen.png", category: "Retail", stock_status: "In Stock", is_visible: true },
-                { name: "Basha", description: "Frozen ready-to-cook 1 kg", price_per_kg: 340, image_url: "screen.png", category: "Wholesale", stock_status: "In Stock", is_visible: true },
-                { name: "Fish Finger (RTC)", description: "Ready-to-cook 1 kg", price_per_kg: 600, image_url: "screen.png", category: "Ready to Cook", stock_status: "Out of Stock", is_visible: true },
-                { name: "Crab Lollipop", description: "Ready-to-cook 1 kg", price_per_kg: 580, image_url: "screen.png", category: "Ready to Cook", stock_status: "Low Stock", is_visible: true }
+                { name: "I Cube Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: 400, image_url: "screen.png" },
+                { name: "Small Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: 400, image_url: "screen.png" },
+                { name: "Medium Prawn", description: "Frozen ready-to-cook 1 kg", price_per_kg: 500, image_url: "screen.png" },
+                { name: "Mathi", description: "Frozen ready-to-cook 1 kg", price_per_kg: 300, image_url: "screen.png" },
+                { name: "Vanjaram", description: "Frozen ready-to-cook 1 kg", price_per_kg: 850, image_url: "screen.png" },
+                { name: "Boneless Fish", description: "Pinxed ready-to-cook 1 kg", price_per_kg: 330, image_url: "screen.png" },
+                { name: "Nethli", description: "Frozen ready-to-cook 1 kg", price_per_kg: 330, image_url: "screen.png" },
+                { name: "Basha", description: "Frozen ready-to-cook 1 kg", price_per_kg: 340, image_url: "screen.png" },
+                { name: "Fish Finger (RTC)", description: "Ready-to-cook 1 kg", price_per_kg: 600, image_url: "screen.png" },
+                { name: "Crab Lollipop", description: "Ready-to-cook 1 kg", price_per_kg: 580, image_url: "screen.png" }
             ];
 
             const { error } = await window.supabaseClient.from('products').insert(mock);
             if (error) {
-                showToast("Schema mismatch! Please add 'category', 'stock_status' and 'is_visible' columns in Supabase.", "error");
+                showToast(error.message, "error");
                 btn.disabled = false;
-                btn.innerHTML = '<span class="material-symbols-outlined mr-2 text-[18px]">auto_awesome</span> Seed 10 Mockup Products';
+                btn.innerHTML = '<span class="material-symbols-outlined mr-2 text-[18px]">auto_awesome</span> Seed Database';
             }
             else {
                 showToast("Mockup products synchronized!", "success");
