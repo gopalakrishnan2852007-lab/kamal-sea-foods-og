@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -9,87 +8,24 @@
     <meta name="description"
         content="Buy fresh sea foods wholesale and retail in Chennai. Daily fresh fish, prawns, crab with best price.">
     <meta name="keywords" content="seafood chennai, fresh fish chennai, seafood wholesale chennai, prawns chennai">
-    <title>Fresh Sea Foods Wholesale & Retail | Chennai</title>
+    <title>Premium Frozen Seafood | Kamal Sea Foods</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-tertiary-fixed": "#2b4052",
-                        "on-tertiary-container": "#3d5265",
-                        "on-primary-container": "#41555c",
-                        "on-tertiary-fixed-variant": "#475c6f",
-                        "primary-dim": "#41555d",
-                        "on-primary": "#eefaff",
-                        "inverse-surface": "#0c0f0f",
-                        "primary-fixed": "#d0e6ef",
-                        "on-secondary": "#f8f8ff",
-                        "on-background": "#2d3435",
-                        "on-primary-fixed-variant": "#4a5f66",
-                        "tertiary": "#4c6175",
-                        "tertiary-fixed": "#cce2fa",
-                        "error-dim": "#4e0309",
-                        "outline-variant": "#adb3b4",
-                        "background": "#f9f9f9",
-                        "on-secondary-fixed-variant": "#515c6f",
-                        "secondary": "#546073",
-                        "surface-container-low": "#f2f4f4",
-                        "tertiary-fixed-dim": "#bed4eb",
-                        "on-primary-fixed": "#2e424a",
-                        "on-tertiary": "#f6f9ff",
-                        "surface-variant": "#dde4e5",
-                        "on-secondary-fixed": "#354052",
-                        "on-error-container": "#752121",
-                        "surface-container-highest": "#dde4e5",
-                        "primary-container": "#d0e6ef",
-                        "primary-fixed-dim": "#c2d8e1",
-                        "error-container": "#fe8983",
-                        "on-surface": "#2d3435",
-                        "tertiary-dim": "#405568",
-                        "on-surface-variant": "#5a6061",
-                        "secondary-container": "#d8e3fa",
-                        "on-secondary-container": "#475265",
-                        "surface": "#f9f9f9",
-                        "on-error": "#fff7f6",
-                        "secondary-dim": "#495467",
-                        "secondary-fixed": "#d8e3fa",
-                        "inverse-primary": "#def4fe",
-                        "secondary-fixed-dim": "#cad5ec",
-                        "primary": "#4d6169",
-                        "outline": "#757c7d",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#9c9d9d",
-                        "error": "#9f403d",
-                        "surface-container": "#ebeeef",
-                        "surface-dim": "#d4dbdd",
-                        "surface-container-high": "#e4e9ea",
-                        "surface-tint": "#4d6169",
-                        "tertiary-container": "#cce2fa",
-                        "surface-bright": "#f9f9f9"
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "1rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Inter"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
+                    colors: {
+                        primary: '#0ea5e9',
                     }
-                },
-            },
+                }
+            }
         }
     </script>
     <style>
@@ -102,123 +38,187 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        @media (max-width: 1024px) {}
-
-        @media (max-width: 640px) {}
-
-        .hero-gradient {
-            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0d0d1a 100%);
-        }
-
+        /* Optimized Fade-up Animation */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            will-change: opacity, transform;
         }
 
         .reveal-on-scroll.revealed {
             opacity: 1;
             transform: translateY(0);
         }
-    </style>
 
+        /* Lightweight transition for product cards */
+        .premium-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .premium-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Glow Hero */
+        .hero-dark-glow {
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 80%);
+        }
+    </style>
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
 </head>
 
-<body class="bg-surface text-on-surface antialiased">
-    <!-- TopNavBar -->
-    <nav
-        class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm shadow-slate-900/5">
-        <div class="flex justify-between items-center px-6 md:px-12 py-4 max-w-screen-2xl mx-auto">
-            <div class="text-xl font-bold tracking-tighter text-slate-800 dark:text-slate-100 font-headline">Kamal Sea
-                Foods</div>
-            <div class="hidden md:flex items-center space-x-8 font-['Inter'] tracking-tight text-sm font-medium">
-                <a class="text-slate-900 dark:text-white border-b-2 border-slate-600 dark:border-slate-400 pb-1 hover:opacity-80 transition-opacity duration-300"
-                    href="#">Shop</a>
+<body class="bg-white text-gray-900 antialiased">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-all">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tight text-gray-900">Kamal Sea Foods</div>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold">
+                <a href="#retail" class="text-gray-600 hover:text-primary transition-colors">Products</a>
+                <a href="#trust" class="text-gray-600 hover:text-primary transition-colors">Why Choose Us</a>
             </div>
-
         </div>
     </nav>
-    <!-- Animated Hero Section -->
-    <header class="relative min-h-screen flex items-center justify-center hero-gradient overflow-hidden pt-20">
-        <div class="absolute inset-0 opacity-40">
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px]"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tertiary/10 rounded-full blur-[120px]"></div>
-        </div>
-        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+
+    <!-- Hero Section -->
+    <header class="hero-dark-glow min-h-[90vh] flex items-center justify-center pt-20 relative overflow-hidden">
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto reveal-on-scroll">
             <span
-                class="inline-block px-4 py-1.5 mb-6 rounded-full bg-primary/10 border border-primary/20 text-on-primary-container text-xs font-semibold tracking-widest uppercase">
-                Premium Frozen Seafood For Retail & Hotels
+                class="inline-block px-4 py-1.5 mb-8 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-bold tracking-widest uppercase shadow-sm">
+                Top Quality Guaranteed
             </span>
-            <h1 class="text-6xl md:text-8xl font-extrabold text-white tracking-tighter mb-8 leading-tight">
-                Kamal Sea Foods
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                Premium Frozen &<br />Ready-to-Cook Seafood
             </h1>
-            <p class="text-slate-300 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto leading-relaxed">
-                Your trusted partner for high-quality frozen seafood. Supplying premium frozen catch for retail and
-                hotels with uncompromising standards.
+            <p class="text-gray-400 text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto leading-relaxed">
+                Hygienically packed frozen seafood for retail and wholesale. Sourced fresh, stored right, and delivered
+                to your doorstep.
             </p>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-                <a class="group relative px-8 py-4 bg-primary text-on-primary rounded-xl font-bold tracking-tight overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(77,97,105,0.4)]"
-                    href="https://wa.me/919865668125">
-                    <span class="relative z-10 flex items-center gap-2">
-                        Order on WhatsApp
-                        <span class="material-symbols-outlined text-sm"
-                            style="font-variation-settings: 'FILL' 1;">send</span>
-                    </span>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-r from-primary to-primary-dim opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#retail"
+                    class="px-8 py-3.5 bg-white text-gray-900 rounded-lg font-bold hover:bg-gray-100 transition-transform duration-300 hover:scale-105 shadow-sm">
+                    Explore Products
                 </a>
-                <a class="px-8 py-4 text-white font-semibold border border-white/20 rounded-xl hover:bg-white/5 transition-colors"
-                    href="#retail">
-                    Explore Collection
+                <a href="https://wa.me/919865668125"
+                    class="px-8 py-3.5 bg-[#25D366] text-white rounded-lg font-bold hover:bg-[#22bf5b] transition-transform duration-300 hover:scale-105 shadow-sm flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">chat</span> WhatsApp Us
                 </a>
             </div>
-        </div>
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            <span class="material-symbols-outlined text-slate-400">expand_more</span>
         </div>
     </header>
-    <!-- Retail Section (Bento Grid) -->
-    <section class="py-24 bg-surface px-6 md:px-12 max-w-screen-2xl mx-auto" id="retail">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div class="max-w-xl">
-                <h2 class="text-4xl font-bold text-on-surface tracking-tighter mb-4">The Retail Collection</h2>
-                <p class="text-on-surface-variant leading-relaxed">Sourced from the deep sea, flash-frozen at peak
-                    freshness to preserve texture and flavor profile.</p>
+
+    <!-- Trust Section -->
+    <section id="trust" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">Why Choose Kamal Sea
+                    Foods</h2>
+                <p class="text-gray-500 text-lg font-medium max-w-2xl mx-auto">We prioritize quality, hygiene, and
+                    convenience to bring you the best seafood experience.</p>
             </div>
-            <div class="flex gap-4">
-                <span
-                    class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold tracking-wider text-on-surface-variant uppercase">Ready-to-Cook</span>
-                <span
-                    class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold tracking-wider text-on-surface-variant uppercase">Premium
-                    Frozen</span>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Trust Card 1 -->
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
+                    style="transition-delay: 0.05s">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined">verified_user</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">Hygienically Frozen & Packed</h3>
+                    <p class="text-gray-600 text-sm font-medium">Processed under extreme hygiene conditions to retain
+                        absolute freshness.</p>
+                </div>
+                <!-- Trust Card 2 -->
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
+                    style="transition-delay: 0.1s">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined">ac_unit</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">Maintained Cold Storage</h3>
+                    <p class="text-gray-600 text-sm font-medium">Stored at precise temperatures to preserve the natural
+                        taste and nutrition.</p>
+                </div>
+                <!-- Trust Card 3 -->
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
+                    style="transition-delay: 0.15s">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined">storefront</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">Retail & Wholesale</h3>
+                    <p class="text-gray-600 text-sm font-medium">Flexible serving formats designed for individual
+                        households and large businesses alike.</p>
+                </div>
+                <!-- Trust Card 4 -->
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
+                    style="transition-delay: 0.2s">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined">home</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">Perfect for Homes & Hotels</h3>
+                    <p class="text-gray-600 text-sm font-medium">We tailor our portion sizes and deliveries for everyday
+                        cooking or commercial dining.</p>
+                </div>
+                <!-- Trust Card 5 -->
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
+                    style="transition-delay: 0.25s">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined">restaurant_menu</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">Ready-to-Cook Options</h3>
+                    <p class="text-gray-600 text-sm font-medium">Cleaned, prepped, and ready to go straight from the
+                        freezer to your pan.</p>
+                </div>
+                <!-- Trust Card 6 -->
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
+                    style="transition-delay: 0.3s">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined">local_shipping</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">Bulk Orders Supported</h3>
+                    <p class="text-gray-600 text-sm font-medium">Efficient logistics guaranteeing zero-hassle bulk
+                        deliveries across the city.</p>
+                </div>
             </div>
         </div>
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            <!-- Products will be injected here dynamically -->
+    </section>
+
+    <!-- Product Section -->
+    <section id="retail" class="py-24 bg-gray-50 relative border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 reveal-on-scroll">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-3">Our Collection
+                    </h2>
+                    <p class="text-gray-500 text-lg font-medium">Finest cuts and whole selections.</p>
+                </div>
+            </div>
+
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Products dynamically injected -->
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="w-full py-12 bg-slate-100 dark:bg-slate-950">
-        <div
-            class="flex flex-col md:flex-row justify-between items-center px-8 md:px-24 gap-8 max-w-screen-2xl mx-auto">
-            <div class="text-lg font-bold text-slate-800 dark:text-slate-200 font-headline">Kamal Sea Foods</div>
-
-            <p class="text-slate-600 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-[0.05em]">
-                © 2024 Kamal Sea Foods. All rights reserved. <a href="admin.html"
-                    class="text-slate-400 hover:text-slate-500 ml-4 border-l border-slate-300 pl-4">Admin Panel</a>
+    <footer class="w-full py-10 bg-gray-900 text-center border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-xl font-black text-white tracking-tight">Kamal Sea Foods</div>
+            <p class="text-gray-400 text-sm font-medium">
+                © 2024 Kamal Sea Foods. All rights reserved.
+                <a href="admin.html"
+                    class="text-gray-500 hover:text-white ml-4 border-l border-gray-700 pl-4 transition-colors">Admin
+                    Panel</a>
             </p>
         </div>
     </footer>
-    <!-- Floating WhatsApp FAB -->
-    <a class="fixed bottom-8 right-8 z-[60] w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform active:scale-95 group"
+
+    <!-- WhatsApp FAB -->
+    <a class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
         href="https://wa.me/919865668125">
-        <div class="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20"></div>
-        <svg class="w-8 h-8 relative z-10" fill="currentColor" viewbox="0 0 24 24">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
             <path
                 d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.891 11.891-2.007 0-3.974-.509-5.712-1.472l-6.181 1.69zm6.014-4.222l.432.256c1.616.958 3.473 1.465 5.39 1.465 5.733 0 10.395-4.661 10.395-10.395s-4.662-10.395-10.395-10.395c-5.732 0-10.394 4.661-10.394 10.395 0 2.053.601 4.05 1.737 5.759l.282.424-1.104 4.035 4.145-1.137zm10.305-6.17c-.337-.17-1.991-.983-2.3-1.096-.309-.113-.533-.17-.757.17-.224.339-.869 1.096-1.066 1.321-.197.225-.394.253-.731.084-.337-.17-1.423-.524-2.71-1.672-1.002-.894-1.678-2.001-1.874-2.339-.197-.338-.021-.521.148-.689.152-.151.338-.395.506-.592.169-.197.225-.338.338-.563.112-.225.056-.423-.028-.592-.084-.169-.757-1.826-1.037-2.503-.273-.659-.551-.57-.757-.581-.196-.011-.421-.013-.646-.013s-.59.084-.899.423c-.309.338-1.18 1.155-1.18 2.817 0 1.661 1.208 3.267 1.377 3.493.169.225 2.378 3.631 5.761 5.087.805.347 1.433.553 1.922.709.808.257 1.543.221 2.124.135.647-.094 1.991-.815 2.272-1.603.281-.789.281-1.464.197-1.603-.084-.141-.309-.225-.646-.395z">
             </path>
@@ -228,91 +228,71 @@
     <script>
         async function loadProducts() {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = '<div class="col-span-full py-20 text-center text-slate-500 flex flex-col items-center"><div class="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div><p>Loading fresh catalog...</p></div>';
+            grid.innerHTML = '<div class="col-span-full py-20 text-center"><div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div><p class="text-gray-500 font-medium">Loading premium catalog...</p></div>';
 
             try {
-                const { data: products, error } = await window.supabaseClient
-                    .from('products')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
+                const { data: products, error } = await window.supabaseClient.from('products').select('*').order('created_at', { ascending: false });
                 if (error) throw error;
 
                 if (!products || products.length === 0) {
-                    grid.innerHTML = '<p class="col-span-full text-center text-slate-500 py-12">No products available at the moment.</p>';
+                    grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-12 font-medium">No products available at the moment.</p>';
                     return;
                 }
 
-                let htmlContent = '';
-                products.forEach(p => {
-                    htmlContent += `
-            <div class="product-card group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_24px_48px_rgba(45,52,53,0.08)] border border-slate-100 dark:border-slate-800/80">
-                <div class="aspect-[4/3] relative overflow-hidden bg-surface-container-low">
-                    <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" alt="${p.name}" src="${p.image_url}"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-                <div class="flex flex-col flex-grow p-6 md:p-8">
-                    <h3 class="text-xl font-bold text-on-surface mb-2 tracking-tight group-hover:text-primary transition-colors">${p.name}</h3>
-                    <p class="text-on-surface-variant text-sm flex-grow mb-8 leading-relaxed line-clamp-2">${p.description}</p>
-                    <div class="flex justify-between items-end mt-auto pt-5 border-t border-slate-100 dark:border-slate-800/50">
-                        <div class="flex flex-col">
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant/70 mb-1.5">Price</span>
-                            <span class="text-2xl font-extrabold text-primary leading-none tracking-tight">₹${p.price_per_kg}<span class="text-xs font-semibold opacity-60 ml-1 tracking-normal">/kg</span></span>
+                let html = '';
+                products.forEach((p, i) => {
+                    let delay = (i % 4) * 0.05;
+                    html += `
+                    <div class="premium-card reveal-on-scroll bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full group" style="transition-delay: ${delay}s, 0s, 0s;">
+                        <div class="aspect-[4/3] bg-gray-50 overflow-hidden relative">
+                            <img src="${p.image_url}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                         </div>
-                        <a href="https://wa.me/919865668125" class="bg-[#25D366] text-white px-5 py-3 rounded-xl text-sm font-bold flex items-center gap-2.5 hover:bg-[#20bd5a] hover:-translate-y-0.5 transition-all shadow-sm hover:shadow-[0_8px_16px_rgba(37,211,102,0.25)] ring-1 ring-inset ring-black/5" target="_blank">
-                            <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.891 11.891-2.007 0-3.974-.509-5.712-1.472l-6.181 1.69zm6.014-4.222l.432.256c1.616.958 3.473 1.465 5.39 1.465 5.733 0 10.395-4.661 10.395-10.395s-4.662-10.395-10.395-10.395c-5.732 0-10.394 4.661-10.394 10.395 0 2.053.601 4.05 1.737 5.759l.282.424-1.104 4.035 4.145-1.137zm10.305-6.17c-.337-.17-1.991-.983-2.3-1.096-.309-.113-.533-.17-.757.17-.224.339-.869 1.096-1.066 1.321-.197.225-.394.253-.731.084-.337-.17-1.423-.524-2.71-1.672-1.002-.894-1.678-2.001-1.874-2.339-.197-.338-.021-.521.148-.689.152-.151.338-.395.506-.592.169-.197.225-.338.338-.563.112-.225.056-.423-.028-.592-.084-.169-.757-1.826-1.037-2.503-.273-.659-.551-.57-.757-.581-.196-.011-.421-.013-.646-.013s-.59.084-.899.423c-.309.338-1.18 1.155-1.18 2.817 0 1.661 1.208 3.267 1.377 3.493.169.225 2.378 3.631 5.761 5.087.805.347 1.433.553 1.922.709.808.257 1.543.221 2.124.135.647-.094 1.991-.815 2.272-1.603.281-.789.281-1.464.197-1.603-.084-.141-.309-.225-.646-.395z"/></svg> 
-                            Order
-                        </a>
-                    </div>
-                </div>
-            </div>
-            `;
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-extrabold text-gray-900 mb-1">${p.name}</h3>
+                            <p class="text-sm text-gray-500 mb-8 font-medium flex-grow">${p.description}</p>
+                            <div class="flex items-end justify-between border-t border-gray-100 pt-5 mt-auto">
+                                <div>
+                                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Price</p>
+                                    <p class="text-2xl font-black text-gray-900">₹${p.price_per_kg}<span class="text-sm text-gray-400 font-semibold tracking-normal ml-1">/kg</span></p>
+                                </div>
+                                <a href="https://wa.me/919865668125" class="bg-[#25D366] text-white px-5 py-3 rounded-xl text-sm font-bold flex items-center gap-2 hover:-translate-y-0.5 transition-transform shadow-sm hover:shadow-md">
+                                    <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.891 11.891-2.007 0-3.974-.509-5.712-1.472l-6.181 1.69zm6.014-4.222l.432.256c1.616.958 3.473 1.465 5.39 1.465 5.733 0 10.395-4.661 10.395-10.395s-4.662-10.395-10.395-10.395c-5.732 0-10.394 4.661-10.394 10.395 0 2.053.601 4.05 1.737 5.759l.282.424-1.104 4.035 4.145-1.137zm10.305-6.17c-.337-.17-1.991-.983-2.3-1.096-.309-.113-.533-.17-.757.17-.224.339-.869 1.096-1.066 1.321-.197.225-.394.253-.731.084-.337-.17-1.423-.524-2.71-1.672-1.002-.894-1.678-2.001-1.874-2.339-.197-.338-.021-.521.148-.689.152-.151.338-.395.506-.592.169-.197.225-.338.338-.563.112-.225.056-.423-.028-.592-.084-.169-.757-1.826-1.037-2.503-.273-.659-.551-.57-.757-.581-.196-.011-.421-.013-.646-.013s-.59.084-.899.423c-.309.338-1.18 1.155-1.18 2.817 0 1.661 1.208 3.267 1.377 3.493.169.225 2.378 3.631 5.761 5.087.805.347 1.433.553 1.922.709.808.257 1.543.221 2.124.135.647-.094 1.991-.815 2.272-1.603.281-.789.281-1.464.197-1.603-.084-.141-.309-.225-.646-.395z"></path></svg>
+                                    Order
+                                </a>
+                            </div>
+                        </div>
+                    </div>`;
                 });
-                grid.innerHTML = htmlContent;
+                grid.innerHTML = html;
 
-                // Re-attach scroll observers
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('revealed');
-                        } else {
-                            entry.target.classList.remove('revealed');
+                            observer.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.1, rootMargin: "0px" });
+                }, { threshold: 0.1, rootMargin: "50px" });
 
-                document.querySelectorAll('.product-card').forEach((el) => {
-                    el.classList.add('reveal-on-scroll');
-                    observer.observe(el);
-                });
+                document.querySelectorAll('.premium-card.reveal-on-scroll').forEach(el => observer.observe(el));
 
             } catch (err) {
-                console.error('Error loading products:', err.message || err);
-                grid.innerHTML = `<div class="col-span-full text-center py-12">
-            <p class="text-red-500 font-bold mb-2">Supabase Error:</p>
-            <p class="text-slate-600 bg-red-50 px-4 py-2 inline-block rounded border border-red-100">${err.message || err.toString()}</p>
-        </div>`;
+                console.error(err);
+                grid.innerHTML = `<div class="col-span-full text-center text-red-500 py-12 font-bold">Failed to load catalog. Please check your connection.</div>`;
             }
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Initial reveals
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('revealed');
-                    } else {
-                        entry.target.classList.remove('revealed');
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1, rootMargin: "0px" });
+            }, { threshold: 0.1, rootMargin: "50px" });
 
-            document.querySelectorAll('h1, h2, h3, p:not(.product-card p)').forEach((el) => {
-                el.classList.add('reveal-on-scroll');
-                observer.observe(el);
-            });
-
-            // Fire fetch
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
             loadProducts();
         });
     </script>
