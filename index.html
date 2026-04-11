@@ -41,8 +41,8 @@
         /* Optimized Fade-up Animation */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
@@ -208,9 +208,6 @@
             <div class="text-xl font-black text-white tracking-tight">Kamal Sea Foods</div>
             <p class="text-gray-400 text-sm font-medium">
                 © 2024 Kamal Sea Foods. All rights reserved.
-                <a href="admin.html"
-                    class="text-gray-500 hover:text-white ml-4 border-l border-gray-700 pl-4 transition-colors">Admin
-                    Panel</a>
             </p>
         </div>
     </footer>
@@ -269,7 +266,8 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('revealed');
-                            observer.unobserve(entry.target);
+                        } else {
+                            entry.target.classList.remove('revealed');
                         }
                     });
                 }, { threshold: 0.1, rootMargin: "50px" });
@@ -287,7 +285,8 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('revealed');
-                        observer.unobserve(entry.target);
+                    } else {
+                        entry.target.classList.remove('revealed');
                     }
                 });
             }, { threshold: 0.1, rootMargin: "50px" });
