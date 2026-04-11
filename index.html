@@ -235,7 +235,7 @@
                         entry.target.classList.remove('revealed');
                     }
                 });
-            }, { threshold: 0.1, rootMargin: "0px" });
+            }, { threshold: 0, rootMargin: "0px" });
 
             document.querySelectorAll('.reveal-on-scroll').forEach(el => globalObserver.observe(el));
         }
