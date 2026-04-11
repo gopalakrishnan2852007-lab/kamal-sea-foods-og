@@ -41,8 +41,8 @@
         /* Optimized Fade-up Animation */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
@@ -74,7 +74,7 @@
 <body class="bg-white text-gray-900 antialiased">
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-all">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center reveal-on-scroll">
             <div class="text-2xl font-black tracking-tight text-gray-900">Kamal Sea Foods</div>
             <div class="hidden md:flex space-x-8 text-sm font-semibold">
                 <a href="#retail" class="text-gray-600 hover:text-primary transition-colors">Products</a>
@@ -85,19 +85,21 @@
 
     <!-- Hero Section -->
     <header class="hero-dark-glow min-h-[90vh] flex items-center justify-center pt-20 relative overflow-hidden">
-        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto reveal-on-scroll">
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
             <span
-                class="inline-block px-4 py-1.5 mb-8 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-bold tracking-widest uppercase shadow-sm">
+                class="reveal-on-scroll inline-block px-4 py-1.5 mb-8 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-bold tracking-widest uppercase shadow-sm">
                 Top Quality Guaranteed
             </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+            <h1
+                class="reveal-on-scroll text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
                 Premium Frozen &<br />Ready-to-Cook Seafood
             </h1>
-            <p class="text-gray-400 text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p
+                class="reveal-on-scroll text-gray-400 text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto leading-relaxed">
                 Hygienically packed frozen seafood for retail and wholesale. Sourced fresh, stored right, and delivered
                 to your doorstep.
             </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div class="reveal-on-scroll flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="#retail"
                     class="px-8 py-3.5 bg-white text-gray-900 rounded-lg font-bold hover:bg-gray-100 transition-transform duration-300 hover:scale-105 shadow-sm">
                     Explore Products
@@ -113,67 +115,62 @@
     <!-- Trust Section -->
     <section id="trust" class="py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal-on-scroll">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">Why Choose Kamal Sea
-                    Foods</h2>
-                <p class="text-gray-500 text-lg font-medium max-w-2xl mx-auto">We prioritize quality, hygiene, and
+            <div class="text-center mb-16">
+                <h2 class="reveal-on-scroll text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">Why
+                    Choose Kamal Sea Foods</h2>
+                <p class="reveal-on-scroll text-gray-500 text-lg font-medium max-w-2xl mx-auto">We prioritize quality,
+                    hygiene, and
                     convenience to bring you the best seafood experience.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
                 <!-- Trust Card 1 -->
-                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
-                    style="transition-delay: 0.05s">
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined">verified_user</span>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Hygienically Frozen & Packed</h3>
-                    <p class="text-gray-600 text-sm font-medium">Processed under extreme hygiene conditions to retain
-                        absolute freshness.</p>
+                    <p class="text-gray-600 text-sm font-medium">Processed at ultra-low temperatures to lock in
+                        freshness instantly without chemical preservatives.</p>
                 </div>
                 <!-- Trust Card 2 -->
-                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
-                    style="transition-delay: 0.1s">
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined">ac_unit</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-900">Maintained Cold Storage</h3>
-                    <p class="text-gray-600 text-sm font-medium">Stored at precise temperatures to preserve the natural
-                        taste and nutrition.</p>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">Cold Chain Mastery</h3>
+                    <p class="text-gray-600 text-sm font-medium">Maintained flawless cold storage quality from the
+                        processing facility directly to your home.</p>
                 </div>
                 <!-- Trust Card 3 -->
-                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
-                    style="transition-delay: 0.15s">
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined">storefront</span>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Retail & Wholesale</h3>
-                    <p class="text-gray-600 text-sm font-medium">Flexible serving formats designed for individual
-                        households and large businesses alike.</p>
+                    <p class="text-gray-600 text-sm font-medium">Flexible quantities. Perfect for everyday home cooking
+                        or high-volume restaurant demands.</p>
                 </div>
                 <!-- Trust Card 4 -->
-                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
-                    style="transition-delay: 0.2s">
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                        <span class="material-symbols-outlined">home</span>
+                        <span class="material-symbols-outlined">restaurant</span>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Perfect for Homes & Hotels</h3>
-                    <p class="text-gray-600 text-sm font-medium">We tailor our portion sizes and deliveries for everyday
-                        cooking or commercial dining.</p>
+                    <p class="text-gray-600 text-sm font-medium">Trusted by leading chefs and households alike for
+                        consistent texture and rich flavor.</p>
                 </div>
                 <!-- Trust Card 5 -->
-                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
-                    style="transition-delay: 0.25s">
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                        <span class="material-symbols-outlined">restaurant_menu</span>
+                        <span class="material-symbols-outlined">skillet</span>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-gray-900">Ready-to-Cook Options</h3>
                     <p class="text-gray-600 text-sm font-medium">Cleaned, prepped, and ready to go straight from the
                         freezer to your pan.</p>
                 </div>
                 <!-- Trust Card 6 -->
-                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll"
-                    style="transition-delay: 0.3s">
+                <div class="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 reveal-on-scroll">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined">local_shipping</span>
                     </div>
@@ -188,11 +185,11 @@
     <!-- Product Section -->
     <section id="retail" class="py-24 bg-gray-50 relative border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 reveal-on-scroll">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                 <div>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-3">Our Collection
-                    </h2>
-                    <p class="text-gray-500 text-lg font-medium">Finest cuts and whole selections.</p>
+                    <h2 class="reveal-on-scroll text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-3">
+                        Our Collection</h2>
+                    <p class="reveal-on-scroll text-gray-500 text-lg font-medium">Finest cuts and whole selections.</p>
                 </div>
             </div>
 
@@ -204,7 +201,8 @@
 
     <!-- Footer -->
     <footer class="w-full py-10 bg-gray-900 text-center border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div
+            class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 reveal-on-scroll">
             <div class="text-xl font-black text-white tracking-tight">Kamal Sea Foods</div>
             <p class="text-gray-400 text-sm font-medium">
                 © 2024 Kamal Sea Foods. All rights reserved.
@@ -213,7 +211,7 @@
     </footer>
 
     <!-- WhatsApp FAB -->
-    <a class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
+    <a class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 reveal-on-scroll"
         href="https://wa.me/919865668125">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
             <path
@@ -223,6 +221,25 @@
     </a>
 
     <script>
+        // Use a single global observer
+        let globalObserver;
+
+        function refreshObservers() {
+            if (globalObserver) globalObserver.disconnect();
+
+            globalObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    } else {
+                        entry.target.classList.remove('revealed');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px" });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => globalObserver.observe(el));
+        }
+
         async function loadProducts() {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '<div class="col-span-full py-20 text-center"><div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div><p class="text-gray-500 font-medium">Loading premium catalog...</p></div>';
@@ -238,9 +255,8 @@
 
                 let html = '';
                 products.forEach((p, i) => {
-                    let delay = (i % 4) * 0.05;
                     html += `
-                    <div class="premium-card reveal-on-scroll bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full group" style="transition-delay: ${delay}s, 0s, 0s;">
+                    <div class="premium-card reveal-on-scroll bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full group">
                         <div class="aspect-[4/3] bg-gray-50 overflow-hidden relative">
                             <img src="${p.image_url}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                         </div>
@@ -260,19 +276,11 @@
                         </div>
                     </div>`;
                 });
+
                 grid.innerHTML = html;
 
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('revealed');
-                        } else {
-                            entry.target.classList.remove('revealed');
-                        }
-                    });
-                }, { threshold: 0.1, rootMargin: "50px" });
-
-                document.querySelectorAll('.premium-card.reveal-on-scroll').forEach(el => observer.observe(el));
+                // Re-init observer for dynamically added products
+                setTimeout(refreshObservers, 100);
 
             } catch (err) {
                 console.error(err);
@@ -281,17 +289,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                    } else {
-                        entry.target.classList.remove('revealed');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: "50px" });
-
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+            refreshObservers();
             loadProducts();
         });
     </script>
