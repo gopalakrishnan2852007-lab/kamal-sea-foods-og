@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kamal Sea Foods | Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 antialiased min-h-screen flex flex-col">
+
+    <!-- Auth Section -->
+    <div id="authDialog" class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 w-full max-w-md">
+            <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Admin Login</h2>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="email" required
+                        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500"
+                        placeholder="admin@kamalseafoods.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" required
+                        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500">
+                </div>
+                <div class="flex gap-2">
+                    <button type="submit"
+                        class="w-full flex justify-center py-2.5 px-4 rounded-lg shadow bg-slate-800 hover:bg-slate-700 text-white font-medium focus:outline-none transition-colors">
+                        Sign In
+                    </button>
+                    <button type="button" id="signupBtn"
+                        class="w-full flex justify-center py-2.5 px-4 rounded-lg shadow border border-slate-300 bg-white hover:bg-gray-50 text-slate-700 font-medium focus:outline-none transition-colors">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+            <p id="authError" class="text-red-500 font-bold bg-red-100 p-3 rounded-lg text-sm mt-4 text-center hidden">
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden flex-grow flex flex-col">
+        <nav class="bg-slate-900 text-white py-4 px-8 flex justify-between items-center shadow-md">
+            <h1 class="text-xl font-bold tracking-tight">Kamal Sea Foods Admin</h1>
+            <button id="logoutBtn"
+                class="text-sm border border-slate-700 px-4 py-1.5 rounded-lg hover:bg-slate-800 transition-colors">Logout</button>
+        </nav>
+
+        <div class="max-w-7xl mx-auto w-full p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Add Product Form -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Add New Product</h3>
+                    <form id="productForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                            <input type="text" id="pName" required
+                                class="w-full rounded-md border-gray-300 shadow-sm text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea id="pDesc" required rows="3"
+                                class="w-full rounded-md border-gray-300 shadow-sm text-sm"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Price per kg (â‚¹)</label>
+                            <input type="number" id="pPrice" required
+                                class="w-full rounded-md border-gray-300 shadow-sm text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
+                            <input type="file" id="pImage" accept="image/*" required
+                                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-slate-50 file:text-slate-700 hover:file:bg-slate-100 border border-gray-300 rounded-md">
+                        </div>
+                        <button type="submit" id="submitBtn"
+                            class="w-full flex justify-center py-2 px-4 rounded-md shadow bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-colors mt-2">
+                            Upload and Save
+                        </button>
+                        <p id="uploadStatus" class="font-medium text-sm text-center mt-2"></p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Product List -->
+            <div class="lg:col-span-2">
+                <div
+                    class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[600px]">
+                    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-gray-800">Current Inventory</h3>
+                        <button id="refreshBtn" class="p-1 rounded hover:bg-gray-200 text-gray-500"><span
+                                class="material-symbols-outlined text-xl">refresh</span></button>
+                    </div>
+                    <div class="flex-grow overflow-auto p-0">
+                        <table class="min-w-full divide-y divide-gray-200 text-left">
+                            <thead class="bg-white sticky top-0 shadow-sm z-10">
+                                <tr>
+                                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase">Image</th>
+                                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase whitespace-nowrap">
+                                        Name & Price</th>
+                                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase">Description</th>
+                                    <th class="px-6 py-3 text-right"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="bg-white divide-y divide-gray-200 text-sm">
+                                <!-- Populated dynamically -->
+                                <tr>
+                                    <td colspan="4" class="px-6 py-8 text-center text-gray-500">Loading products...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        // Check session
+        async function checkUser() {
+            const { data: { session } } = await window.supabaseClient.auth.getSession();
+            if (session) {
+                document.getElementById('authDialog').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                loadInventory();
+            } else {
+                document.getElementById('authDialog').classList.remove('hidden');
+                document.getElementById('dashboard').classList.add('hidden');
+            }
+        }
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const errorEl = document.getElementById('authError');
+
+            btn.innerHTML = 'Signing in...'; btn.disabled = true; errorEl.classList.add('hidden');
+
+            try {
+                const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
+
+                if (error) {
+                    errorEl.textContent = error.message;
+                    errorEl.classList.remove('hidden');
+                    btn.innerHTML = 'Sign In'; btn.disabled = false;
+                } else {
+                    checkUser();
+                }
+            } catch (err) {
+                errorEl.textContent = "CRITICAL ERROR: " + err.message;
+                errorEl.classList.remove('hidden');
+                btn.innerHTML = 'Sign In'; btn.disabled = false;
+            }
+        });
+
+        // Sign Up
+        document.getElementById('signupBtn').addEventListener('click', async () => {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const btn = document.getElementById('signupBtn');
+            const errorEl = document.getElementById('authError');
+
+            if (!email || !password) {
+                errorEl.textContent = 'Please enter an email and password to create an account.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            btn.innerHTML = 'Creating...'; btn.disabled = true; errorEl.classList.add('hidden');
+
+            try {
+                const { data, error } = await window.supabaseClient.auth.signUp({ email, password });
+
+                if (error) {
+                    errorEl.textContent = error.message;
+                    errorEl.classList.remove('hidden');
+                } else if (!data.session) {
+                    errorEl.innerHTML = `<b>Error:</b> Account created, but Supabase blocked the login. This means either:<br>1. You used an email that already exists.<br>2. You forgot to hit SAVE when turning off "Confirm Email" in the Dashboard.`;
+                    errorEl.classList.remove('hidden');
+                } else {
+                    await checkUser();
+                }
+            } catch (err) {
+                errorEl.textContent = "CRITICAL ERROR: " + err.message;
+                errorEl.classList.remove('hidden');
+            } finally {
+                btn.innerHTML = 'Create Account'; btn.disabled = false;
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await window.supabaseClient.auth.signOut();
+            checkUser();
+        });
+
+        // Load Inventory
+        async function loadInventory() {
+            const tBody = document.getElementById('tableBody');
+            tBody.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-gray-500">Loading products...</td></tr>';
+
+            const { data: products, error } = await window.supabaseClient
+                .from('products')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                tBody.innerHTML = `<tr><td colspan="4" class="px-6 py-4 text-center text-red-500">${error.message}</td></tr>`;
+                return;
+            }
+
+            if (products.length === 0) {
+                tBody.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-gray-500">No products found. Add one!</td></tr>';
+                return;
+            }
+
+            let html = '';
+            products.forEach(p => {
+                html += `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <img src="${p.image_url}" class="h-10 w-10 md:h-14 md:w-14 rounded object-cover shadow-sm border border-gray-200">
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="font-medium text-gray-900">${p.name}</div>
+                        <div class="text-indigo-600 font-bold">â‚¹${p.price_per_kg}/kg</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-gray-500 truncate max-w-xs">${p.description}</div>
+                    </td>
+                    <td class="px-6 py-4 text-right text-sm font-medium">
+                        <button onclick="deleteProduct('${p.id}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 py-1 rounded">Delete</button>
+                    </td>
+                </tr>`;
+            });
+            tBody.innerHTML = html;
+        }
+
+        document.getElementById('refreshBtn').addEventListener('click', loadInventory);
+
+        // Upload & Save Add Product
+        document.getElementById('productForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const status = document.getElementById('uploadStatus');
+            btn.disabled = true; btn.innerHTML = 'Uploading Image...';
+
+            try {
+                const name = document.getElementById('pName').value.trim();
+                const desc = document.getElementById('pDesc').value.trim();
+                const price = document.getElementById('pPrice').value.trim();
+                const fileInput = document.getElementById('pImage');
+                const file = fileInput.files[0];
+
+                if (!file) throw new Error("Please select an image");
+
+                // 1. Upload file
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+
+                const { data: uploadData, error: uploadError } = await window.supabaseClient.storage
+                    .from('product-images')
+                    .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+                if (uploadError) throw uploadError;
+
+                btn.innerHTML = 'Saving to Database...';
+
+                // 2. Get Public URL
+                const { data: { publicUrl } } = window.supabaseClient.storage
+                    .from('product-images')
+                    .getPublicUrl(fileName);
+
+                // 3. Insert Product
+                const { error: insertError } = await window.supabaseClient
+                    .from('products')
+                    .insert([{
+                        name: name,
+                        description: desc,
+                        price_per_kg: parseFloat(price),
+                        image_url: publicUrl
+                    }]);
+
+                if (insertError) throw insertError;
+
+                status.innerHTML = '<span class="text-green-600">Product added successfully!</span>';
+                e.target.reset();
+                loadInventory();
+
+            } catch (err) {
+                status.innerHTML = `<span class="text-red-600">${err.message}</span>`;
+            } finally {
+                btn.disabled = false; btn.innerHTML = 'Upload and Save';
+                setTimeout(() => { if (status.innerHTML.includes('successfully')) status.innerHTML = ''; }, 3000);
+            }
+        });
+
+        // Delete Row
+        window.deleteProduct = async (id) => {
+            if (!confirm("Are you sure you want to delete this product?")) return;
+            const { error } = await window.supabaseClient.from('products').delete().eq('id', id);
+            if (error) alert("Error deleting: " + error.message);
+            else loadInventory();
+        }
+
+        // Init
+        checkUser();
+
+        window.supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') {
+                checkUser();
+            }
+            if (event === 'SIGNED_OUT') {
+                checkUser();
+            }
+        });
+    </script>
+</body>
+
+</html>
