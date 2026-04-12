@@ -86,13 +86,40 @@ export default function ProductGrid() {
     }
 
     loadProducts();
+
+    // Subscribe to real-time stock updates
+    const subscription = supabase
+      .channel('products')
+      .on('postgres_changes', 
+        { event: 'UPDATE', schema: 'public', table: 'products' }, 
+        (payload) => {
+          setProducts(prev => 
+            prev.map(p => 
+              p.id === payload.new.id ? { ...p, stock: payload.new.stock } : p
+            )
+          );
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(subscription);
+    };
   }, []);
 
-  const updateLocalQty = (id, delta) => {
-    setLocalQuantities(prev => ({
-      ...prev,
-      [id]: Math.max(1, (prev[id] || 1) + delta)
-    }));
+  const updateLocalQty = (id, delta, maxStock) => {
+    setLocalQuantities(prev => {
+      const current = prev[id] || 1;
+      const next = current + delta;
+      
+      if (next < 1) return prev;
+      if (next > maxStock) {
+        alert(`Only ${maxStock} kg available in stock!`);
+        return { ...prev, [id]: maxStock };
+      }
+      
+      return { ...prev, [id]: next };
+    });
   };
 
   return (
@@ -128,8 +155,9 @@ export default function ProductGrid() {
             <p className="col-span-full text-center text-gray-500 py-12 font-medium">No products available at the moment.</p>
           ) : (
             products.map((p) => {
-              const isOut = p.stock_status === 'Out of Stock';
-              const isLow = p.stock_status === 'Low Stock';
+              const stock = p.stock || 0;
+              const isOut = stock === 0;
+              const isLow = stock > 0 && stock <= 5;
               const currentQty = localQuantities[p.id] || 1;
 
               return (
@@ -139,10 +167,12 @@ export default function ProductGrid() {
                 >
                   <div className="aspect-[4/3] bg-gray-50 overflow-hidden relative">
                     {isOut ? (
-                      <span className="absolute top-4 left-4 bg-red-500 text-white text-[10px] uppercase font-black px-3 py-1.5 rounded-lg shadow-sm z-10 tracking-widest">Sold Out</span>
+                      <span className="absolute top-4 left-4 bg-red-500 text-white text-[10px] uppercase font-black px-3 py-1.5 rounded-lg shadow-sm z-10 tracking-widest">Out of Stock</span>
                     ) : isLow ? (
-                      <span className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] uppercase font-black px-3 py-1.5 rounded-lg shadow-sm z-10 tracking-widest">Low Stock</span>
-                    ) : null}
+                      <span className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] uppercase font-black px-3 py-1.5 rounded-lg shadow-sm z-10 tracking-widest animate-pulse">Low Stock: {stock}kg left!</span>
+                    ) : (
+                      <span className="absolute top-4 left-4 bg-green-500 text-white text-[10px] uppercase font-black px-3 py-1.5 rounded-lg shadow-sm z-10 tracking-widest text-opacity-90">In Stock: {stock}kg</span>
+                    )}
                     
                     <img 
                       src={p.image_url} 
@@ -170,14 +200,14 @@ export default function ProductGrid() {
                         {!isOut && (
                           <div className="flex items-center gap-2 sm:gap-4 bg-gray-50 p-1.5 sm:p-2 rounded-xl border border-gray-200">
                             <button 
-                              onClick={() => updateLocalQty(p.id, -1)}
+                              onClick={() => updateLocalQty(p.id, -1, stock)}
                               className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-blue-600 font-black hover:bg-blue-50 transition-colors"
                             >
                               −
                             </button>
                             <span className="text-xs sm:text-sm font-black w-3 sm:w-4 text-center">{currentQty}</span>
                             <button 
-                              onClick={() => updateLocalQty(p.id, 1)}
+                              onClick={() => updateLocalQty(p.id, 1, stock)}
                               className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-blue-600 font-black hover:bg-blue-50 transition-colors"
                             >
                               +

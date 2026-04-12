@@ -24,7 +24,8 @@ export default function AdminPage() {
         stock_status: 'In Stock',
         description: '',
         image: null,
-        image_url: ''
+        image_url: '',
+        stock: 0
     });
     const [isSaving, setIsSaving] = useState(false);
 
@@ -126,7 +127,8 @@ export default function AdminPage() {
                 stock_status: 'In Stock',
                 description: '',
                 image_url: '',
-                image: null
+                image: null,
+                stock: 0
             });
         }
         setIsModalOpen(true);
@@ -165,7 +167,8 @@ export default function AdminPage() {
                 description: formData.description,
                 price_per_kg: parseFloat(formData.price_per_kg),
                 image_url: publicUrl,
-                stock_status: formData.stock_status
+                stock_status: formData.stock_status,
+                stock: parseInt(formData.stock) || 0
             };
 
             if (editingProduct) {
@@ -184,6 +187,24 @@ export default function AdminPage() {
             showToast(err.message, "error");
         } finally {
             setIsSaving(false);
+        }
+    };
+
+    const updateProductStock = async (id, newStock) => {
+        try {
+            const val = parseInt(newStock);
+            if (isNaN(val)) return;
+
+            const { error } = await supabase
+                .from('products')
+                .update({ stock: val })
+                .eq('id', id);
+
+            if (error) throw error;
+            showToast("Stock updated!", "success");
+            fetchProducts();
+        } catch (err) {
+            showToast(err.message, "error");
         }
     };
 
@@ -299,22 +320,39 @@ export default function AdminPage() {
                         </div>
 
                         {/* Stats Cards */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className="material-symbols-outlined text-blue-500">inventory_2</span>
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Total Products</p>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Total Items</p>
                                 </div>
                                 <h3 className="text-4xl font-black text-gray-900">{products.length}</h3>
                             </div>
                             <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <span className="material-symbols-outlined text-green-500">payments</span>
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Avg Price / Kg</p>
+                                    <span className="material-symbols-outlined text-yellow-500">warning</span>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Low Stock</p>
                                 </div>
-                                <h3 className="text-4xl font-black text-green-600">₹{products.length > 0 ? (products.reduce((acc, p) => acc + p.price_per_kg, 0) / products.length).toFixed(0) : 0}</h3>
+                                <h3 className="text-4xl font-black text-yellow-600">{products.filter(p => p.stock > 0 && p.stock <= 5).length}</h3>
+                            </div>
+                            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <span className="material-symbols-outlined text-red-500">error</span>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5">Out of Stock</p>
+                                </div>
+                                <h3 className="text-4xl font-black text-red-600">{products.filter(p => !p.stock || p.stock === 0).length}</h3>
                             </div>
                         </div>
+
+                        {/* Critical Alerts */}
+                        {products.some(p => !p.stock || p.stock === 0) && (
+                            <div className="bg-red-50 border border-red-100 rounded-2xl p-4 flex items-center gap-4 animate-pulse">
+                                <span className="material-symbols-outlined text-red-500">campaign</span>
+                                <p className="text-red-700 text-sm font-bold truncate">
+                                    Attention: {products.filter(p => !p.stock || p.stock === 0).length} product(s) are OUT OF STOCK. Please update inventory.
+                                </p>
+                            </div>
+                        )}
 
                         {/* Action Bar */}
                         <div className="flex items-center justify-between gap-4">
@@ -337,14 +375,15 @@ export default function AdminPage() {
                                     <tr>
                                         <th className="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest pl-8">Product Details</th>
                                         <th className="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Price / kg</th>
+                                        <th className="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Live Inventory</th>
                                         <th className="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest text-right pr-8">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-50">
                                     {loading ? (
-                                        <tr><td colSpan="3" class="px-6 py-20 text-center text-gray-400"><div class="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mx-auto"></div></td></tr>
+                                        <tr><td colSpan="4" class="px-6 py-20 text-center text-gray-400"><div class="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mx-auto"></div></td></tr>
                                     ) : filteredProducts.length === 0 ? (
-                                        <tr><td colSpan="3" class="px-6 py-20 text-center text-gray-500 font-bold">No products found.</td></tr>
+                                        <tr><td colSpan="4" class="px-6 py-20 text-center text-gray-500 font-bold">No products found.</td></tr>
                                     ) : (
                                         filteredProducts.map(p => (
                                             <tr key={p.id} className="hover:bg-gray-50/80 transition-colors group">
@@ -355,12 +394,27 @@ export default function AdminPage() {
                                                         </div>
                                                         <div>
                                                             <div className="font-bold text-gray-900">{p.name}</div>
-                                                            <div className="text-[11px] font-medium text-gray-500 truncate max-w-[250px] mt-0.5">{p.description}</div>
+                                                            <div className="text-[11px] font-medium text-gray-500 truncate max-w-[200px] mt-0.5">{p.description}</div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <span className="text-sm font-black text-gray-900">₹{p.price_per_kg}</span>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <input 
+                                                            type="number" 
+                                                            defaultValue={p.stock || 0}
+                                                            onBlur={(e) => updateProductStock(p.id, e.target.value)}
+                                                            className={`w-20 px-3 py-1.5 rounded-lg border text-sm font-bold focus:ring-2 outline-none transition-all ${
+                                                                (p.stock || 0) === 0 ? 'bg-red-50 border-red-200 text-red-600 focus:ring-red-100' : 
+                                                                (p.stock || 0) <= 5 ? 'bg-yellow-50 border-yellow-200 text-yellow-600 focus:ring-yellow-100' : 
+                                                                'bg-green-50 border-green-200 text-green-600 focus:ring-green-100'
+                                                            }`}
+                                                        />
+                                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-tighter">kg</span>
+                                                    </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-right pr-8">
                                                     <div className="flex items-center justify-end gap-2">
@@ -405,7 +459,12 @@ export default function AdminPage() {
                                         class="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="0.00" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Stock Status</label>
+                                    <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Standard Stock (kg)</label>
+                                    <input type="number" value={formData.stock} onChange={(e) => setFormData({...formData, stock: e.target.value})} required
+                                        class="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="0" />
+                                </div>
+                                <div>
+                                    <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Stock Status Display</label>
                                     <select value={formData.stock_status} onChange={(e) => setFormData({...formData, stock_status: e.target.value})}
                                         class="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white">
                                         <option value="In Stock">In Stock</option>

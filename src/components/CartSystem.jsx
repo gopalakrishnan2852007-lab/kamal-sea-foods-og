@@ -20,10 +20,39 @@ export default function CartSystem() {
     setShowCheckoutModal(true);
   };
 
-  const sendWhatsAppOrder = () => {
+  const sendWhatsAppOrder = async () => {
     const WHATSAPP_NUMBER = "919865668125";
     let message = "";
 
+    // 1. Reduce stock in Supabase for each item
+    try {
+      for (const item of cart) {
+        // Fetch current stock first to be safe
+        const { data: product, error: fetchError } = await supabase
+          .from('products')
+          .select('stock')
+          .eq('id', item.id)
+          .single();
+        
+        if (fetchError) throw fetchError;
+
+        const currentStock = product?.stock || 0;
+        const newStock = Math.max(0, currentStock - item.quantity);
+
+        const { error: updateError } = await supabase
+          .from('products')
+          .update({ stock: newStock })
+          .eq('id', item.id);
+
+        if (updateError) throw updateError;
+      }
+    } catch (err) {
+      console.error("Stock reduction error:", err);
+      // We still proceed with the WhatsApp link even if partial failure occurs, 
+      // but log the error for admin debugging.
+    }
+
+    // 2. Build Message
     if (orderMode === 'delivery') {
       message = `Hi Kamal Sea Food! 👋 I'd like to place an order.
 
@@ -56,7 +85,12 @@ I'll pick it up from your shop.
 Please confirm and let me know when it's ready! 🙏`;
     }
 
+    // 3. Open WhatsApp
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+    
+    // 4. Clear Cart
+    clearCart();
+    setShowCheckoutModal(false);
   };
 
   return (
