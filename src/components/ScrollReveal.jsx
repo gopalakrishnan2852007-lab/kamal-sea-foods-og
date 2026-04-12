@@ -5,8 +5,8 @@ export default function ScrollReveal({
   className = '', 
   style = {}, 
   delay = 0, 
-  threshold = 0.05, 
-  once = true 
+  threshold = 0.01, 
+  once = false 
 }) {
   const [isRevealed, setIsRevealed] = useState(false);
   const ref = useRef(null);
@@ -16,14 +16,14 @@ export default function ScrollReveal({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsRevealed(true);
-          if (once && ref.current) {
-            observer.unobserve(ref.current);
-          }
         } else if (!once) {
           setIsRevealed(false);
         }
       },
-      { threshold, rootMargin: '0px 0px -50px 0px' }
+      { 
+        threshold, 
+        rootMargin: '0px 0px -120px 0px'
+      }
     );
 
     if (ref.current) {
