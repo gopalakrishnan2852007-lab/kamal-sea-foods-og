@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollReveal from './ScrollReveal';
 
 const WHATSAPP_NUMBER = "919865668125";
 
@@ -26,17 +27,28 @@ export default function WhatsAppOrder() {
           <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-[40px] p-8 md:p-14 text-white text-center shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
             <div className="relative z-10 max-w-3xl mx-auto">
-              <span className="inline-block bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase mb-6">Wholesale & Export</span>
-              <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight tracking-tight">Need a Bulk Order?</h2>
-              <p className="text-white/80 text-lg mb-12 font-medium max-w-xl mx-auto">
-                Get special wholesale pricing for restaurants, stores, and large events. Minimum order quantities apply.
-              </p>
-              <button 
-                onClick={() => openWhatsApp(bulkMessage)}
-                className="bg-white text-emerald-600 px-10 py-5 rounded-[24px] text-lg font-black shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 mx-auto"
-              >
-                <span className="text-2xl">📦</span> Contact Bulk & Wholesale
-              </button>
+              <ScrollReveal>
+                <span className="inline-block bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase mb-6">Wholesale & Export</span>
+              </ScrollReveal>
+              
+              <ScrollReveal>
+                <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight tracking-tight">Need a Bulk Order?</h2>
+              </ScrollReveal>
+              
+              <ScrollReveal>
+                <p className="text-white/80 text-lg mb-12 font-medium max-w-xl mx-auto">
+                  Get special wholesale pricing for restaurants, stores, and large events. Minimum order quantities apply.
+                </p>
+              </ScrollReveal>
+              
+              <ScrollReveal>
+                <button 
+                  onClick={() => openWhatsApp(bulkMessage)}
+                  className="bg-white text-emerald-600 px-10 py-5 rounded-[24px] text-lg font-black shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 mx-auto"
+                >
+                  <span className="text-2xl">📦</span> Contact Bulk & Wholesale
+                </button>
+              </ScrollReveal>
             </div>
           </div>
         </div>
