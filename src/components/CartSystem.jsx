@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { supabase } from '../utils/supabase';
 import { SYMBOLS, openWhatsApp } from '../utils/whatsappUtils';
 
 export default function CartSystem() {

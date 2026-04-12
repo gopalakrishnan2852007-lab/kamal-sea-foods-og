@@ -1,3 +1,5 @@
+import React from 'react';
+import ScrollReveal from './ScrollReveal';
 import { SYMBOLS, openWhatsApp } from '../utils/whatsappUtils';
 
 export default function Hero() {
