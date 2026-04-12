@@ -133,7 +133,7 @@ export default function ProductGrid() {
                       src={p.image_url} 
                       alt={p.name} 
                       loading="lazy" 
-                      className={`w-full h-full object-cover transition-transform duration-500 ${isOut ? 'grayscale opacity-70' : 'group-hover:scale-110'}`} 
+                      className={`w-full h-full object-contain transition-transform duration-500 ${isOut ? 'grayscale opacity-70' : 'group-hover:scale-110'}`} 
                     />
                   </div>
                   <div className="p-3 sm:p-6 flex flex-col flex-grow">
