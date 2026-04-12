@@ -270,7 +270,6 @@ export default function AdminPage() {
     }
 
     return (
-    return (
         <div className="bg-gray-50 text-gray-900 min-h-screen flex font-sans antialiased overflow-hidden relative">
             {/* Mobile Sidebar Overlay */}
             {isMobileSidebarOpen && (
@@ -435,6 +434,12 @@ export default function AdminPage() {
                                                             type="number" 
                                                             defaultValue={p.stock || 0}
                                                             onBlur={(e) => updateProductStock(p.id, e.target.value)}
+                                                            onKeyDown={(e) => {
+                                                                if (e.key === 'Enter') {
+                                                                    updateProductStock(p.id, e.target.value);
+                                                                    e.target.blur();
+                                                                }
+                                                            }}
                                                             className={`w-20 px-3 py-1.5 rounded-lg border text-sm font-bold focus:ring-2 outline-none transition-all ${
                                                                 (p.stock || 0) === 0 ? 'bg-red-50 border-red-200 text-red-600 focus:ring-red-100' : 
                                                                 (p.stock || 0) <= 5 ? 'bg-yellow-50 border-yellow-200 text-yellow-600 focus:ring-yellow-100' : 
@@ -487,6 +492,12 @@ export default function AdminPage() {
                                                     type="number" 
                                                     defaultValue={p.stock || 0}
                                                     onBlur={(e) => updateProductStock(p.id, e.target.value)}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === 'Enter') {
+                                                            updateProductStock(p.id, e.target.value);
+                                                            e.target.blur();
+                                                        }
+                                                    }}
                                                     className={`w-16 px-2 py-1.5 rounded-xl border text-xs font-black focus:ring-2 outline-none transition-all ${
                                                         (p.stock || 0) === 0 ? 'bg-red-50 border-red-200 text-red-600 focus:ring-red-100' : 
                                                         (p.stock || 0) <= 5 ? 'bg-yellow-50 border-yellow-200 text-yellow-600 focus:ring-yellow-100' : 
