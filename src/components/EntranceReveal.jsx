@@ -118,8 +118,11 @@ export default function EntranceReveal({ onComplete }) {
         style={{
           height: "1px",
           background: "linear-gradient(90deg, transparent, #64c8ff, transparent)",
-          width: phase >= 4 ? "200px" : "0px",
-          transition: "width 0.9s ease",
+          width: "200px",
+          transform: phase >= 4 ? "scaleX(1)" : "scaleX(0)",
+          transition: "transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
+          transformOrigin: "center center",
+          willChange: "transform",
           marginBottom: "16px",
         }}
       />

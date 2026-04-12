@@ -96,22 +96,29 @@ export default function ProductGrid() {
     loadProducts();
 
     // Subscribe to real-time stock updates
-    const subscription = supabase
-      .channel('products')
-      .on('postgres_changes', 
-        { event: 'UPDATE', schema: 'public', table: 'products' }, 
-        (payload) => {
-          setProducts(prev => 
-            prev.map(p => 
-              p.id === payload.new.id ? { ...p, stock: payload.new.stock } : p
-            )
-          );
-        }
-      )
-      .subscribe();
+    let subscription;
+    try {
+      subscription = supabase
+        .channel('products')
+        .on('postgres_changes', 
+          { event: 'UPDATE', schema: 'public', table: 'products' }, 
+          (payload) => {
+            setProducts(prev => 
+              prev.map(p => 
+                p.id === payload.new.id ? { ...p, stock: payload.new.stock } : p
+              )
+            );
+          }
+        )
+        .subscribe();
+    } catch (err) {
+      console.warn('Realtime updates unavailable:', err);
+    }
 
     return () => {
-      supabase.removeChannel(subscription);
+      if (subscription) {
+        supabase.removeChannel(subscription);
+      }
     };
   }, []);
 
@@ -185,11 +192,13 @@ export default function ProductGrid() {
                     <img 
                       src={p.image_url} 
                       alt={p.name} 
-                      loading="lazy" 
+                      loading={idx === 0 ? "eager" : "lazy"}
+                      fetchpriority={idx === 0 ? "high" : "auto"}
                       decoding="async"
-                      width="400"
+                      width="300"
                       height="300"
-                      className={`w-full h-full object-cover transition-transform duration-700 ${isOut ? 'grayscale opacity-70' : 'group-hover:scale-125'}`} 
+                      style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                      className={`transition-transform duration-700 ${isOut ? 'grayscale opacity-70' : 'group-hover:scale-125'}`} 
                     />
                   </div>
                   <div className="p-3 sm:p-6 flex flex-col flex-grow">

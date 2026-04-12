@@ -67,14 +67,15 @@ export default function Hero() {
           <div className="relative w-[340px] h-[460px] rounded-[32px] overflow-hidden shadow-2xl animate-float border-[3px] border-white/5 group">
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10 hover:opacity-90 transition-opacity"></div>
             <img 
-              src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?q=80&w=800&auto=format&fit=crop" 
+              src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?q=60&w=800&auto=format&fit=crop&fm=webp" 
               alt="frozen tiger prawn" 
               loading="eager"
               fetchpriority="high"
               decoding="async"
-              width="340"
-              height="460"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" 
+              width="800"
+              height="600"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+              className="absolute inset-0 transition-transform duration-[2s] group-hover:scale-110" 
             />
             <div className="absolute bottom-8 left-8 right-8 z-20 transition-transform duration-500 group-hover:-translate-y-2">
               <h3 className="text-white font-black text-2xl tracking-tight shadow-sm mb-1 leading-tight">Ocean Fresh<br />Tiger Prawns</h3>
