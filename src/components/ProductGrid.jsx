@@ -169,7 +169,7 @@ export default function ProductGrid() {
           ) : products.length === 0 ? (
             <p className="col-span-full text-center text-gray-500 py-12 font-medium">No products available at the moment.</p>
           ) : (
-            products.map((p) => {
+            products.map((p, idx) => {
               const stock = p.stock || 0;
               const isOut = stock === 0;
               const isLow = stock > 0 && stock <= 5;
