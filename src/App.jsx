@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import { CartProvider } from './context/CartContext';
 import EntranceReveal from "./components/EntranceReveal";
 import HomePage from './pages/HomePage';
