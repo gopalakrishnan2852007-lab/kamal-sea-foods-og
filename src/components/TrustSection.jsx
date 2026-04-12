@@ -47,12 +47,24 @@ export default function TrustSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
           {cards.map((card, idx) => (
-            <ScrollReveal key={idx} className="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-sm">
-                <span className="material-symbols-outlined">{card.icon}</span>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-900">{card.title}</h3>
-              <p className="text-gray-600 text-sm font-medium">{card.description}</p>
+            <ScrollReveal 
+              key={idx} 
+              delay={idx * 100} 
+              className="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 flex flex-col"
+            >
+              <ScrollReveal delay={idx * 100 + 100}>
+                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-sm">
+                  <span className="material-symbols-outlined">{card.icon}</span>
+                </div>
+              </ScrollReveal>
+              
+              <ScrollReveal delay={idx * 100 + 200}>
+                <h3 className="text-xl font-bold mb-2 text-gray-900">{card.title}</h3>
+              </ScrollReveal>
+              
+              <ScrollReveal delay={idx * 100 + 300}>
+                <p className="text-gray-600 text-sm font-medium">{card.description}</p>
+              </ScrollReveal>
             </ScrollReveal>
           ))}
         </div>

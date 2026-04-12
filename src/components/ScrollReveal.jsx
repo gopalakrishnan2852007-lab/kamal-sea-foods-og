@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function ScrollReveal({ children, className = '', style = {} }) {
+export default function ScrollReveal({ children, className = '', style = {}, delay = 0, threshold = 0.1 }) {
   const [isRevealed, setIsRevealed] = useState(false);
   const ref = useRef(null);
 
@@ -10,11 +10,10 @@ export default function ScrollReveal({ children, className = '', style = {} }) {
         if (entry.isIntersecting) {
           setIsRevealed(true);
         } else {
-          // Optional: Remove to trigger animation only once
           setIsRevealed(false);
         }
       },
-      { threshold: 0, rootMargin: '0px' }
+      { threshold, rootMargin: '0px' }
     );
 
     if (ref.current) {
@@ -26,13 +25,13 @@ export default function ScrollReveal({ children, className = '', style = {} }) {
         observer.unobserve(ref.current);
       }
     };
-  }, []);
+  }, [threshold]);
 
   return (
     <div
       ref={ref}
       className={`reveal-on-scroll ${isRevealed ? 'revealed' : ''} ${className}`}
-      style={style}
+      style={{ ...style, '--reveal-delay': `${delay}ms` }}
     >
       {children}
     </div>

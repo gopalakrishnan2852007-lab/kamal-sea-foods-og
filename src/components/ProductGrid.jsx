@@ -193,12 +193,17 @@ export default function ProductGrid() {
                     />
                   </div>
                   <div className="p-3 sm:p-6 flex flex-col flex-grow">
-                    <h3 className={`text-[15px] sm:text-lg font-extrabold text-gray-900 mb-0.5 sm:mb-1 leading-tight ${isOut ? 'text-gray-500' : ''}`}>
-                      {p.name}
-                    </h3>
-                    <p className="text-[10px] sm:text-xs text-gray-500 mb-4 sm:mb-6 font-medium flex-grow line-clamp-2">
-                      {p.description}
-                    </p>
+                    <ScrollReveal delay={150}>
+                      <h3 className={`text-[15px] sm:text-lg font-extrabold text-gray-900 mb-0.5 sm:mb-1 leading-tight ${isOut ? 'text-gray-500' : ''}`}>
+                        {p.name}
+                      </h3>
+                    </ScrollReveal>
+                    
+                    <ScrollReveal delay={300}>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mb-4 sm:mb-6 font-medium flex-grow line-clamp-2">
+                        {p.description}
+                      </p>
+                    </ScrollReveal>
                     <div className="space-y-4 mt-auto border-t border-gray-100 pt-4">
                       <div className="flex items-center justify-between">
                         <div>
