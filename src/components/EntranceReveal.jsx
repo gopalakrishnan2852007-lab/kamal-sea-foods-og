@@ -89,7 +89,7 @@ export default function EntranceReveal({ onComplete }) {
           transition: "all 0.7s ease",
         }}
       >
-        Salem's Finest · Fresh Daily
+        Salem's Finest · Frozen Daily
       </p>
 
       {/* Brand name */}
@@ -134,7 +134,7 @@ export default function EntranceReveal({ onComplete }) {
           transition: "all 0.7s ease",
         }}
       >
-        Fresh Fish · Wholesale & Retail
+        Frozen Fish · Wholesale & Retail
       </p>
 
       {/* Location badge */}
