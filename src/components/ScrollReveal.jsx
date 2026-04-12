@@ -22,7 +22,7 @@ export default function ScrollReveal({
       },
       { 
         threshold, 
-        rootMargin: '0px 0px -120px 0px'
+        rootMargin: '0px 0px 80px 0px'
       }
     );
 
