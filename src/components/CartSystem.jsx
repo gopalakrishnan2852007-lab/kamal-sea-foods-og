@@ -72,8 +72,9 @@ export default function CartSystem() {
         `• Phone: ${phone}`,
         ``,
         totalWeight > 2 
-          ? `💚 *Free Delivery Applied! (Order above 2 kg)*` 
-          : `🚨 *Note: Free delivery only for orders above 2 kg within Salem.*`,
+          ? `💚 *Free Delivery Applied! (Above 2 kg within Salem)*` 
+          : `🚨 *Delivery charges may apply (Free delivery above 2 kg)*`,
+        `🚌 *Note: Surrounding Salem areas served via Bus parcel service.*`,
         ``,
         `Please confirm my order. Thank you! 🙏`
       ].filter(Boolean).join('\n');
@@ -176,14 +177,18 @@ export default function CartSystem() {
                 {totalWeight > 2 ? (
                   <div className="bg-green-50 text-green-600 px-4 py-2 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-2 animate-pulse">
                     <span className="material-symbols-outlined text-sm">auto_awesome</span>
-                    💚 You qualify for FREE delivery! (Above 2 kg)
+                    💚 FREE delivery within Salem! (Above 2 kg)
                   </div>
                 ) : (
                   <div className="bg-orange-50 text-orange-600 px-4 py-2 rounded-xl text-[10px] font-bold border border-orange-100 flex items-center gap-2 leading-tight">
                     <span className="material-symbols-outlined text-sm">info</span>
-                    🚨 Order above 2 kg for FREE delivery within Salem. Current: {totalWeight} kg
+                    🚨 Order above 2 kg for FREE delivery within Salem.
                   </div>
                 )}
+                <p className="text-[10px] text-gray-400 font-bold leading-tight mt-2 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-sm">directions_bus</span>
+                  Surrounding areas of Salem? We send parcels via Bus! Contact us on WhatsApp.
+                </p>
               </div>
               
               <button 
@@ -265,14 +270,18 @@ export default function CartSystem() {
                   </div>
                   
                   <div className="pt-4">
-                    <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 mb-6">
-                      <p className="text-[10px] text-blue-600 font-bold flex items-center gap-2 mb-1">
-                        <span className="material-symbols-outlined text-sm">location_on</span>
-                        Delivery available within Salem area only
+                    <div className="bg-blue-50 rounded-2xl p-5 border border-blue-100 mb-6 space-y-2">
+                      <p className="text-[10px] text-blue-700 font-black flex items-center gap-2">
+                        <span className="material-symbols-outlined text-sm text-green-600">check_circle</span>
+                        💚 FREE delivery for orders above 2 kg within Salem.
                       </p>
-                      <p className="text-[10px] text-blue-600 font-bold flex items-center gap-2">
-                        <span className="material-symbols-outlined text-sm">delivery_dining</span>
-                        {totalWeight > 2 ? '💚 FREE delivery applied!' : '🚨 Order above 2 kg for FREE delivery'}
+                      <p className="text-[10px] text-blue-700 font-black flex items-center gap-2">
+                        <span className="material-symbols-outlined text-sm text-blue-600">directions_bus</span>
+                        🚌 Outside Salem? We deliver via Bus parcel service to surrounding areas!
+                      </p>
+                      <p className="text-[10px] text-blue-700 font-black flex items-center gap-2">
+                        <span className="material-symbols-outlined text-sm text-blue-600">location_on</span>
+                        📍 Delivery available within Salem & surrounding areas.
                       </p>
                     </div>
                     
