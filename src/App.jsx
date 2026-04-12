@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet-async';
 import EntranceReveal from "./components/EntranceReveal";
 import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
-import WhatsAppOrder from './components/WhatsAppOrder';
 
 export default function App() {
   const [showApp, setShowApp] = useState(false);
@@ -22,7 +21,6 @@ export default function App() {
         <Route path="/" element={
           <>
             {!showApp && <EntranceReveal onComplete={() => setShowApp(true)} />}
-            <WhatsAppOrder showApp={showApp} />
             <HomePage showApp={showApp} />
           </>
         } />

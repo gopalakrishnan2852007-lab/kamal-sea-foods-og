@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import TrustSection from '../components/TrustSection';
 import ProductGrid from '../components/ProductGrid';
 import Footer from '../components/Footer';
+import WhatsAppOrder from '../components/WhatsAppOrder';
 
 export default function HomePage({ showApp }) {
   return (
@@ -18,6 +19,7 @@ export default function HomePage({ showApp }) {
       <h1 className="sr-only">Kamal Sea Food</h1>
       <Navbar />
       <main>
+        <WhatsAppOrder />
         <Hero />
         <ProductGrid />
         <TrustSection />
