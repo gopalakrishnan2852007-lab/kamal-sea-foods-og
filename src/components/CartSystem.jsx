@@ -71,7 +71,9 @@ export default function CartSystem() {
         `• Area/Landmark: ${landmark}`,
         `• Phone: ${phone}`,
         ``,
-        totalWeight >= 2 ? `💚 *Free delivery as order is above 2 kg within Salem!*` : ``,
+        totalWeight > 2 
+          ? `💚 *Free Delivery Applied! (Order above 2 kg)*` 
+          : `🚨 *Note: Free delivery only for orders above 2 kg within Salem.*`,
         ``,
         `Please confirm my order. Thank you! 🙏`
       ].filter(Boolean).join('\n');
@@ -171,15 +173,15 @@ export default function CartSystem() {
                   <span className="text-gray-400 font-bold text-sm uppercase tracking-wider">Estimated Weight</span>
                   <span className="text-gray-900 font-black">{totalWeight} kg</span>
                 </div>
-                {totalWeight >= 2 ? (
+                {totalWeight > 2 ? (
                   <div className="bg-green-50 text-green-600 px-4 py-2 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-2 animate-pulse">
                     <span className="material-symbols-outlined text-sm">auto_awesome</span>
-                    You qualify for FREE delivery within Salem!
+                    💚 You qualify for FREE delivery! (Above 2 kg)
                   </div>
                 ) : (
-                  <div className="bg-blue-50 text-blue-400 px-4 py-2 rounded-xl text-[10px] font-bold border border-blue-100 flex items-center gap-2 leading-tight">
+                  <div className="bg-orange-50 text-orange-600 px-4 py-2 rounded-xl text-[10px] font-bold border border-orange-100 flex items-center gap-2 leading-tight">
                     <span className="material-symbols-outlined text-sm">info</span>
-                    Order 2 kg or more for FREE delivery within Salem!
+                    🚨 Order above 2 kg for FREE delivery within Salem. Current: {totalWeight} kg
                   </div>
                 )}
               </div>
@@ -270,7 +272,7 @@ export default function CartSystem() {
                       </p>
                       <p className="text-[10px] text-blue-600 font-bold flex items-center gap-2">
                         <span className="material-symbols-outlined text-sm">delivery_dining</span>
-                        {totalWeight >= 2 ? 'FREE delivery applied!' : 'FREE delivery for orders above 2 kg'}
+                        {totalWeight > 2 ? '💚 FREE delivery applied!' : '🚨 Order above 2 kg for FREE delivery'}
                       </p>
                     </div>
                     
