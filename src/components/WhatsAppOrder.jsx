@@ -1,28 +1,19 @@
 import React from 'react';
 import ScrollReveal from './ScrollReveal';
 
-const WHATSAPP_NUMBER = "919865668125";
+import { SYMBOLS, openWhatsApp } from '../utils/whatsappUtils';
 
 const bulkMessage = [
-  `Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦`,
+  `Hi Kamal Sea Food! ${SYMBOLS.WAVE} I'm interested in a *BULK ORDER* ${SYMBOLS.PACKAGE}`,
   ``,
   `My Details:`,
-  `• Business Name: `,
-  `• Location: `,
-  `• Products Needed: `,
-  `• Quantity Required: `,
+  `${SYMBOLS.BULLET} Business Name: `,
+  `${SYMBOLS.BULLET} Location: `,
+  `${SYMBOLS.BULLET} Products Needed: `,
+  `${SYMBOLS.BULLET} Quantity Required: `,
   ``,
-  `Please share wholesale pricing and availability! 🙏`
+  `Please share wholesale pricing and availability! ${SYMBOLS.PRAY}`
 ].join('\n');
-
-const openWhatsApp = (message) => {
-  const encoded = encodeURIComponent(message)
-    .replace(/'/g, '%27')
-    .replace(/!/g, '%21');
-  
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
-  window.open(url, '_blank');
-};
 
 export default function WhatsAppOrder() {
   return (
@@ -68,7 +59,7 @@ export default function WhatsAppOrder() {
         </span>
 
         <button 
-          onClick={() => openWhatsApp("Hi Kamal Sea Food! 👋")}
+          onClick={() => openWhatsApp(`Hi Kamal Sea Food! ${SYMBOLS.WAVE}`)}
           className="relative w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_10px_40px_rgba(37,211,102,0.4)] hover:scale-110 active:scale-95 transition-all duration-300"
           aria-label="Contact on WhatsApp"
         >

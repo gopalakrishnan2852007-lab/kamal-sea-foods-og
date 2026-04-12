@@ -31,6 +31,7 @@ export default function AdminPage() {
 
     // Toasts
     const [toasts, setToasts] = useState([]);
+    const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
     useEffect(() => {
         // Initial session check
@@ -269,20 +270,32 @@ export default function AdminPage() {
     }
 
     return (
-        <div className="bg-gray-50 text-gray-900 min-h-screen flex font-sans antialiased overflow-hidden">
+    return (
+        <div className="bg-gray-50 text-gray-900 min-h-screen flex font-sans antialiased overflow-hidden relative">
+            {/* Mobile Sidebar Overlay */}
+            {isMobileSidebarOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[140] md:hidden"
+                    onClick={() => setIsMobileSidebarOpen(false)}
+                ></div>
+            )}
+
             {/* Sidebar */}
-            <aside className="w-64 bg-[#111111] text-gray-300 flex flex-col z-[100] flex-shrink-0 transition-transform duration-300 hidden md:flex">
+            <aside className={`fixed inset-y-0 left-0 w-64 bg-[#111111] text-gray-300 flex flex-col z-[150] flex-shrink-0 transition-transform duration-300 md:relative md:translate-x-0 ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="h-16 flex items-center justify-between px-6 border-b border-gray-800 flex-shrink-0">
                     <span className="text-lg font-black text-white tracking-tight flex items-center gap-2">
                         <span className="material-symbols-outlined text-blue-500">water</span>
                         Kamal Admin
                     </span>
+                    <button onClick={() => setIsMobileSidebarOpen(false)} className="md:hidden text-gray-400">
+                        <span className="material-symbols-outlined">close</span>
+                    </button>
                 </div>
                 <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-2">
                     <a className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-800/50 text-white font-bold transition-colors cursor-pointer">
                         <span className="material-symbols-outlined text-[20px]">dashboard</span> Dashboard
                     </a>
-                    <a onClick={() => openModal()} className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors font-medium cursor-pointer">
+                    <a onClick={() => { openModal(); setIsMobileSidebarOpen(false); }} className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800/50 hover:text-white transition-colors font-medium cursor-pointer">
                         <span className="material-symbols-outlined text-[20px]">add_circle</span> Add Product
                     </a>
                 </nav>
@@ -296,27 +309,42 @@ export default function AdminPage() {
             {/* Main Content */}
             <div className="flex-1 flex flex-col h-screen overflow-hidden w-full relative">
                 {/* Topbar */}
-                <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-10 z-10 flex-shrink-0">
-                    <div className="relative w-full max-w-md">
-                        <span className="material-symbols-outlined absolute left-3 top-[9px] text-gray-400 text-[20px]">search</span>
-                        <input type="text" placeholder="Search products..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-transparent rounded-xl text-sm font-medium focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
-                    </div>
+                <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-10 z-10 flex-shrink-0">
                     <div className="flex items-center gap-4">
-                        <button onClick={() => openModal()} className="flex items-center gap-2 bg-gray-900 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm hover:scale-[1.02] transition-transform">
-                            <span className="material-symbols-outlined text-[18px]">add</span> Add Product
+                        <button 
+                            onClick={() => setIsMobileSidebarOpen(true)}
+                            className="md:hidden w-10 h-10 flex items-center justify-center bg-gray-50 rounded-xl text-gray-900"
+                        >
+                            <span className="material-symbols-outlined">menu</span>
                         </button>
-                        <div className="h-8 border-l border-gray-200 mx-2"></div>
+                        <div className="relative w-full max-w-[200px] md:max-w-md hidden sm:block">
+                            <span className="material-symbols-outlined absolute left-3 top-[9px] text-gray-400 text-[20px]">search</span>
+                            <input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-transparent rounded-xl text-sm font-medium focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-2 md:gap-4">
+                        <button onClick={() => openModal()} className="flex items-center gap-2 bg-gray-900 text-white px-3 md:px-4 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-bold shadow-sm hover:scale-[1.02] transition-transform">
+                            <span className="material-symbols-outlined text-[18px]">add</span> <span className="hidden xs:inline">Add Product</span>
+                        </button>
+                        <div className="h-8 border-l border-gray-200 mx-1 md:mx-2"></div>
                         <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-xs ring-2 ring-white shadow-sm">KS</div>
                     </div>
                 </header>
 
                 {/* Main View Area */}
-                <main className="flex-1 overflow-y-auto p-10 custom-scrollbar relative">
-                    <div className="max-w-7xl mx-auto space-y-8">
+                <main className="flex-1 overflow-y-auto p-4 md:p-10 custom-scrollbar relative">
+                    <div className="max-w-7xl mx-auto space-y-6 md:space-y-8">
                         <div>
-                            <h1 className="text-3xl font-black text-gray-900 tracking-tight">Inventory Overview</h1>
-                            <p className="text-sm text-gray-500 mt-1 font-medium">Manage your product catalog entirely.</p>
+                            <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Inventory</h1>
+                            <p className="text-sm text-gray-500 mt-1 font-medium">Manage your product catalog.</p>
+                        </div>
+                        
+                        {/* Mobile Search - Only visible on small screens */}
+                        <div className="relative w-full sm:hidden">
+                            <span className="material-symbols-outlined absolute left-3 top-[10px] text-gray-400 text-[20px]">search</span>
+                            <input type="text" placeholder="Search products..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-2xl text-sm font-medium focus:border-blue-500 outline-none" />
                         </div>
 
                         {/* Stats Cards */}
@@ -368,9 +396,9 @@ export default function AdminPage() {
                             </button>
                         </div>
 
-                        {/* Table */}
-                        <div className="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden">
-                            <table className="w-full text-left border-collapse min-w-[500px]">
+                        {/* Desktop Table - Hidden on Mobile */}
+                        <div className="hidden md:block bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden">
+                            <table className="w-full text-left border-collapse">
                                 <thead className="bg-gray-50/80 border-b border-gray-100">
                                     <tr>
                                         <th className="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest pl-8">Product Details</th>
@@ -432,6 +460,54 @@ export default function AdminPage() {
                                 </tbody>
                             </table>
                         </div>
+
+                        {/* Mobile List View - Cards */}
+                        <div className="md:hidden space-y-4">
+                            {loading ? (
+                                <div className="py-20 text-center text-gray-400"><div className="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mx-auto"></div></div>
+                            ) : filteredProducts.length === 0 ? (
+                                <div className="py-20 text-center text-gray-500 font-bold bg-white rounded-3xl border border-gray-100">No products found.</div>
+                            ) : (
+                                filteredProducts.map(p => (
+                                    <div key={p.id} className="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 space-y-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className="h-16 w-16 flex-shrink-0 bg-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                                                <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" />
+                                            </div>
+                                            <div className="flex-grow min-w-0">
+                                                <div className="font-black text-gray-900 truncate">{p.name}</div>
+                                                <div className="text-sm font-black text-blue-600 mt-0.5">₹{p.price_per_kg}/kg</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="flex items-center justify-between pt-2 border-t border-gray-50">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Stock:</span>
+                                                <input 
+                                                    type="number" 
+                                                    defaultValue={p.stock || 0}
+                                                    onBlur={(e) => updateProductStock(p.id, e.target.value)}
+                                                    className={`w-16 px-2 py-1.5 rounded-xl border text-xs font-black focus:ring-2 outline-none transition-all ${
+                                                        (p.stock || 0) === 0 ? 'bg-red-50 border-red-200 text-red-600 focus:ring-red-100' : 
+                                                        (p.stock || 0) <= 5 ? 'bg-yellow-50 border-yellow-200 text-yellow-600 focus:ring-yellow-100' : 
+                                                        'bg-green-50 border-green-200 text-green-600 focus:ring-green-100'
+                                                    }`}
+                                                />
+                                                <span className="text-[10px] font-black text-gray-400">KG</span>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <button onClick={() => openModal(p)} className="w-9 h-9 rounded-xl bg-gray-50 text-gray-600 flex items-center justify-center active:bg-blue-100">
+                                                    <span className="material-symbols-outlined text-[18px]">edit</span>
+                                                </button>
+                                                <button onClick={() => deleteProduct(p.id)} className="w-9 h-9 rounded-xl bg-red-50 text-red-500 flex items-center justify-center active:bg-red-100">
+                                                    <span className="material-symbols-outlined text-[18px]">delete</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
                     </div>
                 </main>
             </div>
@@ -439,7 +515,7 @@ export default function AdminPage() {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[150] bg-gray-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white w-full max-w-xl rounded-[24px] shadow-2xl p-8 max-h-[90vh] overflow-y-auto border border-gray-100">
+                    <div className="bg-white w-full max-w-xl rounded-[24px] shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto border border-gray-100">
                         <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
                             <h3 className="text-2xl font-black text-gray-900 tracking-tight">{editingProduct ? 'Edit Product' : 'Add New Product'}</h3>
                             <button onClick={closeModal} className="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-500 rounded-full hover:bg-gray-200">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { SYMBOLS, openWhatsApp } from '../utils/whatsappUtils';
 
 export default function CartSystem() {
   const { cart, removeFromCart, updateQuantity, clearCart, totalItems, totalWeight } = useCart();
@@ -53,53 +54,49 @@ export default function CartSystem() {
     }
 
     // 2. Build Message
-    const items = cart.map(item => `• ${item.name} × ${item.quantity} kg`).join('\n');
+    const items = cart.map(item => `${SYMBOLS.BULLET} ${item.name} ${SYMBOLS.CROSS} ${item.quantity} kg`).join('\n');
     
     if (orderMode === 'delivery') {
       message = [
-        `Hi Kamal Sea Food! 👋 I'd like to place an order.`,
+        `Hi Kamal Sea Food! ${SYMBOLS.WAVE} I'd like to place an order.`,
         ``,
-        `🛵 *Delivery Order*`,
+        `${SYMBOLS.SCOOTER} *Delivery Order*`,
         ``,
-        `🛒 *My Order:*`,
+        `${SYMBOLS.CART} *My Order:*`,
         items,
         ``,
-        `📦 *Total Quantity:* ${totalWeight} kg`,
+        `${SYMBOLS.PACKAGE} *Total Quantity:* ${totalWeight} kg`,
         ``,
-        `🚚 *Delivery Details:*`,
-        `• Address: ${address}`,
-        `• Area/Landmark: ${landmark}`,
-        `• Phone: ${phone}`,
+        `${SYMBOLS.TRUCK} *Delivery Details:*`,
+        `${SYMBOLS.BULLET} Address: ${address}`,
+        `${SYMBOLS.BULLET} Area/Landmark: ${landmark}`,
+        `${SYMBOLS.BULLET} Phone: ${phone}`,
         ``,
         totalWeight > 2 
-          ? `💚 *Free Delivery Applied! (Above 2 kg within Salem)*` 
-          : `🚨 *Delivery charges may apply (Free delivery above 2 kg)*`,
-        `🚌 *Note: Surrounding Salem areas served via Bus parcel service.*`,
+          ? `${SYMBOLS.GREEN_HEART} *Free Delivery Applied! (Above 2 kg within Salem)*` 
+          : `${SYMBOLS.ALERT} *Delivery charges may apply (Free delivery above 2 kg)*`,
+        `${SYMBOLS.BUS} *Note: Surrounding Salem areas served via Bus parcel service.*`,
         ``,
-        `Please confirm my order. Thank you! 🙏`
+        `Please confirm my order. Thank you! ${SYMBOLS.PRAY}`
       ].filter(Boolean).join('\n');
     } else {
       message = [
-        `Hi Kamal Sea Food! 👋 I'd like to place a Takeaway order.`,
+        `Hi Kamal Sea Food! ${SYMBOLS.WAVE} I'd like to place a Takeaway order.`,
         ``,
-        `🏪 *Takeaway Order*`,
+        `${SYMBOLS.STORE} *Takeaway Order*`,
         ``,
-        `🛒 *My Order:*`,
+        `${SYMBOLS.CART} *My Order:*`,
         items,
         ``,
-        `📦 *Total Quantity:* ${totalWeight} kg`,
+        `${SYMBOLS.PACKAGE} *Total Quantity:* ${totalWeight} kg`,
         ``,
         `I'll pick it up from your shop.`,
-        `Please confirm and let me know when it's ready! 🙏`
+        `Please confirm and let me know when it's ready! ${SYMBOLS.PRAY}`
       ].join('\n');
     }
 
     // 3. Open WhatsApp
-    const encoded = encodeURIComponent(message)
-      .replace(/'/g, '%27')
-      .replace(/!/g, '%21');
-
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
+    openWhatsApp(message);
     
     // 4. Clear Cart
     clearCart();

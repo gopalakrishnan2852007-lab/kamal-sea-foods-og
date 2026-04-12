@@ -2,63 +2,58 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import ScrollReveal from './ScrollReveal';
 import { useCart } from '../context/CartContext';
-
-const WHATSAPP_NUMBER = "919865668125";
+import { SYMBOLS, getWhatsAppLink } from '../utils/whatsappUtils';
 
 // Dynamically generates message from Supabase product data
-const getWhatsAppLink = (product, type = "order") => {
+const getLocalizedWhatsAppLink = (product, type = "order") => {
   let message = [];
 
   if (type === "order") {
     message = [
-      `Hi Kamal Sea Food! 👋`,
+      `Hi Kamal Sea Food! ${SYMBOLS.WAVE}`,
       ``,
       `I'd like to order the following:`,
       ``,
-      `🐟 *Product:* ${product.name}`,
-      `📦 *Type:* ${product.type || "Ready-to-cook"}`,
-      `⚖️ *Weight:* ${product.weight || "1 kg"}`,
+      `${SYMBOLS.FISH} *Product:* ${product.name}`,
+      `${SYMBOLS.PACKAGE} *Type:* ${product.type || "Ready-to-cook"}`,
+      `${SYMBOLS.SCALE} *Weight:* ${product.weight || "1 kg"}`,
       ``,
       `Please confirm availability and process my order.`,
-      `Thank you! 🙏`
+      `Thank you! ${SYMBOLS.PRAY}`
     ];
   }
 
   if (type === "bulk") {
     message = [
-      `Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦`,
+      `Hi Kamal Sea Food! ${SYMBOLS.WAVE} I'm interested in a *BULK ORDER* ${SYMBOLS.PACKAGE}`,
       ``,
-      `🐟 *Product:* ${product.name}`,
-      `📦 *Type:* ${product.type || "Ready-to-cook"}`,
-      `⚖️ *Weight:* ${product.weight || "1 kg"}`,
+      `${SYMBOLS.FISH} *Product:* ${product.name}`,
+      `${SYMBOLS.PACKAGE} *Type:* ${product.type || "Ready-to-cook"}`,
+      `${SYMBOLS.SCALE} *Weight:* ${product.weight || "1 kg"}`,
       ``,
       `My Details:`,
-      `• Business Name: `,
-      `• Location: `,
-      `• Quantity Required: `,
+      `${SYMBOLS.BULLET} Business Name: `,
+      `${SYMBOLS.BULLET} Location: `,
+      `${SYMBOLS.BULLET} Quantity Required: `,
       ``,
-      `Please share wholesale pricing and availability! 🙏`
+      `Please share wholesale pricing and availability! ${SYMBOLS.PRAY}`
     ];
   }
 
   if (type === "inquiry") {
     message = [
-      `Hi Kamal Sea Food! 👋`,
+      `Hi Kamal Sea Food! ${SYMBOLS.WAVE}`,
       ``,
       `I have an inquiry about *${product.name}*`,
-      `📦 Type: ${product.type || "Ready-to-cook"}`,
+      `${SYMBOLS.PACKAGE} Type: ${product.type || "Ready-to-cook"}`,
       ``,
       `Could you share more details and today's availability?`,
-      `Thank you! 🙏`
+      `Thank you! ${SYMBOLS.PRAY}`
     ];
   }
 
   const messageText = message.join('\n');
-  const encoded = encodeURIComponent(messageText)
-    .replace(/'/g, '%27')
-    .replace(/!/g, '%21');
-
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
+  return getWhatsAppLink(messageText);
 };
 
 export default function ProductGrid() {
