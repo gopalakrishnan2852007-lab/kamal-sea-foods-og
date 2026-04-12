@@ -186,6 +186,9 @@ export default function ProductGrid() {
                       src={p.image_url} 
                       alt={p.name} 
                       loading="lazy" 
+                      decoding="async"
+                      width="400"
+                      height="300"
                       className={`w-full h-full object-cover transition-transform duration-700 ${isOut ? 'grayscale opacity-70' : 'group-hover:scale-125'}`} 
                     />
                   </div>

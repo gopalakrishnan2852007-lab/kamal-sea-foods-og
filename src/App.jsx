@@ -8,31 +8,34 @@ import AdminPage from './pages/AdminPage';
 import CartSystem from './components/CartSystem';
 
 export default function App() {
-  const [showApp, setShowApp] = useState(false);
+  const [appReady, setAppReady] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(true);
 
   return (
     <CartProvider>
       <BrowserRouter>
         <Helmet>
           <title>Kamal Sea Food Salem | Fresh Fish Wholesale & Retail</title>
-          <meta name="description" content="Kamal Sea Food Salem - fresh fish, prawns, crab wholesale and retail. Bulk seafood supplier in Salem Tamil Nadu." />
-          <meta name="keywords" content="frozen seafood, frozen fish supplier, prawn supplier, seafood wholesale, frozen fish retail, seafood supplier, Kamal Sea Food" />
+          <meta name="description" content="Kamal Sea Food Salem - Fresh Fish Wholesale & Retail. Order Vanjaram, Prawns, Crab online. Free delivery above 2kg in Salem. WhatsApp: 9865668125" />
+          <meta name="keywords" content="fish shop salem, seafood salem, fresh fish salem, wholesale fish salem, kamal sea food, fish delivery salem" />
         </Helmet>
 
-        <CartSystem />
+        {/* Animation Overlay */}
+        {showAnimation && (
+          <EntranceReveal onComplete={() => {
+            setShowAnimation(false);
+            setAppReady(true);
+          }} />
+        )}
 
-        <Routes>
-          {/* Landing Page Route with Animation */}
-          <Route path="/" element={
-            <>
-              {!showApp && <EntranceReveal onComplete={() => setShowApp(true)} />}
-              <HomePage showApp={showApp} />
-            </>
-          } />
-
-          {/* Admin Dashboard Route (Faster access without reveal) */}
-          <Route path="/admin" element={<AdminPage />} />
-        </Routes>
+        {/* App content rendered behind or after animation */}
+        <div style={{ visibility: (appReady || !showAnimation) ? 'visible' : 'hidden' }}>
+          <CartSystem />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/admin" element={<AdminPage />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </CartProvider>
   );
