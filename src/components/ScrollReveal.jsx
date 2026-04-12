@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function ScrollReveal({ children, className = '', style = {}, delay = 0, threshold = 0.1 }) {
+export default function ScrollReveal({ 
+  children, 
+  className = '', 
+  style = {}, 
+  delay = 0, 
+  threshold = 0.05, 
+  once = true 
+}) {
   const [isRevealed, setIsRevealed] = useState(false);
   const ref = useRef(null);
 
@@ -9,11 +16,14 @@ export default function ScrollReveal({ children, className = '', style = {}, del
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsRevealed(true);
-        } else {
+          if (once && ref.current) {
+            observer.unobserve(ref.current);
+          }
+        } else if (!once) {
           setIsRevealed(false);
         }
       },
-      { threshold, rootMargin: '0px' }
+      { threshold, rootMargin: '0px 0px -50px 0px' }
     );
 
     if (ref.current) {
@@ -25,7 +35,7 @@ export default function ScrollReveal({ children, className = '', style = {}, del
         observer.unobserve(ref.current);
       }
     };
-  }, [threshold]);
+  }, [threshold, once]);
 
   return (
     <div

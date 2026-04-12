@@ -152,14 +152,14 @@ export default function ProductGrid() {
           {loading ? (
             // Skeleton Loading State
             Array.from({ length: 8 }).map((_, idx) => (
-              <div key={idx} className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full animate-pulse shadow-sm">
-                <div className="aspect-[4/3] bg-gray-200 w-full relative"></div>
-                <div className="p-3 sm:p-6 flex flex-col flex-grow">
-                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                  <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
-                  <div className="h-3 bg-gray-200 rounded w-5/6 mb-6"></div>
+              <div key={idx} className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full shadow-sm">
+                <div className="aspect-[4/3] w-full relative shimmer-wrapper"></div>
+                <div className="p-3 sm:p-6 flex flex-col flex-grow bg-white">
+                  <div className="h-4 shimmer-wrapper rounded w-3/4 mb-4"></div>
+                  <div className="h-3 shimmer-wrapper rounded w-full mb-2"></div>
+                  <div className="h-3 shimmer-wrapper rounded w-5/6 mb-6"></div>
                   <div className="flex justify-between items-end border-t border-gray-100 pt-3 sm:pt-5 mt-auto">
-                    <div className="h-8 sm:h-10 w-full bg-gray-200 rounded-xl"></div>
+                    <div className="h-8 sm:h-10 w-full shimmer-wrapper rounded-xl"></div>
                   </div>
                 </div>
               </div>
