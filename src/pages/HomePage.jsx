@@ -4,7 +4,6 @@ import Hero from '../components/Hero';
 import TrustSection from '../components/TrustSection';
 import ProductGrid from '../components/ProductGrid';
 import Footer from '../components/Footer';
-import WhatsAppFAB from '../components/WhatsAppFAB';
 
 export default function HomePage({ showApp }) {
   return (
@@ -24,7 +23,6 @@ export default function HomePage({ showApp }) {
         <ProductGrid />
       </main>
       <Footer />
-      <WhatsAppFAB />
     </div>
   );
 }
