@@ -39,7 +39,7 @@ ${cart.map(item => `• ${item.name} × ${item.quantity} kg`).join('\n')}
 • Area/Landmark: ${landmark}
 • Phone: ${phone}
 
-${totalWeight > 1 ? '💚 *Free delivery as order is above 1 kg within Salem!*' : ''}
+${totalWeight >= 2 ? '💚 *Free delivery as order is above 2 kg within Salem!*' : ''}
 
 Please confirm my order. Thank you! 🙏`;
     } else {
@@ -127,7 +127,7 @@ Please confirm and let me know when it's ready! 🙏`;
                   <span className="text-gray-400 font-bold text-sm uppercase tracking-wider">Estimated Weight</span>
                   <span className="text-gray-900 font-black">{totalWeight} kg</span>
                 </div>
-                {totalWeight > 1 ? (
+                {totalWeight >= 2 ? (
                   <div className="bg-green-50 text-green-600 px-4 py-2 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-2 animate-pulse">
                     <span className="material-symbols-outlined text-sm">auto_awesome</span>
                     You qualify for FREE delivery within Salem!
@@ -135,7 +135,7 @@ Please confirm and let me know when it's ready! 🙏`;
                 ) : (
                   <div className="bg-blue-50 text-blue-400 px-4 py-2 rounded-xl text-[10px] font-bold border border-blue-100 flex items-center gap-2 leading-tight">
                     <span className="material-symbols-outlined text-sm">info</span>
-                    Order more than 1 kg for FREE delivery within Salem!
+                    Order 2 kg or more for FREE delivery within Salem!
                   </div>
                 )}
               </div>
@@ -226,7 +226,7 @@ Please confirm and let me know when it's ready! 🙏`;
                       </p>
                       <p className="text-[10px] text-blue-600 font-bold flex items-center gap-2">
                         <span className="material-symbols-outlined text-sm">delivery_dining</span>
-                        {totalWeight > 1 ? 'FREE delivery applied!' : 'FREE delivery for orders above 1 kg'}
+                        {totalWeight >= 2 ? 'FREE delivery applied!' : 'FREE delivery for orders above 2 kg'}
                       </p>
                     </div>
                     
