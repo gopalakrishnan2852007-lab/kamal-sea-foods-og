@@ -19,8 +19,8 @@ export default function HomePage({ showApp }) {
       <Navbar />
       <main>
         <Hero />
-        <TrustSection />
         <ProductGrid />
+        <TrustSection />
       </main>
       <Footer />
     </div>

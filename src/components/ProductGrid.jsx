@@ -88,7 +88,7 @@ export default function ProductGrid() {
           </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           
           {loading ? (
             // Skeleton Loading State
