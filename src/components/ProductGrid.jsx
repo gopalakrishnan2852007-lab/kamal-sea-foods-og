@@ -2,6 +2,56 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import ScrollReveal from './ScrollReveal';
 
+const WHATSAPP_NUMBER = "919865668125";
+
+// Dynamically generates message from Supabase product data
+const getWhatsAppLink = (product, type = "order") => {
+  let message = "";
+
+  if (type === "order") {
+    message =
+`Hi Kamal Sea Food! 👋
+
+I'd like to order the following:
+
+🐟 *Product:* ${product.name}
+📦 *Type:* ${product.type || "Ready-to-cook"}
+⚖️ *Weight:* ${product.weight || "1 kg"}
+
+Please confirm availability and process my order.
+Thank you!`;
+  }
+
+  if (type === "bulk") {
+    message =
+`Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦
+
+🐟 *Product:* ${product.name}
+📦 *Type:* ${product.type || "Ready-to-cook"}
+⚖️ *Weight:* ${product.weight || "1 kg"}
+
+My Details:
+• Business Name: 
+• Location: 
+• Quantity Required: 
+
+Please share wholesale pricing and availability!`;
+  }
+
+  if (type === "inquiry") {
+    message =
+`Hi Kamal Sea Food! 👋
+
+I have an inquiry about *${product.name}*
+📦 Type: ${product.type || "Ready-to-cook"}
+
+Could you share more details and today's availability?
+Thank you!`;
+  }
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+};
+
 export default function ProductGrid() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -106,10 +156,13 @@ export default function ProductGrid() {
                           Sold Out
                         </button>
                       ) : (
-                        <a href="https://wa.me/919865668125" className="bg-[#25D366] text-white px-3 py-2 sm:px-5 sm:py-3 rounded-xl text-[10px] sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 hover:-translate-y-0.5 transition-transform shadow-sm hover:shadow-md">
-                          <svg className="w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.891 11.891-2.007 0-3.974-.509-5.712-1.472l-6.181 1.69zm6.014-4.222l.432.256c1.616.958 3.473 1.465 5.39 1.465 5.733 0 10.395-4.661 10.395-10.395s-4.662-10.395-10.395-10.395c-5.732 0-10.394 4.661-10.394 10.395 0 2.053.601 4.05 1.737 5.759l.282.424-1.104 4.035 4.145-1.137zm10.305-6.17c-.337-.17-1.991-.983-2.3-1.096-.309-.113-.533-.17-.757.17-.224.339-.869 1.096-1.066 1.321-.197.225-.394.253-.731.084-.337-.17-1.423-.524-2.71-1.672-1.002-.894-1.678-2.001-1.874-2.339-.197-.338-.021-.521.148-.689.152-.151.338-.395.506-.592.169-.197.225-.338.338-.563.112-.225.056-.423-.028-.592-.084-.169-.757-1.826-1.037-2.503-.273-.659-.551-.57-.757-.581-.196-.011-.421-.013-.646-.013s-.59.084-.899.423c-.309.338-1.18 1.155-1.18 2.817 0 1.661 1.208 3.267 1.377 3.493.169.225 2.378 3.631 5.761 5.087.805.347 1.433.553 1.922.709.808.257 1.543.221 2.124.135.647-.094 1.991-.815 2.272-1.603.281-.789.281-1.464.197-1.603-.084-.141-.309-.225-.646-.395z"></path></svg>
+                        <button 
+                          onClick={() => window.open(getWhatsAppLink(p, "order"), "_blank")}
+                          className="bg-[#25D366] text-white px-3 py-2 sm:px-5 sm:py-3 rounded-xl text-[10px] sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 hover:-translate-y-0.5 transition-transform shadow-sm hover:shadow-md"
+                        >
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.891 11.891-2.007 0-3.974-.509-5.712-1.472l-6.181 1.69zm6.014-4.222l.432.256c1.616.958 3.473 1.465 5.39 1.465 5.733 0 10.395-4.661 10.395-10.395s-4.662-10.395-10.395-10.395c-5.732 0-10.394 4.661-10.394 10.395 0 2.053.601 4.05 1.737 5.759l.282.424-1.104 4.035 4.145-1.137zm10.305-6.17c-.337-.17-1.991-.983-2.3-1.096-.309-.113-.533-.17-.757.17-.224.339-.869 1.096-1.066 1.321-.197.225-.394.253-.731.084-.337-.17-1.423-.524-2.71-1.672-1.002-.894-1.678-2.001-1.874-2.339-.197-.338-.021-.521.148-.689.152-.151.338-.395.506-.592.169-.197.225-.338.338-.563.112-.225.056-.423-.028-.592-.084-.169-.757-1.826-1.037-2.503-.273-.659-.551-.57-.757-.581-.196-.011-.421-.013-.646-.013s-.59.084-.899.423c-.309.338-1.18 1.18 2.817 0 1.661 1.208 3.267 1.377 3.493.169.225 2.378 3.631 5.761 5.087.805.347 1.433.553 1.922.709.808.257 1.543.221 2.124.135.647-.094 1.991-.815 2.272-1.603.281-.789.281-1.464.197-1.603-.084-.141-.309-.225-.646-.395z"></path></svg>
                           <span className="hidden sm:inline">Order</span><span className="inline sm:hidden">Buy</span>
-                        </a>
+                        </button>
                       )}
                     </div>
                   </div>
