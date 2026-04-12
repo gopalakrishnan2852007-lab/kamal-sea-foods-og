@@ -3,18 +3,24 @@ import ScrollReveal from './ScrollReveal';
 
 const WHATSAPP_NUMBER = "919865668125";
 
-const bulkMessage = `Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦
-
-My Details:
-• Business Name: 
-• Location: 
-• Products Needed: 
-• Quantity Required: 
-
-Please share wholesale pricing and availability!`;
+const bulkMessage = [
+  `Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦`,
+  ``,
+  `My Details:`,
+  `• Business Name: `,
+  `• Location: `,
+  `• Products Needed: `,
+  `• Quantity Required: `,
+  ``,
+  `Please share wholesale pricing and availability! 🙏`
+].join('\n');
 
 const openWhatsApp = (message) => {
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  const encoded = encodeURIComponent(message)
+    .replace(/'/g, '%27')
+    .replace(/!/g, '%21');
+  
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
   window.open(url, '_blank');
 };
 

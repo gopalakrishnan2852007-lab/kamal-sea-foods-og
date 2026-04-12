@@ -53,40 +53,50 @@ export default function CartSystem() {
     }
 
     // 2. Build Message
+    const items = cart.map(item => `• ${item.name} × ${item.quantity} kg`).join('\n');
+    
     if (orderMode === 'delivery') {
-      message = `Hi Kamal Sea Food! 👋 I'd like to place an order.
-
-🛵 *Delivery Order*
-
-🛒 *My Order:*
-${cart.map(item => `• ${item.name} × ${item.quantity} kg`).join('\n')}
-
-📦 *Total Quantity:* ${totalWeight} kg
-
-🚚 *Delivery Details:*
-• Address: ${address}
-• Area/Landmark: ${landmark}
-• Phone: ${phone}
-
-${totalWeight >= 2 ? '💚 *Free delivery as order is above 2 kg within Salem!*' : ''}
-
-Please confirm my order. Thank you! 🙏`;
+      message = [
+        `Hi Kamal Sea Food! 👋 I'd like to place an order.`,
+        ``,
+        `🛵 *Delivery Order*`,
+        ``,
+        `🛒 *My Order:*`,
+        items,
+        ``,
+        `📦 *Total Quantity:* ${totalWeight} kg`,
+        ``,
+        `🚚 *Delivery Details:*`,
+        `• Address: ${address}`,
+        `• Area/Landmark: ${landmark}`,
+        `• Phone: ${phone}`,
+        ``,
+        totalWeight >= 2 ? `💚 *Free delivery as order is above 2 kg within Salem!*` : ``,
+        ``,
+        `Please confirm my order. Thank you! 🙏`
+      ].filter(Boolean).join('\n');
     } else {
-      message = `Hi Kamal Sea Food! 👋 I'd like to place a Takeaway order.
-
-🏪 *Takeaway Order*
-
-🛒 *My Order:*
-${cart.map(item => `• ${item.name} × ${item.quantity} kg`).join('\n')}
-
-📦 *Total Quantity:* ${totalWeight} kg
-
-I'll pick it up from your shop.
-Please confirm and let me know when it's ready! 🙏`;
+      message = [
+        `Hi Kamal Sea Food! 👋 I'd like to place a Takeaway order.`,
+        ``,
+        `🏪 *Takeaway Order*`,
+        ``,
+        `🛒 *My Order:*`,
+        items,
+        ``,
+        `📦 *Total Quantity:* ${totalWeight} kg`,
+        ``,
+        `I'll pick it up from your shop.`,
+        `Please confirm and let me know when it's ready! 🙏`
+      ].join('\n');
     }
 
     // 3. Open WhatsApp
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+    const encoded = encodeURIComponent(message)
+      .replace(/'/g, '%27')
+      .replace(/!/g, '%21');
+
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
     
     // 4. Clear Cart
     clearCart();

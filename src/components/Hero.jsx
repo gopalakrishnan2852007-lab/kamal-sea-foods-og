@@ -36,8 +36,23 @@ export default function Hero() {
             </a>
             <button 
               onClick={() => {
-                const bulkMessage = `Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦\n\nMy Details:\n• Business Name: \n• Location: \n• Products Needed: \n• Quantity Required: \n\nPlease share wholesale pricing and availability!`;
-                window.open(`https://wa.me/919865668125?text=${encodeURIComponent(bulkMessage)}`, '_blank');
+                const bulkMessageText = [
+                  `Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦`,
+                  ``,
+                  `My Details:`,
+                  `• Business Name: `,
+                  `• Location: `,
+                  `• Products Needed: `,
+                  `• Quantity Required: `,
+                  ``,
+                  `Please share wholesale pricing and availability! 🙏`
+                ].join('\n');
+                
+                const encoded = encodeURIComponent(bulkMessageText)
+                  .replace(/'/g, '%27')
+                  .replace(/!/g, '%21');
+                  
+                window.open(`https://wa.me/919865668125?text=${encoded}`, '_blank');
               }}
               className="w-full sm:w-auto px-8 py-3.5 bg-gray-800/80 backdrop-blur-md text-white border border-gray-700 rounded-xl font-bold hover:bg-gray-700 transition-transform duration-300 hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2"
             >

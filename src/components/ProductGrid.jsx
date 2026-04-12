@@ -7,50 +7,58 @@ const WHATSAPP_NUMBER = "919865668125";
 
 // Dynamically generates message from Supabase product data
 const getWhatsAppLink = (product, type = "order") => {
-  let message = "";
+  let message = [];
 
   if (type === "order") {
-    message =
-`Hi Kamal Sea Food! 👋
-
-I'd like to order the following:
-
-🐟 *Product:* ${product.name}
-📦 *Type:* ${product.type || "Ready-to-cook"}
-⚖️ *Weight:* ${product.weight || "1 kg"}
-
-Please confirm availability and process my order.
-Thank you!`;
+    message = [
+      `Hi Kamal Sea Food! 👋`,
+      ``,
+      `I'd like to order the following:`,
+      ``,
+      `🐟 *Product:* ${product.name}`,
+      `📦 *Type:* ${product.type || "Ready-to-cook"}`,
+      `⚖️ *Weight:* ${product.weight || "1 kg"}`,
+      ``,
+      `Please confirm availability and process my order.`,
+      `Thank you! 🙏`
+    ];
   }
 
   if (type === "bulk") {
-    message =
-`Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦
-
-🐟 *Product:* ${product.name}
-📦 *Type:* ${product.type || "Ready-to-cook"}
-⚖️ *Weight:* ${product.weight || "1 kg"}
-
-My Details:
-• Business Name: 
-• Location: 
-• Quantity Required: 
-
-Please share wholesale pricing and availability!`;
+    message = [
+      `Hi Kamal Sea Food! 👋 I'm interested in a *BULK ORDER* 📦`,
+      ``,
+      `🐟 *Product:* ${product.name}`,
+      `📦 *Type:* ${product.type || "Ready-to-cook"}`,
+      `⚖️ *Weight:* ${product.weight || "1 kg"}`,
+      ``,
+      `My Details:`,
+      `• Business Name: `,
+      `• Location: `,
+      `• Quantity Required: `,
+      ``,
+      `Please share wholesale pricing and availability! 🙏`
+    ];
   }
 
   if (type === "inquiry") {
-    message =
-`Hi Kamal Sea Food! 👋
-
-I have an inquiry about *${product.name}*
-📦 Type: ${product.type || "Ready-to-cook"}
-
-Could you share more details and today's availability?
-Thank you!`;
+    message = [
+      `Hi Kamal Sea Food! 👋`,
+      ``,
+      `I have an inquiry about *${product.name}*`,
+      `📦 Type: ${product.type || "Ready-to-cook"}`,
+      ``,
+      `Could you share more details and today's availability?`,
+      `Thank you! 🙏`
+    ];
   }
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  const messageText = message.join('\n');
+  const encoded = encodeURIComponent(messageText)
+    .replace(/'/g, '%27')
+    .replace(/!/g, '%21');
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
 };
 
 export default function ProductGrid() {
