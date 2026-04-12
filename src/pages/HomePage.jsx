@@ -19,8 +19,8 @@ export default function HomePage({ showApp }) {
       <h1 className="sr-only">Kamal Sea Food</h1>
       <Navbar />
       <main>
-        <WhatsAppOrder />
         <Hero />
+        <WhatsAppOrder />
         <ProductGrid />
         <TrustSection />
       </main>
