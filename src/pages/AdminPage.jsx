@@ -233,13 +233,13 @@ export default function AdminPage() {
                         <div>
                             <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Email</label>
                             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
-                                class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm font-medium transition-all"
+                                className="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm font-medium transition-all"
                                 placeholder="admin@kamalseafood.com" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Password</label>
                             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required
-                                class="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm font-medium transition-all"
+                                className="w-full rounded-xl border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-sm font-medium transition-all"
                                 placeholder="••••••••" />
                         </div>
                         <button type="submit" disabled={authLoading}
@@ -300,7 +300,7 @@ export default function AdminPage() {
                     <div className="relative w-full max-w-md">
                         <span className="material-symbols-outlined absolute left-3 top-[9px] text-gray-400 text-[20px]">search</span>
                         <input type="text" placeholder="Search products..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                            class="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-transparent rounded-xl text-sm font-medium focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
+                            className="w-full pl-10 pr-4 py-2.5 bg-gray-100 border-transparent rounded-xl text-sm font-medium focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
                     </div>
                     <div className="flex items-center gap-4">
                         <button onClick={() => openModal()} className="flex items-center gap-2 bg-gray-900 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm hover:scale-[1.02] transition-transform">
@@ -357,7 +357,7 @@ export default function AdminPage() {
                         {/* Action Bar */}
                         <div className="flex items-center justify-between gap-4">
                             <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}
-                                class="bg-white border-gray-200 text-sm font-medium rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+                                className="bg-white border-gray-200 text-sm font-medium rounded-xl py-2 pl-4 pr-10 focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                                 <option value="newest">Newest First</option>
                                 <option value="price_desc">Price: High to Low</option>
                                 <option value="price_asc">Price: Low to High</option>
@@ -381,9 +381,9 @@ export default function AdminPage() {
                                 </thead>
                                 <tbody className="divide-y divide-gray-50">
                                     {loading ? (
-                                        <tr><td colSpan="4" class="px-6 py-20 text-center text-gray-400"><div class="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mx-auto"></div></td></tr>
+                                        <tr><td colSpan="4" className="px-6 py-20 text-center text-gray-400"><div className="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mx-auto"></div></td></tr>
                                     ) : filteredProducts.length === 0 ? (
-                                        <tr><td colSpan="4" class="px-6 py-20 text-center text-gray-500 font-bold">No products found.</td></tr>
+                                        <tr><td colSpan="4" className="px-6 py-20 text-center text-gray-500 font-bold">No products found.</td></tr>
                                     ) : (
                                         filteredProducts.map(p => (
                                             <tr key={p.id} className="hover:bg-gray-50/80 transition-colors group">
@@ -451,22 +451,22 @@ export default function AdminPage() {
                                 <div className="sm:col-span-2">
                                     <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Product Name</label>
                                     <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required
-                                        class="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="e.g. Medium Prawn" />
+                                        className="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="e.g. Medium Prawn" />
                                 </div>
                                 <div>
                                     <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Price per kg (₹)</label>
                                     <input type="number" value={formData.price_per_kg} onChange={(e) => setFormData({...formData, price_per_kg: e.target.value})} required
-                                        class="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="0.00" />
+                                        className="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="0.00" />
                                 </div>
                                 <div>
                                     <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Standard Stock (kg)</label>
                                     <input type="number" value={formData.stock} onChange={(e) => setFormData({...formData, stock: e.target.value})} required
-                                        class="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="0" />
+                                        className="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white" placeholder="0" />
                                 </div>
                                 <div>
                                     <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Stock Status Display</label>
                                     <select value={formData.stock_status} onChange={(e) => setFormData({...formData, stock_status: e.target.value})}
-                                        class="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white">
+                                        className="w-full rounded-xl border-gray-200 bg-gray-50 py-2.5 px-4 text-sm font-bold focus:bg-white">
                                         <option value="In Stock">In Stock</option>
                                         <option value="Low Stock">Low Stock</option>
                                         <option value="Out of Stock">Out of Stock</option>
