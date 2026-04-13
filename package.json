@@ -22,7 +22,6 @@
   "homepage": "https://github.com/gopalakrishnan2852007-lab/kamal-sea-foods-og#readme",
   "dependencies": {
     "@supabase/supabase-js": "^2.103.0",
-    "framer-motion": "^12.38.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-helmet-async": "^3.0.0",

@@ -5,7 +5,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-gray-100 transition-all">
+    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm transition-all">
       <ScrollReveal className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <div className="text-2xl font-black tracking-tight text-primary">Kamal Sea Food</div>
         
