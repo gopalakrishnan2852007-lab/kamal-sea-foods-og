@@ -27,7 +27,7 @@ export default function Footer() {
           <h2 className="text-white font-bold mb-4 text-base tracking-wide">Kamal Sea Food Retail</h2>
           <p className="text-gray-400 text-sm leading-relaxed mb-4">
             Direct-to-consumer frozen fish retail with
-            rigorous quality checks guaranteeing ocean-fresh taste and nutrition. Order from Kamal Sea Food
+            rigorous quality checks guaranteeing premium frozen quality and nutrition. Order from Kamal Sea Food
             easily today.
           </p>
         </div>

@@ -14,9 +14,9 @@ export default function App() {
     <CartProvider>
       <BrowserRouter>
         <Helmet>
-          <title>Kamal Sea Food Salem | Fresh Fish Wholesale & Retail</title>
-          <meta name="description" content="Kamal Sea Food Salem - Fresh Fish Wholesale & Retail. Order Vanjaram, Prawns, Crab online. Free delivery above 2kg in Salem. WhatsApp: 9865668125" />
-          <meta name="keywords" content="fish shop salem, seafood salem, fresh fish salem, wholesale fish salem, kamal sea food, fish delivery salem" />
+          <title>Kamal Sea Food Salem | Frozen Seafood Wholesale & Retail</title>
+          <meta name="description" content="Kamal Sea Food Salem - Frozen Seafood Wholesale & Retail. Order Vanjaram, Prawns, Crab online. Free delivery above 2kg in Salem. WhatsApp: 9865668125" />
+          <meta name="keywords" content="fish shop salem, seafood salem, frozen fish salem, wholesale fish salem, kamal sea food, fish delivery salem" />
         </Helmet>
 
         {/* Main app always renders — never blocked for LCP */}

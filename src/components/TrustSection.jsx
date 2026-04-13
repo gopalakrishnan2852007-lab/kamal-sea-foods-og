@@ -36,8 +36,22 @@ export default function TrustSection() {
   ];
 
   return (
-    <section id="trust" className="py-24 bg-white relative">
+    <section id="about" className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-6">
+
+        {/* About Kamal Sea Food — SEO description block */}
+        <ScrollReveal className="mb-16">
+          <div className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 rounded-2xl px-8 py-10 text-center max-w-3xl mx-auto shadow-sm">
+            <p className="text-xs font-black uppercase tracking-widest text-blue-500 mb-3">About Us</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">Kamal Sea Food, Salem</h2>
+            <p className="text-gray-600 text-base md:text-lg leading-relaxed font-medium">
+              Kamal Sea Food is a Salem-based seafood supplier providing frozen seafood for retail and bulk orders.
+              We specialize in fish, prawns, crab, and ready-to-cook seafood items with quality assurance and fast delivery.
+              Contact us for wholesale and retail enquiries.
+            </p>
+          </div>
+        </ScrollReveal>
+
         <div className="text-center mb-16">
           <ScrollReveal>
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">Why Choose Kamal Sea Food</h2>

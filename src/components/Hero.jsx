@@ -75,7 +75,7 @@ export default function Hero() {
               className="absolute inset-0 transition-transform duration-[2s] group-hover:scale-110" 
             />
             <div className="absolute bottom-8 left-8 right-8 z-20 transition-transform duration-500 group-hover:-translate-y-2">
-              <h3 className="text-white font-black text-2xl tracking-tight shadow-sm mb-1 leading-tight">Ocean Fresh<br />Tiger Prawns</h3>
+              <h3 className="text-white font-black text-2xl tracking-tight shadow-sm mb-1 leading-tight">Ocean Tiger<br />Prawns</h3>
               <p className="text-blue-200 text-xs font-bold uppercase tracking-widest mt-2">Frozen Premium Cut</p>
             </div>
           </div>
