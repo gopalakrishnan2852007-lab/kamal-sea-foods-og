@@ -14,8 +14,8 @@ export default function App() {
     <CartProvider>
       <BrowserRouter>
         <Helmet>
-          <title>Kamal Sea Food Salem | Frozen Seafood Wholesale & Retail</title>
-          <meta name="description" content="Kamal Sea Food Salem - Frozen Seafood Wholesale & Retail. Order Vanjaram, Prawns, Crab online. Free delivery above 2kg in Salem. WhatsApp: 9865668125" />
+          <title>Kamal Sea Food | Fresh Seafood Supplier in Salem</title>
+          <meta name="description" content="Kamal Sea Food in Salem supplies fresh fish, prawns, crab, and frozen seafood for wholesale and retail. Call 9865668125." />
           <meta name="keywords" content="fish shop salem, seafood salem, frozen fish salem, wholesale fish salem, kamal sea food, fish delivery salem" />
         </Helmet>
 

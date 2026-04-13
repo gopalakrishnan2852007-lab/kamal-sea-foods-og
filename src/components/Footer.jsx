@@ -11,9 +11,10 @@ export default function Footer() {
 
           {/* Structured Business Info */}
           <div className="text-gray-400 text-xs leading-relaxed space-y-1 mb-6 border-l-2 border-gray-700 pl-3 py-1">
-            <p><strong className="text-gray-300">Business Name:</strong> Kamal Sea Food</p>
-            <p><strong className="text-gray-300">Type:</strong> Frozen Seafood Supplier</p>
-            <p><strong className="text-gray-300">Service:</strong> Retail and Wholesale</p>
+            <p><strong className="text-gray-300">Kamal Sea Food</strong></p>
+            <p>Salem, Tamil Nadu</p>
+            <p>Phone: +91 9865668125</p>
+            <p>Wholesale & Retail Seafood Supplier</p>
           </div>
 
           <div className="text-gray-600 text-[10px] uppercase font-bold tracking-widest flex flex-col gap-1.5 mt-2">
