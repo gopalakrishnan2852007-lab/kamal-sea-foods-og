@@ -5,21 +5,21 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-all">
+    <nav className="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-gray-100 transition-all">
       <ScrollReveal className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-2xl font-black tracking-tight text-gray-900">Kamal Sea Food</div>
+        <div className="text-2xl font-black tracking-tight text-primary">Kamal Sea Food</div>
         
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8 text-sm font-semibold">
-          <a href="#retail" className="text-gray-600 hover:text-primary transition-colors">Products</a>
-          <a href="#trust" className="text-gray-600 hover:text-primary transition-colors">Why Choose Us</a>
+          <a href="#retail" className="text-textsecondary hover:text-primary transition-colors">Products</a>
+          <a href="#trust" className="text-textsecondary hover:text-primary transition-colors">Why Choose Us</a>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-600 hover:text-primary focus:outline-none"
+            className="text-textsecondary hover:text-primary focus:outline-none"
             aria-label="Toggle Menu"
           >
             <span className="material-symbols-outlined text-3xl">
@@ -36,14 +36,14 @@ export default function Navbar() {
             <a 
               href="#retail" 
               onClick={() => setIsOpen(false)}
-              className="text-gray-600 hover:text-primary transition-colors"
+              className="text-textsecondary hover:text-primary transition-colors"
             >
               Products
             </a>
             <a 
               href="#trust" 
               onClick={() => setIsOpen(false)}
-              className="text-gray-600 hover:text-primary transition-colors"
+              className="text-textsecondary hover:text-primary transition-colors"
             >
               Why Choose Us
             </a>

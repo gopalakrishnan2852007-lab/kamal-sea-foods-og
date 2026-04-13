@@ -18,10 +18,10 @@ const bulkMessage = [
 export default function WhatsAppOrder() {
   return (
     <>
-      <section className="py-20 px-4 bg-slate-50/70 backdrop-blur-md relative overflow-hidden">
+      <section className="py-20 px-4 bg-white relative overflow-hidden text-clip mt-10">
         <div className="max-w-7xl mx-auto relative z-10 px-6">
           {/* Bulk Inquiry Section */}
-          <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-[40px] p-8 md:p-14 text-white text-center shadow-2xl relative overflow-hidden group">
+          <div className="bg-gradient-to-br from-primary to-secondary rounded-[32px] p-8 md:p-14 text-white text-center shadow-xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
             <div className="relative z-10 max-w-3xl mx-auto">
               <ScrollReveal>
@@ -41,9 +41,9 @@ export default function WhatsAppOrder() {
               <ScrollReveal>
                 <button 
                   onClick={() => openWhatsApp(bulkMessage)}
-                  className="bg-white text-emerald-600 px-10 py-5 rounded-[24px] text-lg font-black shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 mx-auto"
+                  className="bg-accent text-white hover:bg-teal-600 px-10 py-5 rounded-[20px] text-lg font-bold shadow-lg hover:-translate-y-1 transition-all flex items-center justify-center gap-3 mx-auto"
                 >
-                  <span className="text-2xl">📦</span> Contact Bulk & Wholesale
+                  <span className="material-symbols-outlined text-[24px]">chat</span> Contact Bulk & Wholesale
                 </button>
               </ScrollReveal>
             </div>
