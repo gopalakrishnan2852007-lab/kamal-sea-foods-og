@@ -36,7 +36,7 @@ export default function TrustSection() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-white relative">
+    <section id="about" className="py-24 bg-white/90 backdrop-blur-md relative border-t border-white/50">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* About Kamal Sea Food — SEO description block */}
@@ -53,10 +53,8 @@ export default function TrustSection() {
         </ScrollReveal>
 
         <div className="text-center mb-16">
-          <ScrollReveal>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">Why Choose Kamal Sea Food</h2>
-            <p className="text-gray-500 text-lg font-medium max-w-2xl mx-auto">We prioritize quality, hygiene, and convenience to bring you the best seafood experience.</p>
-          </ScrollReveal>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">Why Choose Kamal Sea Food</h2>
+          <p className="text-gray-500 text-lg font-medium max-w-2xl mx-auto">We prioritize quality, hygiene, and convenience to bring you the best seafood experience.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
@@ -64,7 +62,7 @@ export default function TrustSection() {
             <ScrollReveal 
               key={idx} 
               delay={idx * 100} 
-              className="premium-card p-6 bg-gray-50 rounded-2xl border border-gray-100 flex flex-col"
+              className="premium-card p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/40 shadow-sm flex flex-col"
             >
               <ScrollReveal delay={idx * 100 + 100}>
                 <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-sm">

@@ -133,7 +133,7 @@ export default function ProductGrid() {
   };
 
   return (
-    <section id="retail" className="py-24 bg-gray-50 relative border-t border-gray-100">
+    <section id="retail" className="py-24 bg-gray-50/85 backdrop-blur-md relative border-t border-white/50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
           <ScrollReveal>

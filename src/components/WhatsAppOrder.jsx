@@ -18,7 +18,7 @@ const bulkMessage = [
 export default function WhatsAppOrder() {
   return (
     <>
-      <section className="py-20 px-4 bg-slate-50 relative overflow-hidden">
+      <section className="py-20 px-4 bg-slate-50/85 backdrop-blur-md relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10 px-6">
           {/* Bulk Inquiry Section */}
           <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-[40px] p-8 md:p-14 text-white text-center shadow-2xl relative overflow-hidden group">
