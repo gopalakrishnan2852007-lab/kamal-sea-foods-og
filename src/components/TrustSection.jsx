@@ -36,7 +36,7 @@ export default function TrustSection() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-white/90 backdrop-blur-md relative border-t border-white/50">
+    <section id="about" className="py-24 bg-white/70 backdrop-blur-md relative border-t border-white/50">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* About Kamal Sea Food — SEO description block */}
@@ -59,25 +59,18 @@ export default function TrustSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
           {cards.map((card, idx) => (
-            <ScrollReveal 
+            <div 
               key={idx} 
-              delay={idx * 100} 
-              className="premium-card p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/40 shadow-sm flex flex-col"
+              className="premium-card p-6 bg-white/65 backdrop-blur-md rounded-2xl border border-white/60 shadow-sm flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-white/90"
             >
-              <ScrollReveal delay={idx * 100 + 100}>
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-sm">
-                  <span className="material-symbols-outlined">{card.icon}</span>
-                </div>
-              </ScrollReveal>
+              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-sm">
+                <span className="material-symbols-outlined">{card.icon}</span>
+              </div>
               
-              <ScrollReveal delay={idx * 100 + 200}>
-                <h3 className="text-xl font-bold mb-2 text-gray-900">{card.title}</h3>
-              </ScrollReveal>
+              <h3 className="text-xl font-bold mb-2 text-gray-900">{card.title}</h3>
               
-              <ScrollReveal delay={idx * 100 + 300}>
-                <p className="text-gray-600 text-sm font-medium">{card.description}</p>
-              </ScrollReveal>
-            </ScrollReveal>
+              <p className="text-gray-600 text-sm font-medium leading-relaxed">{card.description}</p>
+            </div>
           ))}
         </div>
       </div>
