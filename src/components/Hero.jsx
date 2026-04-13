@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function Hero() {
+  const ref = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  // Background moves down 30% while scrolling (creates depth)
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  // Text moves down intensely while scrolling (creates floating effect)
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
     <section 
-      className="relative h-[80vh] flex items-center justify-center text-white"
-      style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?q=80&w=2000&auto=format&fit=crop')",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat"
-      }}
+      ref={ref}
+      className="relative w-full h-[80vh] flex items-center justify-center text-white overflow-hidden"
     >
-      <div className="bg-black/50 absolute inset-0 z-[0]"></div>
+      <motion.div 
+        className="absolute inset-0 z-0 origin-top"
+        style={{
+          y: backgroundY,
+          scale: 1.15, // scale up slightly to hide borders when moving
+          backgroundImage: "url('https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?q=80&w=2000&auto=format&fit=crop')",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat"
+        }}
+      />
+      
+      <div className="bg-black/50 absolute inset-0 z-10"></div>
 
-      <div className="relative z-10 text-center px-4">
+      <motion.div 
+        style={{ y: textY }}
+        className="relative z-20 text-center px-4"
+      >
         <h1 className="text-4xl md:text-5xl font-bold drop-shadow-md">
           Fresh Seafood in Salem
         </h1>
@@ -28,7 +50,7 @@ export default function Hero() {
         >
           Order Now
         </button>
-      </div>
+      </motion.div>
     </section>
   );
 }
