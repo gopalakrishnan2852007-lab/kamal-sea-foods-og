@@ -1,6 +1,6 @@
 import React from 'react';
 import ScrollReveal from './ScrollReveal';
-
+import { useCart } from '../context/CartContext';
 import { SYMBOLS, openWhatsApp } from '../utils/whatsappUtils';
 
 const bulkMessage = [
@@ -16,6 +16,8 @@ const bulkMessage = [
 ].join('\n');
 
 export default function WhatsAppOrder() {
+  const { isCartOpen } = useCart();
+
   return (
     <>
       <section className="py-20 px-4 bg-white relative overflow-hidden text-clip mt-10">
@@ -52,7 +54,9 @@ export default function WhatsAppOrder() {
       </section>
 
       {/* Professional Floating WhatsApp Button */}
-      <div className="fixed bottom-8 right-8 z-[200] flex items-center group">
+      <div 
+        className={`fixed bottom-8 right-8 z-[100] flex items-center group transition-all duration-500 ${isCartOpen ? 'translate-y-24 opacity-0 pointer-events-none md:translate-y-0 md:opacity-100 md:pointer-events-auto' : ''}`}
+      >
         {/* Tooltip Label */}
         <span className="mr-4 px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shadow-xl pointer-events-none">
           Chat with us! 💬

@@ -12,6 +12,7 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product, quantity) => {
     setCart((prevCart) => {
@@ -23,6 +24,8 @@ export const CartProvider = ({ children }) => {
       }
       return [...prevCart, { ...product, quantity }];
     });
+    // Optional: open cart when item is added
+    setIsCartOpen(true);
   };
 
   const removeFromCart = (id) => {
@@ -56,6 +59,8 @@ export const CartProvider = ({ children }) => {
 
   const value = {
     cart,
+    isCartOpen,
+    setIsCartOpen,
     addToCart,
     removeFromCart,
     updateQuantity,

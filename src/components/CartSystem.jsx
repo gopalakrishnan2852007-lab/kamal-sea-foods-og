@@ -4,8 +4,7 @@ import { supabase } from '../utils/supabase';
 import { SYMBOLS, openWhatsApp } from '../utils/whatsappUtils';
 
 export default function CartSystem() {
-  const { cart, removeFromCart, updateQuantity, clearCart, totalItems, totalWeight } = useCart();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { cart, removeFromCart, updateQuantity, clearCart, totalItems, totalWeight, isCartOpen, setIsCartOpen } = useCart();
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [orderMode, setOrderMode] = useState(null); // 'delivery' or 'takeaway'
   
@@ -15,10 +14,10 @@ export default function CartSystem() {
   const [phone, setPhone] = useState('');
 
   // Floating button should only show if there are items
-  if (totalItems === 0 && !isDrawerOpen) return null;
+  if (totalItems === 0 && !isCartOpen) return null;
 
   const handleConfirmOrder = () => {
-    setIsDrawerOpen(false);
+    setIsCartOpen(false);
     setShowCheckoutModal(true);
   };
 
@@ -109,7 +108,7 @@ export default function CartSystem() {
       {/* Floating Cart Button */}
       <div className="fixed bottom-6 left-6 z-[100]">
         <button 
-          onClick={() => setIsDrawerOpen(true)}
+          onClick={() => setIsCartOpen(true)}
           className="relative w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-90 transition-all group"
         >
           <span className="material-symbols-outlined text-3xl">shopping_cart</span>
@@ -122,11 +121,11 @@ export default function CartSystem() {
       </div>
 
       {/* Cart Drawer (Overlay) */}
-      {isDrawerOpen && (
+      {isCartOpen && (
         <div className="fixed inset-0 z-[110] flex items-end sm:items-stretch sm:justify-start">
           <div 
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            onClick={() => setIsDrawerOpen(false)}
+            onClick={() => setIsCartOpen(false)}
           ></div>
           
           <div className="relative w-full sm:w-[400px] bg-white h-[90vh] sm:h-full rounded-t-[40px] sm:rounded-none flex flex-col shadow-2xl animate-slide-up sm:animate-slide-right">
@@ -135,7 +134,7 @@ export default function CartSystem() {
                 <h2 className="text-2xl font-black text-gray-900 leading-none">Your Cart</h2>
                 <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-2">{totalItems} items selected</p>
               </div>
-              <button onClick={() => setIsDrawerOpen(false)} className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center hover:bg-gray-100 transition-colors">
+              <button onClick={() => setIsCartOpen(false)} className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center hover:bg-gray-100 transition-colors">
                 <span className="material-symbols-outlined text-gray-400">close</span>
               </button>
             </div>
