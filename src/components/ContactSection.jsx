@@ -45,7 +45,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-24 overflow-hidden bg-[#021B2B] text-white">
+    <section id="contact" className="relative pt-32 pb-16 md:py-24 overflow-hidden bg-[#021B2B] text-white scroll-mt-32">
       {/* Wave background decorative */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none rotate-180 opacity-20">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[100px]">
@@ -54,13 +54,13 @@ export default function ContactSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           
           {/* Left Side: Contact Info */}
           <ScrollReveal direction="left">
             <div>
-              <p className="text-secondary font-bold uppercase tracking-widest text-xs mb-4">Connect with Us</p>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-8">Get in Touch</h2>
+              <p className="text-secondary font-bold uppercase tracking-widest text-[10px] md:text-xs mb-3 md:mb-4">Connect with Us</p>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-6 md:mb-8">Get in Touch</h2>
               <p className="text-gray-300 text-lg mb-12 max-w-md font-medium">
                 Have questions or need bulk order? Contact us anytime. Our team is ready to assist you with the best seafood solutions.
               </p>

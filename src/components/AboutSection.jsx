@@ -4,7 +4,7 @@ import ScrollReveal from './ScrollReveal';
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-24 overflow-hidden bg-gradient-to-b from-[#021B2B] via-[#052d47] to-[#021B2B] text-white">
+    <section id="about" className="relative pt-32 pb-16 md:py-24 overflow-hidden bg-gradient-to-b from-[#021B2B] via-[#052d47] to-[#021B2B] text-white scroll-mt-32">
       {/* Subtle Floating Bubbles Background */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(15)].map((_, i) => (
@@ -26,13 +26,13 @@ export default function AboutSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           
           {/* Left Side: Content */}
           <ScrollReveal direction="left">
-            <div className="glass-card p-8 md:p-12 rounded-[2rem]">
-              <p className="text-secondary font-bold uppercase tracking-widest text-xs mb-4">Our Legacy</p>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-8">About Kamal Sea Food</h2>
+            <div className="glass-card p-6 md:p-12 rounded-[2rem]">
+              <p className="text-secondary font-bold uppercase tracking-widest text-[10px] md:text-xs mb-3 md:mb-4">Our Legacy</p>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-6 md:mb-8">About Kamal Sea Food</h2>
               
               <div className="space-y-6 text-gray-200 text-lg leading-relaxed font-medium">
                 <p>
