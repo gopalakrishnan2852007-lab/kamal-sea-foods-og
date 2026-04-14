@@ -29,7 +29,7 @@ We use **Inter** exclusively to maintain a professional, Swiss-style precision. 
 - **Display (L/M/S):** Used for hero headers. Set with tight letter-spacing (-0.02em) to feel impactful and "locked in."
 - **Headline (L/M):** Used for bento grid category titles. Bold weight, high contrast against the background.
 - **Body (LG/MD):** The workhorse. `Body-LG` (16px) is our standard for product descriptions to ensure a premium, readable feel.
-- **Label (MD/SM):** All-caps with increased letter-spacing (+0.05em) used for "Freshness Indicators" or "Sourcing Origins."
+- **Label (MD/SM):** All-caps with increased letter-spacing (+0.05em) used for "Frozen Quality Indicators" or "Sourcing Origins."
 
 ## 4. Elevation & Depth: Tonal Layering
 We avoid "drop shadows" that look like 2010-era software. We use **Ambient Shadows** and **Tonal Stacking**.
@@ -73,7 +73,7 @@ If a boundary is required for accessibility (e.g., in a high-glare environment),
 
 ### Do:
 - **Embrace Asymmetry:** In the bento grid, let some cards span two columns while others span one. This creates an "editorial" rhythm.
-- **Use High-Quality Imagery:** The system relies on photography with high "white-balance." Products should look fresh and brightly lit.
+- **Use High-Quality Imagery:** The system relies on photography with high "white-balance." Products should look premium and brightly lit.
 - **Respect the Breathing Room:** If you think a section needs more padding, add 8px more.
 
 ### Don't:

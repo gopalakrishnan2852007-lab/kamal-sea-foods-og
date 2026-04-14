@@ -60,7 +60,15 @@ export default function AdminPage() {
                 .select('*')
                 .order('created_at', { ascending: false });
             if (error) throw error;
-            setProducts(data || []);
+            
+            // Clean data - Remove 'Fresh' or replace with 'Frozen' for consistency
+            const cleanedData = (data || []).map(p => ({
+                ...p,
+                name: (p.name || '').replace(/Fresh/gi, 'Frozen'),
+                description: (p.description || '').replace(/Fresh/gi, 'Premium Frozen')
+            }));
+
+            setProducts(cleanedData);
         } catch (err) {
             showToast(err.message, 'error');
         } finally {

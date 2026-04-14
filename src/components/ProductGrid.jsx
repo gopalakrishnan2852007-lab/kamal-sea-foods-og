@@ -74,7 +74,15 @@ export default function ProductGrid() {
           .order('created_at', { ascending: false });
         
         if (error) throw error;
-        setProducts(data || []);
+        
+        // Clean data - Remove 'Fresh' or replace with 'Frozen' to align with site-wide focus
+        const cleanedData = (data || []).map(p => ({
+          ...p,
+          name: p.name.replace(/Fresh/gi, 'Frozen'),
+          description: p.description.replace(/Fresh/gi, 'Premium Frozen')
+        }));
+        
+        setProducts(cleanedData);
         
         // Initialize local quantities
         const initialQtys = {};

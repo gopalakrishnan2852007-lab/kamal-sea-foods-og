@@ -14,9 +14,12 @@ export default function App() {
     <CartProvider>
       <BrowserRouter>
         <Helmet>
-          <title>Kamal Sea Food | Fresh Seafood Supplier in Salem</title>
-          <meta name="description" content="Kamal Sea Food in Salem supplies fresh fish, prawns, crab, and frozen seafood for wholesale and retail. Call 9865668125." />
+          <title>Kamal Sea Food | Premium Frozen Seafood Supplier in Salem</title>
+          <meta name="description" content="Kamal Sea Food in Salem supplies premium frozen fish, prawns, crab, and seafood for wholesale and retail. Call 9865668125." />
           <meta name="keywords" content="fish shop salem, seafood salem, frozen fish salem, wholesale fish salem, kamal sea food, fish delivery salem" />
+          <meta property="og:title" content="Kamal Sea Food Salem" />
+          <meta property="og:description" content="Premium Frozen Fish Wholesale & Retail — Salem" />
+          <meta property="og:url" content="https://kamal-sea-food.vercel.app" />
         </Helmet>
 
         {/* Main app always renders — never blocked for LCP */}

@@ -17,7 +17,7 @@ export default function Hero() {
       {/* content */}
       <div className="relative text-center z-10 px-4">
         <h1 className="text-5xl md:text-6xl font-bold">
-          Premium Seafood in Salem
+          Premium Frozen Seafood in Salem
         </h1>
 
         <p className="mt-3 text-lg">

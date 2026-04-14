@@ -5,7 +5,7 @@ export default function TrustSection() {
   const cards = [
     {
       icon: 'ac_unit',
-      title: 'Frozen at source to lock freshness',
+      title: 'Premium Frozen Quality',
       description: 'Instantly processed at ultra-low temperatures right after catch to maintain peak flavor and nutritional quality.'
     },
     {
@@ -45,7 +45,7 @@ export default function TrustSection() {
             <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-3">About Us</p>
             <h2 className="text-3xl md:text-4xl font-bold text-textprimary tracking-tight mb-4">Kamal Sea Food – Salem, Tamil Nadu</h2>
             <p className="text-textsecondary text-base md:text-lg leading-relaxed font-medium">
-              We supply fresh fish, prawns, crab, and frozen seafood for retail and wholesale customers in Salem. Bulk orders available. Contact: +91 9865668125.
+              We supply premium frozen fish, prawns, crab, and seafood for retail and wholesale customers in Salem. Bulk orders available. Contact: +91 9865668125.
             </p>
           </div>
         </ScrollReveal>
