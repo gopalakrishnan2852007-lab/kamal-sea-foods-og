@@ -36,19 +36,10 @@ export default function TrustSection() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-white relative border-t border-gray-100">
+    <section id="trust" className="py-24 bg-white relative border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* About Kamal Sea Food — SEO description block */}
-        <ScrollReveal className="mb-16">
-          <div className="bg-altbg border border-gray-100 rounded-2xl px-8 py-10 text-center max-w-3xl mx-auto shadow-sm">
-            <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-3">About Us</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-textprimary tracking-tight mb-4">Kamal Sea Food – Salem, Tamil Nadu</h2>
-            <p className="text-textsecondary text-base md:text-lg leading-relaxed font-medium">
-              We supply premium frozen fish, prawns, crab, and seafood for retail and wholesale customers in Salem. Bulk orders available. Contact: +91 9865668125.
-            </p>
-          </div>
-        </ScrollReveal>
+
 
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-textprimary tracking-tight mb-4">Why Choose Kamal Sea Food</h2>

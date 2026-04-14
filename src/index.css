@@ -128,9 +128,28 @@
   }
 
   .animate-float-delay {
-      animation: float-delay 7s ease-in-out infinite;
-      will-change: transform;
+    animation: float-delay 7s ease-in-out infinite;
+    will-change: transform;
   }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes bubbleUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: 0.3; }
+  100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
+}
+
+@keyframes waveDrift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-15px); }
 }
 
 .water-move {
