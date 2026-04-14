@@ -71,7 +71,7 @@ export default function AboutSection() {
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
                 <img 
-                  src="https://images.unsplash.com/photo-1559737558-2f5a35f4520b?q=80&w=800&auto=format&fit=crop" 
+                  src="/images/about-seafood.png" 
                   alt="Premium Seafood selection" 
                   className="w-full h-auto object-cover"
                 />
